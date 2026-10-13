@@ -1,0 +1,1234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jain · The Price Is Right (demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wght@400&family=Poppins:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nav:#233038; --nav-line:#3a4a52; --nav-text:#ffffff;
+  --bg:#f8f9f8; --surface:#ffffff; --surface-2:#fbfbfa; --border:#e7e6e3; --border-strong:#d6d5d1;
+  --text:#1e1d1a; --muted:#6b6b68; --faint:#9b9a96;
+  --teal:#447c86; --teal-strong:#366670; --on-teal:#ffffff; --teal-tint:#f3f8f9; --teal-border:#c9dfe2; --teal-text:#3c6f78;
+  --red:#d42020; --red-tint:#fdeeee; --amber:#a86700; --amber-tint:#fdf4de; --green:#2f7d47; --green-tint:#e9f4ec;
+  --purple:#7664a3; --purple-tint:#efecf7; --scrim:rgba(20,28,32,.45);
+  --shadow-up:0 -6px 24px rgba(20,30,35,.08);
+  --tray-bg:#eef0ef; --card-ink:#233038; --deco:#f2e8ec; --deco-locked:#dedbd6; --mint:#c0e0d1; --on-mint:#000000;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --nav:#161f24; --nav-line:#2c3940; --bg:#12181b; --surface:#1a2226; --surface-2:#1e272c; --border:#2b363b; --border-strong:#38454b;
+    --text:#e9edec; --muted:#a4adaf; --faint:#7d888b;
+    --teal:#6aa7b1; --teal-strong:#86bcc5; --on-teal:#0f1b1e; --teal-tint:#1b2d31; --teal-border:#2f4c51; --teal-text:#93cad2;
+    --red:#f0766c; --red-tint:#3a1f1d; --amber:#e3b35a; --amber-tint:#3a2f17; --green:#6cc08a; --green-tint:#1c3326;
+    --purple:#b0a3e6; --purple-tint:#2a2548; --scrim:rgba(0,0,0,.6); --shadow-up:0 -6px 24px rgba(0,0,0,.35); --tray-bg:#12181b; --card-ink:#e9edec; --deco:#3a2f34; --deco-locked:#38454b; --mint:#2c4a3d; --on-mint:#e9edec;
+  }
+}
+:root[data-theme="dark"]{
+  --nav:#161f24; --nav-line:#2c3940; --bg:#12181b; --surface:#1a2226; --surface-2:#1e272c; --border:#2b363b; --border-strong:#38454b;
+  --text:#e9edec; --muted:#a4adaf; --faint:#7d888b;
+  --teal:#6aa7b1; --teal-strong:#86bcc5; --on-teal:#0f1b1e; --teal-tint:#1b2d31; --teal-border:#2f4c51; --teal-text:#93cad2;
+  --red:#f0766c; --red-tint:#3a1f1d; --amber:#e3b35a; --amber-tint:#3a2f17; --green:#6cc08a; --green-tint:#1c3326;
+  --purple:#b0a3e6; --purple-tint:#2a2548; --scrim:rgba(0,0,0,.6); --shadow-up:0 -6px 24px rgba(0,0,0,.35); --tray-bg:#12181b; --card-ink:#e9edec; --deco:#3a2f34; --deco-locked:#38454b; --mint:#2c4a3d; --on-mint:#e9edec;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px); height:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--text); font-family:Inter, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; font-size:14px; line-height:1.45; -webkit-font-smoothing:antialiased}
+button{font:inherit; color:inherit}
+:focus-visible{outline:2px solid var(--teal); outline-offset:2px; border-radius:6px}
+svg.i{width:16px; height:16px; flex:none; stroke:currentColor; fill:none; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round}
+
+/* nav */
+.nav{position:sticky; top:env(safe-area-inset-top,0px); z-index:30; background:var(--nav); color:var(--nav-text); height:44px; display:flex; align-items:center; gap:16px; padding:0 16px}
+.logo{display:flex; align-items:center; gap:6px; font-size:20px; font-weight:400; letter-spacing:-.2px}
+.logo svg{width:15px; height:15px}
+.crumbs{display:flex; align-items:center; gap:8px; font-weight:600; font-size:14px; min-width:0; margin-left:12px}
+.crumbs button{background:none; border:0; color:#cfd8db; padding:0; cursor:pointer; display:flex; align-items:center; font-weight:500}
+.crumbs button:hover{color:#fff}
+.crumbs .cur{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.crumbs svg.i{width:14px; height:14px; color:#9fb0b6}
+.nav-r{margin-left:auto; display:flex; align-items:center; gap:8px}
+.nav-btn{border:1px solid #6c7b82; background:transparent; color:#fff; border-radius:6px; padding:4px 10px; font-size:12.5px; cursor:pointer; white-space:nowrap}
+.nav-btn:hover{border-color:#aab7bc}
+.who{display:flex; align-items:center; gap:8px; border:1px solid var(--nav-line); border-radius:999px; padding:3px 10px 3px 3px; font-size:13px; font-weight:600}
+.avatar{width:22px; height:22px; border-radius:50%; background:#8d8aa6; color:#fff; display:grid; place-items:center; font-size:9.5px; font-weight:700}
+
+/* layout */
+.shell{transition:padding-right .2s ease}
+.page{max-width:900px; margin:0 auto; padding:28px 24px 250px}
+body.chat-open .shell{padding-right:360px}
+@media (max-width:1100px){ body.chat-open .shell{padding-right:0} }
+.eyebrow{color:var(--teal-text); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; margin:0 0 6px}
+h1{font-size:28px; line-height:1.2; font-weight:600; letter-spacing:-.4px; margin:0; display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.ver{font-size:11px; font-weight:500; border:1px solid var(--border-strong); color:var(--muted); border-radius:999px; padding:1px 7px; letter-spacing:0}
+.sub{color:var(--muted); margin:8px 0 0; max-width:62ch}
+.meta{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px 28px; margin:18px 0 0; padding-bottom:18px; border-bottom:1px solid var(--border)}
+.meta dt{color:var(--muted); font-size:12.5px; margin-bottom:2px}
+.meta dd{margin:0; font-size:13px}
+.actions{display:flex; gap:8px; flex-wrap:wrap; margin:18px 0 22px}
+.btn{display:inline-flex; align-items:center; gap:6px; border-radius:6px; padding:7px 12px; font-size:13px; font-weight:500; border:1px solid var(--border-strong); background:var(--surface); cursor:pointer; white-space:nowrap}
+.btn:hover{border-color:var(--faint)}
+.btn.primary{background:var(--teal); border-color:var(--teal); color:var(--on-teal)}
+.btn.primary:hover{background:var(--teal-strong); border-color:var(--teal-strong)}
+.btn.ghost{border-color:transparent; background:transparent; color:var(--teal-text)}
+.btn[disabled]{opacity:.5; cursor:not-allowed}
+.link{background:none; border:0; padding:0; color:var(--teal-text); font-size:12.5px; font-weight:500; cursor:pointer; display:inline-flex; align-items:center; gap:5px}
+.link:hover{text-decoration:underline}
+
+/* stat cards */
+.stats{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:12px; margin-bottom:22px}
+.stat{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px}
+.stat .lab{display:flex; align-items:center; gap:8px; color:var(--muted); font-size:12.5px}
+.ico{width:26px; height:26px; border-radius:6px; display:grid; place-items:center; flex:none}
+.ico svg.i{width:15px; height:15px}
+.ico.grey{background:#f0efec; color:#6b6b68} .ico.green{background:var(--green-tint); color:var(--green)} .ico.blue{background:#eaf0fb; color:#3d64b8} .ico.red{background:var(--red-tint); color:var(--red)} .ico.teal{background:var(--teal-tint); color:var(--teal)} .ico.purple{background:var(--purple-tint); color:var(--purple)} .ico.amber{background:var(--amber-tint); color:var(--amber)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .ico.grey{background:#262f33; color:#a4adaf} :root:not([data-theme="light"]) .ico.blue{background:#1d2840; color:#8fb0ee} }
+.stat .val{font-size:24px; font-weight:500; margin:12px 0 2px; letter-spacing:-.3px}
+.stat .val small{font-size:17px; color:var(--muted); font-weight:400}
+.stat .note{color:var(--muted); font-size:12.5px}
+.skel{height:10px; border-radius:4px; background:linear-gradient(90deg, var(--border) 0%, var(--surface-2) 100%); margin:14px 0 8px; width:70%}
+.skel.s{width:45%; margin-top:0}
+
+/* sections */
+.sec{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:14px}
+.sec-h{display:flex; align-items:center; gap:10px}
+.sec-h h2{font-size:15px; font-weight:600; margin:0}
+.sec-h .src{margin-left:auto; color:var(--faint); font-size:12px; white-space:nowrap}
+.ic-btn{width:28px; height:28px; border:1px solid var(--border-strong); border-radius:6px; background:var(--surface); display:grid; place-items:center; cursor:pointer; color:var(--muted); flex:none}
+.ic-btn:hover{color:var(--teal-text); border-color:var(--teal-border)}
+.sec-body{margin-top:14px}
+.sec p{margin:0 0 10px}
+.lead{font-weight:600; margin:0 0 12px}
+.sec.revealed{animation:reveal .5s ease}
+@keyframes reveal{from{box-shadow:0 0 0 3px var(--teal-border)} to{box-shadow:0 0 0 0 transparent}}
+.locked{display:flex; align-items:center; gap:12px; background:var(--surface-2); border:1px dashed var(--border-strong); border-radius:10px; padding:12px 14px; margin-bottom:10px; color:var(--muted)}
+.locked h2{font-size:14px; font-weight:600; margin:0; color:var(--text)}
+.locked .why{font-size:12.5px}
+.locked .grow{flex:1; min-width:0}
+.locked .btn{padding:5px 10px; font-size:12.5px}
+.tag{display:inline-block; font-size:11px; font-weight:600; border-radius:999px; padding:1px 7px; border:1px solid; white-space:nowrap}
+.tag.proposed{color:var(--purple); border-color:var(--purple-tint); background:var(--purple-tint)}
+.tag.high{color:var(--red); border-color:var(--red); background:var(--red-tint)}
+.tag.med{color:var(--amber); border-color:var(--amber); background:var(--amber-tint)}
+.tag.won{color:var(--green); border-color:transparent; background:var(--green-tint)}
+.tag.lost{color:var(--muted); border-color:transparent; background:#efeeeb}
+.tag.bidding{color:var(--teal-text); border-color:transparent; background:var(--teal-tint)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .tag.lost{background:#262f33} }
+.chips{display:flex; flex-wrap:wrap; gap:6px}
+.chip{font-size:12px; border:1px solid var(--border-strong); border-radius:5px; padding:2px 8px; color:var(--text); background:var(--surface)}
+.kv{display:grid; grid-template-columns:200px minmax(0,1fr); gap:10px 18px; font-size:13px}
+.kv dt{color:var(--muted)} .kv dd{margin:0}
+.rows > div{display:grid; grid-template-columns:170px minmax(0,1fr); gap:16px; padding:10px 0; border-bottom:1px solid var(--border); font-size:13px}
+.rows > div:last-child{border-bottom:0}
+.rows .k{color:var(--muted)}
+.hr{height:1px; background:var(--border); margin:14px 0}
+.muted{color:var(--muted)} .small{font-size:12.5px}
+ul.plain{margin:0; padding-left:16px} ul.plain li{margin:3px 0}
+
+/* tables */
+.tbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch}
+table{width:100%; border-collapse:collapse; font-size:13px}
+th{text-align:left; font-weight:500; color:var(--muted); font-size:12px; background:var(--surface-2); padding:9px 12px; border-bottom:1px solid var(--border); white-space:nowrap}
+td{padding:10px 12px; border-bottom:1px solid var(--border); vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.num, th.num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+tr.hl td{background:var(--amber-tint)}
+tr.group td{background:var(--surface-2); font-weight:600}
+
+/* pipeline */
+.seg{display:inline-flex; gap:4px; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:4px; margin:20px 0 14px}
+.seg button{border:0; background:transparent; padding:6px 12px; border-radius:6px; font-size:13px; font-weight:500; color:var(--muted); cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--teal-tint); color:var(--teal-text); font-weight:600}
+.pipe{background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden}
+.pipe tr.row{cursor:pointer}
+.pipe tr.row:hover td{background:var(--surface-2)}
+.pipe tr.mystery td{background:var(--teal-tint)}
+.pipe tr.mystery:hover td{background:var(--teal-tint)}
+.fac{font-weight:600}
+.fac-sub{color:var(--muted); font-size:12px; font-weight:400}
+.guess-me{display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:600; color:var(--on-teal); background:var(--teal); border-radius:999px; padding:2px 8px; margin-left:8px; vertical-align:1px}
+.row-act{color:var(--teal-text); font-size:12.5px; font-weight:500; display:inline-flex; gap:5px; align-items:center; white-space:nowrap}
+
+/* tray */
+.tray{position:fixed; left:0; right:0; bottom:0; z-index:25; background:var(--tray-bg); border-top:1px solid var(--border); box-shadow:var(--shadow-up); padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.tray-in{display:flex; align-items:stretch; gap:16px; max-width:1400px; margin:0 auto}
+.hand{flex:none; width:128px; display:flex; flex-direction:column; justify-content:center; gap:6px}
+.hand .t{font-weight:600; font-size:13px}
+.pips{display:flex; gap:6px}
+.pip{width:22px; height:30px; border-radius:4px; border:1.5px solid var(--teal); background:var(--teal)}
+.pip.used{background:transparent; border-style:dashed; border-color:var(--border-strong)}
+.hand .h{font-size:11.5px; color:var(--muted); line-height:1.35}
+.cards{flex:1; min-width:0; display:flex; gap:8px; overflow-x:auto; padding:2px 2px 4px; scroll-snap-type:x proximity}
+.card{flex:none; width:150px; min-height:96px; text-align:left; border:1px solid var(--teal-border); background:var(--surface); border-radius:9px; padding:9px 10px; display:flex; flex-direction:column; gap:4px; cursor:pointer; scroll-snap-align:start; position:relative; transition:transform .12s ease, box-shadow .12s ease}
+.card:hover:not([aria-disabled="true"]){transform:translateY(-2px); box-shadow:0 6px 16px rgba(20,30,35,.1)}
+.card .top{display:flex; align-items:center; gap:6px; color:var(--teal)}
+.card .cost{margin-left:auto; font-size:11px; color:var(--muted); font-weight:500}
+.card .nm{font-weight:600; font-size:12.5px; line-height:1.25}
+.card .bl{font-size:11.5px; color:var(--muted); line-height:1.3}
+.card .ft{margin-top:auto; display:flex; gap:4px; align-items:center; flex-wrap:wrap}
+.card.played{background:var(--teal-tint); border-color:var(--teal)}
+.card.played .cost{color:var(--teal-text); font-weight:600}
+.card.locked-c{border-style:dashed; border-color:var(--border-strong); background:var(--surface-2)}
+.card.locked-c .top{color:var(--faint)}
+.card.locked-c .nm{color:var(--muted)}
+.card.out{opacity:.45}
+.req{font-size:11px; color:var(--muted); display:inline-flex; gap:3px; align-items:center}
+.req svg.i{width:11px; height:11px}
+/* tray card, Figma 3902:10723 */
+.card.hc{width:160.5px; height:185.25px; min-height:0; border:0; border-radius:6px; background:var(--surface); padding:12px 12px 12px 24px; gap:15px; overflow:hidden; align-items:flex-start; color:var(--card-ink)}
+.card.hc .deco{position:absolute; left:0; top:0; width:161px; height:186px; color:var(--deco); pointer-events:none}
+.card.hc > :not(.deco){position:relative}
+.card.hc .top{width:100%; justify-content:space-between; color:var(--card-ink)}
+.card.hc .top svg.i{width:18px; height:18px; stroke-width:1.5}
+.card.hc .cost{font:400 10.5px/15px Archivo,Inter,system-ui,sans-serif; color:var(--card-ink); display:inline-flex; align-items:center; gap:3px}
+.card.hc .cost svg.i{width:12px; height:12px}
+.card.hc .body{display:flex; flex-direction:column; gap:6px; width:100%}
+.card.hc .nm{font:600 12px/1.2 Poppins,Inter,system-ui,sans-serif; color:var(--text)}
+.card.hc .dsc{display:flex; flex-direction:column; gap:3px; width:97.5px}
+.card.hc .bl{font:400 12px/18px Archivo,Inter,system-ui,sans-serif; color:var(--text)}
+.card.hc .src{font:400 9px/13.5px Archivo,Inter,system-ui,sans-serif; color:var(--text)}
+.card.hc .ft{margin-top:0; gap:4px}
+.card.hc .ft:empty{display:none}
+.lockpill{display:inline-flex; align-items:center; gap:3px; background:var(--mint); color:var(--on-mint); border-radius:999px; padding:1.5px 6px; font:400 9px/13.5px Archivo,Inter,system-ui,sans-serif; white-space:nowrap}
+.lockpill svg{width:12px; height:12px; flex:none}
+.card.hc .tag{font-size:9px; line-height:13.5px; padding:0 6px}
+.card.hc.locked-c{border:.75px dashed var(--deco-locked); background:var(--surface)}
+.card.hc.locked-c .deco{color:var(--deco-locked)}
+.card.hc.locked-c .top, .card.hc.locked-c .body{opacity:.5}
+.card.hc.locked-c .top{color:var(--card-ink)}
+.card.hc.locked-c .nm{color:var(--text)}
+.card.hc.played{background:var(--teal-tint); box-shadow:inset 0 0 0 1.5px var(--teal)}
+.card.hc.played .cost{color:var(--teal-text)}
+.tray-r{flex:none; display:flex; flex-direction:column; justify-content:center; gap:6px; align-items:stretch; width:170px}
+.tray-r .btn{justify-content:center; padding:10px 12px; font-size:14px}
+.locked-note{font-size:12px; color:var(--muted); text-align:center}
+.done-bar{flex:1; display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+.done-bar .big{font-size:18px; font-weight:600}
+@media (max-width:720px){
+  .page{padding:20px 14px 300px}
+  .meta{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .kv{grid-template-columns:1fr; gap:2px 0} .kv dd{margin-bottom:8px}
+  .rows > div{grid-template-columns:1fr; gap:2px}
+  .tray-in{flex-wrap:wrap; gap:10px}
+  .hand{width:auto; flex-direction:row; align-items:center; gap:10px}
+  .hand .h{display:none}
+  .tray-r{width:auto; flex:1; order:2; flex-direction:row; justify-content:flex-end}
+  .cards{order:3; flex-basis:100%}
+  .crumbs .hide-s{display:none}
+  .nav-btn.hide-s, .who .nm{display:none}
+}
+
+/* chat */
+.chat{position:fixed; top:calc(env(safe-area-inset-top,0px) + 44px); right:0; bottom:0; width:360px; z-index:26; background:var(--surface); border-left:1px solid var(--border); display:flex; flex-direction:column; transform:translateX(100%); transition:transform .2s ease; padding-bottom:calc(140px + env(safe-area-inset-bottom,0px))}
+body.chat-open .chat{transform:none}
+@media (max-width:720px){ .chat{width:100%; padding-bottom:calc(190px + env(safe-area-inset-bottom,0px))} }
+.chat-h{display:flex; align-items:center; padding:12px 14px; font-weight:600; font-size:13px}
+.chat-h .ic-btn{margin-left:auto; border:0}
+.chat-b{flex:1; overflow-y:auto; padding:6px 14px 10px; display:flex; flex-direction:column; gap:14px}
+.msg .who2{font-size:11.5px; font-weight:600; margin-bottom:3px}
+.msg .ttl{font-weight:600; font-size:13px; margin-bottom:2px}
+.msg .tx{font-size:13px; color:var(--text)}
+.msg.you .tx{border:1px solid var(--border-strong); border-radius:8px; padding:8px 10px; background:var(--surface-2)}
+.typing{display:inline-flex; gap:4px} .typing span{width:6px; height:6px; border-radius:50%; background:var(--faint); animation:blink 1s infinite} .typing span:nth-child(2){animation-delay:.15s} .typing span:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,100%{opacity:.25} 50%{opacity:1}}
+.scope{display:flex; gap:14px; padding:0 14px 8px}
+.scope button{background:none; border:0; padding:2px 0; font-size:12px; font-weight:500; color:var(--teal-text); cursor:pointer; border-bottom:1.5px solid transparent}
+.scope button[aria-pressed="true"]{border-bottom-color:var(--teal); font-weight:600}
+.prompts{padding:0 14px 10px; display:flex; flex-direction:column; gap:6px}
+.prompt{display:flex; align-items:center; gap:8px; text-align:left; border:1px solid var(--teal-border); background:var(--teal-tint); color:var(--teal-text); border-radius:8px; padding:8px 10px; font-size:12.5px; cursor:pointer}
+.prompt:hover:not([disabled]){border-color:var(--teal)}
+.prompt .c{margin-left:auto; font-size:11px; white-space:nowrap; color:var(--muted)}
+.prompt[disabled]{opacity:.5; cursor:default}
+.chat-in{margin:0 14px 14px; border:1px solid var(--border-strong); border-radius:8px; padding:10px 12px; color:var(--faint); font-size:13px}
+.chat-in .row2{display:flex; justify-content:space-between; align-items:center; margin-top:14px}
+.send{width:24px; height:24px; border-radius:50%; background:#efeeeb; display:grid; place-items:center; color:var(--muted)}
+
+/* modals */
+.scrim{position:fixed; inset:0; z-index:50; background:var(--scrim); display:grid; place-items:center; padding:20px; animation:fade .15s ease}
+@keyframes fade{from{opacity:0}}
+.dlg{background:var(--surface); border-radius:12px; width:min(520px, 100%); max-height:calc(100% - 20px); overflow:auto; box-shadow:0 24px 64px rgba(0,0,0,.25)}
+.dlg.wide{width:min(640px,100%)}
+.dlg-b{padding:24px}
+.dlg h3{font-size:19px; font-weight:600; margin:0 0 6px; letter-spacing:-.2px}
+.dlg .f{display:flex; flex-direction:column; gap:5px; margin-top:14px}
+.dlg label{font-size:12.5px; color:var(--muted); font-weight:500}
+.dlg input[type=text], .dlg input[type=email]{font:inherit; font-size:14px; padding:9px 11px; border:1px solid var(--border-strong); border-radius:7px; background:var(--surface); color:var(--text)}
+.dlg input:focus{outline:2px solid var(--teal-border); border-color:var(--teal)}
+.dlg-f{display:flex; justify-content:flex-end; gap:8px; padding:14px 24px; background:var(--surface-2); border-top:1px solid var(--border); border-radius:0 0 12px 12px; align-items:center}
+.dlg-f .left{margin-right:auto}
+.info{background:var(--teal-tint); border:1px solid var(--teal-border); color:var(--teal-text); border-radius:8px; padding:11px 13px; font-size:13px}
+.steps{list-style:none; margin:14px 0 0; padding:0; border:1px solid var(--border); border-radius:8px}
+.steps li{display:flex; align-items:center; gap:10px; padding:11px 14px; border-bottom:1px solid var(--border); font-size:13px}
+.steps li:last-child{border-bottom:0}
+.circ{width:18px; height:18px; border-radius:50%; border:1.5px solid var(--border-strong); flex:none; display:grid; place-items:center}
+.circ.spin{border-color:var(--teal); border-right-color:transparent; animation:spin .7s linear infinite}
+.circ.ok{border-color:var(--green); color:var(--green)} .circ.ok svg.i{width:11px; height:11px; stroke-width:2.5}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bar{height:5px; background:var(--border); border-radius:3px; margin-top:16px; overflow:hidden}
+.bar i{display:block; height:100%; width:0; background:var(--teal); border-radius:3px; transition:width .35s ease}
+.money{display:flex; align-items:center; border:1px solid var(--border-strong); border-radius:8px; padding:0 12px; margin-top:16px; background:var(--surface)}
+.money span{font-size:26px; color:var(--muted)}
+.money input{flex:1; min-width:0; border:0 !important; outline:none !important; font:inherit; font-size:30px !important; font-weight:600; padding:12px 8px !important; background:transparent !important; color:var(--text); font-variant-numeric:tabular-nums}
+.money .per{font-size:14px}
+.money:focus-within{border-color:var(--teal); box-shadow:0 0 0 3px var(--teal-border)}
+.err{color:var(--red); font-size:12.5px; margin-top:6px; min-height:18px}
+.played-list{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px}
+.bigcheck{width:56px; height:56px; border-radius:50%; background:var(--green-tint); color:var(--green); display:grid; place-items:center; margin-bottom:14px}
+.bigcheck svg.i{width:28px; height:28px; stroke-width:2.2}
+.amount{font-size:34px; font-weight:600; letter-spacing:-.5px; margin:6px 0 4px; font-variant-numeric:tabular-nums}
+.demo-note{font-size:12px; color:var(--faint); margin-top:12px}
+
+/* email */
+.mail{border:1px solid var(--border); border-radius:10px; overflow:hidden}
+.mail-h{padding:12px 16px; border-bottom:1px solid var(--border); font-size:12.5px; color:var(--muted); background:var(--surface-2)}
+.mail-h b{color:var(--text); font-weight:600}
+.mail-b{padding:18px 16px}
+.mail-b h4{font-size:18px; margin:0 0 8px}
+.res{margin:14px 0; border:1px solid var(--border); border-radius:8px}
+.res > div{display:flex; justify-content:space-between; gap:12px; padding:10px 12px; border-bottom:1px solid var(--border); font-size:13.5px}
+.res > div:last-child{border-bottom:0}
+.res .v{font-weight:600; font-variant-numeric:tabular-nums; text-align:right}
+.podium{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:10px 0 16px}
+.podium div{border:1px solid var(--border); border-radius:8px; padding:10px; font-size:12.5px}
+.podium b{display:block; font-size:13px}
+
+/* won dashboard */
+.back{margin-bottom:14px}
+.dash{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; margin:20px 0 14px}
+@media (max-width:720px){ .dash{grid-template-columns:1fr 1fr} }
+.delta{font-size:12px; font-weight:600} .delta.up{color:var(--green)} .delta.down{color:var(--red)}
+.chart svg{width:100%; height:auto; display:block}
+
+/* wizard */
+.wiz{display:grid; grid-template-columns:260px minmax(0,1fr); min-height:340px}
+.wiz-art{background:var(--teal-tint); border-right:1px solid var(--teal-border); border-radius:12px 0 0 0; display:grid; place-items:center; padding:24px}
+.wiz-txt{padding:28px 28px 20px; display:flex; flex-direction:column}
+.wiz-txt .n{font-size:12px; color:var(--teal-text); font-weight:600; margin-bottom:8px}
+.wiz-txt h3{font-size:21px}
+.wiz-txt p{color:var(--muted); margin:6px 0 0; max-width:44ch}
+.wiz-txt ul{margin:12px 0 0; padding-left:18px; color:var(--text); font-size:13.5px} .wiz-txt li{margin:4px 0}
+.dots{display:flex; gap:6px; margin-right:auto}
+.dots span{width:7px; height:7px; border-radius:50%; background:var(--border-strong)}
+.dots span.on{background:var(--teal); width:18px; border-radius:4px}
+.mini-row{background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px; width:100%; font-size:12.5px}
+.mini-row .fac{font-size:13px}
+.mini-row .r2{display:flex; justify-content:space-between; align-items:center; margin-top:8px}
+.fan{position:relative; width:190px; height:150px}
+.fan .card{position:absolute; top:12px; width:108px; min-height:130px; cursor:default; box-shadow:0 8px 20px rgba(20,30,35,.12)}
+.fan .card:hover{transform:none}
+.chain{display:flex; flex-direction:column; gap:10px; width:100%}
+.chain .ln{display:flex; align-items:center; gap:6px; font-size:12px}
+.chain .pill{border-radius:7px; padding:6px 9px; font-weight:600; white-space:nowrap}
+.chain .base{background:var(--nav); color:#fff}
+.chain .unl{background:var(--surface); border:1px solid var(--border-strong)}
+.chain .no{background:var(--amber-tint); border:1px dashed var(--amber); color:var(--amber)}
+.chain svg.i{width:14px; height:14px; color:var(--muted)}
+.mini-guess{background:var(--surface); border:1px solid var(--border-strong); border-radius:8px; padding:10px 12px; font-size:22px; font-weight:600; width:100%; display:flex; gap:6px; align-items:baseline}
+.mini-guess span{color:var(--muted); font-weight:400}
+.mini-mail{margin-top:12px; display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--teal-text); font-weight:500}
+@media (max-width:620px){ .wiz{grid-template-columns:1fr} .wiz-art{border-right:0; border-bottom:1px solid var(--teal-border); border-radius:12px 12px 0 0; padding:20px} .wiz-txt{padding:22px 20px 16px} }
+
+.mini-chat{background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px; width:100%; display:flex; flex-direction:column; gap:10px; font-size:12px}
+.mini-chat .msg .tx{font-size:12px}
+.mini-chat .scope{padding:0; gap:10px}
+.mini-chat .scope span{font-size:11.5px; color:var(--teal-text); font-weight:600}
+.mini-chat .scope span.off{font-weight:500; border:0}
+.practice{width:100%; display:flex; flex-direction:column; align-items:center; gap:12px}
+.practice .card{width:150px; position:static}
+.practice .steps{margin:0; width:100%; background:var(--surface)}
+.practice .steps li{padding:8px 10px; font-size:12px}
+.practice .circ{width:15px; height:15px}
+.tl{width:100%; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px 12px; font-size:12px}
+.tl div{display:flex; gap:10px; padding:4px 0} .tl b{min-width:52px; color:var(--muted); font-weight:500}
+.tl .due b, .tl .due span{color:var(--red); font-weight:600}
+
+/* toast */
+.toast{position:fixed; left:50%; transform:translateX(-50%); bottom:calc(150px + env(safe-area-inset-bottom,0px)); z-index:60; background:var(--nav); color:#fff; padding:10px 14px; border-radius:8px; font-size:13px; box-shadow:0 10px 30px rgba(0,0,0,.2); max-width:calc(100% - 32px); animation:fade .15s ease}
+@media (max-width:720px){ .toast{bottom:calc(210px + env(safe-area-inset-bottom,0px))} }
+
+/* price-to-win */
+.ptw{position:relative}
+.ptw svg{width:100%; height:auto; display:block}
+.ptw .veil{position:absolute; top:0; bottom:26px; backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px); background:rgba(243,248,249,.35); border-left:1px dashed var(--teal); border-right:1px dashed var(--teal); display:grid; place-items:center; text-align:center; font-size:12px; font-weight:600; color:var(--teal-text)}
+.slider{width:100%; accent-color:var(--teal)}
+.sim{display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:end}
+@media (max-width:720px){ .sim{grid-template-columns:1fr} }
+.sim input[type=text]{font:inherit; font-size:15px; padding:8px 10px; border:1px solid var(--border-strong); border-radius:7px; width:100%; background:var(--surface); color:var(--text)}
+.out-price{font-size:26px; font-weight:600; font-variant-numeric:tabular-nums}
+
+@media (prefers-reduced-motion: reduce){ *,*::before,*::after{animation-duration:.01ms !important; transition-duration:.01ms !important} }
+/* how-to-play (animated) */
+.dlg.htp-dlg{width:min(860px,100%); overflow:hidden}
+.htp{display:grid; grid-template-columns:380px minmax(0,1fr); height:360px}
+.htp-art{position:relative; background:var(--teal-tint); border-right:1px solid var(--teal-border); overflow:hidden; cursor:pointer}
+.htp-art .replay{position:absolute; bottom:10px; right:12px; font-size:11.5px; color:var(--faint)}
+.htp-txt{padding:44px 36px 24px}
+.htp-txt h3{font-size:24px; line-height:1.2; margin:0 0 12px}
+.htp-txt p{margin:0; font-size:16.5px; color:var(--muted); max-width:32ch; line-height:1.5}
+.htp-txt .aside{margin-top:14px; font-size:13.5px; color:var(--faint)}
+.htp-txt h3, .htp-txt p{animation:htpIn .35s ease}
+@keyframes htpIn{from{opacity:0; transform:translateY(6px)}}
+.htp-art .spark{position:absolute; width:6px; height:6px; border-radius:50%; background:var(--teal); pointer-events:none}
+.cback{background:repeating-linear-gradient(45deg,var(--teal) 0 6px,var(--teal-strong) 6px 12px); border:3px solid var(--surface); box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.f3{position:relative; width:100%; height:100%; transform-style:preserve-3d}
+.f3 .fc{position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:9px}
+.f3 .fr{background:var(--surface); border:1px solid var(--border); padding:16px 18px; display:flex; flex-direction:column; gap:2px; box-shadow:0 10px 26px rgba(0,0,0,.12); text-align:left}
+.f3 .bk{transform:rotateY(180deg)}
+.fr b{font-size:15px; color:var(--text)}
+.fr .h1meta{font-size:13px; color:var(--muted)}
+.fr .h1row{display:flex; justify-content:space-between; align-items:center; margin-top:auto}
+.fr .q{font-weight:700; font-size:20px; font-variant-numeric:tabular-nums}
+#h1card{position:absolute; left:50%; top:50%; width:260px; height:130px; margin:-65px 0 0 -130px; perspective:900px}
+#h1tag{opacity:0}
+.htp-art .deal{position:absolute; width:76px; height:104px; left:50%; top:44%; margin:-52px 0 0 -38px; border-radius:8px; opacity:0}
+#h2arrow{position:absolute; left:50%; bottom:22px; margin-left:-14px; width:28px; height:28px; color:var(--teal); opacity:0}
+#tray.spot{z-index:51; box-shadow:0 0 0 3px var(--teal),0 -20px 50px rgba(68,124,134,.35); pointer-events:none}
+.mpips{position:absolute; top:18px; left:18px; display:flex; gap:5px; align-items:center; font-size:12.5px; font-weight:600}
+.mpips .pip{width:15px; height:20px}
+.mpips .l{margin-left:6px}
+.mc{position:absolute; width:132px; height:74px; background:var(--surface); border-radius:6px; padding:8px 8px 8px 14px; box-shadow:0 2px 6px rgba(0,0,0,.06); display:flex; flex-direction:column; gap:4px; transition:opacity .35s, box-shadow .35s; font-family:Archivo,Inter,system-ui,sans-serif; color:var(--card-ink)}
+.mcb{display:flex; flex-direction:column; gap:1px; font-size:10px; line-height:1.3; color:var(--text)}
+.mcb b{font:600 11px/1.2 Poppins,Inter,system-ui,sans-serif}
+.mci svg.i{width:13px; height:13px}
+.mc.locked{border:.75px dashed var(--deco-locked)}
+.mc.locked .mcb{opacity:.5}
+.mc .lockpill{align-self:flex-start; margin-top:auto; font-size:8.5px; padding:1px 5px}
+.mc .lockpill svg{width:10px; height:10px}
+.mc.lit{box-shadow:0 0 0 2px var(--teal),0 6px 16px rgba(0,0,0,.1)}
+.mc.lit .lockpill, .mc.spent .lockpill{display:none}
+.mc.spent{opacity:.35}
+.wire{position:absolute; height:2px; background:var(--border-strong)}
+.wire i{position:absolute; inset:0; background:var(--teal); transform:scaleX(0); transform-origin:left}
+.goal{position:absolute; left:18px; right:18px; top:240px; border:1px solid var(--amber); background:var(--amber-tint); border-radius:7px; padding:9px 12px; display:flex; align-items:center; justify-content:space-between}
+.goal .gt{display:flex; flex-direction:column; font-size:11.5px; color:var(--amber); font-weight:600}
+.goal .gt b{font-size:13px; color:var(--text)}
+.goal .slots{display:flex; gap:5px}
+.goal .slots i{width:16px; height:21px; border-radius:3px; outline:1.5px dashed var(--amber); outline-offset:-1.5px}
+.goal .slots i.f{background:var(--amber); outline-style:solid}
+.goal .slots i.miss{outline:1.5px solid var(--red); background:var(--red-tint)}
+.htp-art .badge{position:absolute; min-width:24px; height:24px; border-radius:12px; background:var(--teal); color:var(--on-teal); font-size:12px; font-weight:700; display:grid; place-items:center; padding:0 6px; opacity:0}
+.htp-art .bubble{position:absolute; background:var(--surface); border:1px solid var(--border); border-radius:10px 10px 10px 2px; padding:7px 9px; display:flex; flex-direction:column; gap:4px; box-shadow:0 6px 14px rgba(0,0,0,.1); opacity:0}
+.htp-art .bubble i{display:block; height:5px; border-radius:3px; background:var(--border-strong)}
+.htp-art .minichart{position:absolute; display:flex; align-items:flex-end; gap:4px; height:36px; padding:6px 8px; background:var(--surface); border:1px solid var(--border); border-radius:8px; box-shadow:0 6px 14px rgba(0,0,0,.1); opacity:0}
+.htp-art .minichart i{width:7px; background:var(--teal); border-radius:2px}
+#h5wrap{position:absolute; left:24px; top:60px; width:204px; height:184px; perspective:1000px; background:none; border:0; padding:0; cursor:pointer}
+#h5flip{transition:transform .8s cubic-bezier(.3,1.4,.4,1)}
+#h5wrap .fr{border-color:var(--teal); padding:14px; gap:4px}
+#h5wrap .fr .ic{display:flex; justify-content:space-between; font-size:11.5px; color:var(--muted)}
+#h5wrap .fr .ic svg.i{color:var(--teal)}
+.pulse{animation:htpBreathe 2s ease-in-out infinite}
+@keyframes htpBreathe{50%{box-shadow:0 0 0 7px var(--teal-border),0 10px 26px rgba(0,0,0,.12)}}
+.xr{background:var(--surface); border:1px solid var(--border); overflow:hidden; display:flex; flex-direction:column; box-shadow:0 10px 26px rgba(0,0,0,.14); text-align:left}
+.xr .xbar{background:var(--nav); color:#dfe7e9; font-size:10.5px; font-weight:600; padding:6px 10px}
+.xr .xbody{padding:9px 10px; display:flex; flex-direction:column; gap:6px}
+.xr .lbl{font-size:10.5px; color:var(--muted)}
+.tl2{font-size:10.5px} .tl2 div{display:flex; gap:8px; padding:1.5px 0} .tl2 b{min-width:38px; color:var(--muted); font-weight:500}
+.tl2 .due b, .tl2 .due span{color:var(--red); font-weight:600}
+.srcchip{align-self:flex-start; display:inline-flex; align-items:center; gap:3px; font-size:10px; font-weight:600; color:var(--teal-text); background:var(--teal-tint); border-radius:4px; padding:2px 6px}
+.srcchip svg.i{width:11px; height:11px}
+#h5rfp{position:absolute; left:270px; top:70px; width:90px; height:120px; background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:10px 9px; display:flex; flex-direction:column; gap:6px; box-shadow:0 8px 20px rgba(0,0,0,.12); opacity:0}
+#h5rfp .t{font-size:9.5px; font-weight:700; color:var(--muted)}
+#h5rfp i{display:block; height:4px; border-radius:2px; background:var(--border)}
+#h5rfp i.h{background:var(--amber-tint); outline:1.5px solid var(--amber); height:8px; transform-origin:left}
+#h5link{position:absolute; inset:0; width:100%; height:100%; pointer-events:none}
+#h5link path{fill:none; stroke:var(--teal); stroke-width:2; stroke-dasharray:4 4; opacity:0}
+#h5tap{position:absolute; left:24px; width:204px; top:258px; text-align:center; font-size:13px; color:var(--muted); transition:opacity .3s}
+#h5cursor{position:absolute; width:26px; height:26px; border-radius:50%; background:rgba(68,124,134,.25); border:2px solid var(--teal); opacity:0; pointer-events:none}
+#h6input{position:absolute; left:30px; top:110px; width:320px; height:70px; background:var(--surface); border:1px solid var(--border-strong); border-radius:8px; display:flex; align-items:center; padding:0 16px; gap:6px; font-size:30px; font-weight:600; font-variant-numeric:tabular-nums; box-shadow:0 6px 18px rgba(0,0,0,.08)}
+#h6input .d{color:var(--muted); font-weight:400}
+#h6input .yr{font-size:14px; color:var(--muted); font-weight:400; align-self:flex-end; margin-bottom:20px}
+.odo{display:inline-flex; overflow:hidden; height:40px}
+.odo .col{display:flex; flex-direction:column; line-height:40px}
+.odo .sep{line-height:40px}
+#h6stamp{position:absolute; left:222px; top:88px; border:3px solid var(--green); color:var(--green); background:var(--surface); font-weight:800; font-size:15px; letter-spacing:.06em; padding:3px 10px; border-radius:6px; transform:rotate(-10deg); opacity:0}
+#h6mail{position:absolute; left:34px; top:212px; display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:600; color:var(--teal-text); opacity:0}
+#h6env{position:absolute; left:34px; top:208px; color:var(--teal); opacity:0}
+#h6env svg.i{width:22px; height:22px}
+.ghostcard{position:fixed; width:22px; height:30px; border-radius:4px; background:var(--teal); z-index:70; pointer-events:none}
+@media (max-width:760px){
+  .htp{grid-template-columns:1fr; height:auto}
+  .htp-art{height:330px; border-right:0; border-bottom:1px solid var(--teal-border)}
+  .htp-txt{padding:22px 20px}
+  .htp-txt h3{font-size:21px}
+}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="logo" aria-label="Jain"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7.2" fill="#fff"/><path d="M8 3.6v8.8M3.6 8h8.8" stroke="#233038" stroke-width="1.8"/></svg>Jain</div>
+  <nav class="crumbs" id="crumbs" aria-label="Breadcrumb"></nav>
+  <div class="nav-r">
+    <button class="nav-btn" id="howTo" type="button">How to play</button>
+    <button class="nav-btn hide-s" id="newPlayer" type="button">New player</button>
+    <span class="nav-btn hide-s" style="cursor:default" title="Everything in this demo is sample data">Sample data</span>
+    <div class="who"><span class="avatar" id="avatar">JD</span><span class="nm" id="whoName">Jane Doe</span></div>
+  </div>
+</header>
+<div class="shell"><main class="page" id="app"></main></div>
+
+<aside class="chat" id="chat" aria-label="Chat with Jain">
+  <div class="chat-h">New Chat <button class="ic-btn" id="chatClose" aria-label="Close chat" type="button"></button></div>
+  <div class="chat-b" id="chatBody" aria-live="polite"></div>
+  <div class="scope" id="chatScope"></div>
+  <div class="prompts" id="prompts"></div>
+  <div class="chat-in" aria-hidden="true">Ask or find anything from your space<div class="row2"><span id="upIc"></span><span class="send" id="sendIc"></span></div></div>
+</aside>
+
+<footer class="tray" id="tray" aria-label="Your cards"></footer>
+<div id="modal"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- icons ---------- */
+var P = {
+  home:'<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/>',
+  chev:'<path d="m9 6 6 6-6 6"/>',
+  back:'<path d="m15 6-6 6 6 6"/>',
+  scan:'<path d="M3 7V4h3M21 7V4h-3M3 17v3h3M21 17v3h-3"/><circle cx="12" cy="12" r="3.5"/>',
+  users:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 4.8a3.2 3.2 0 0 1 0 6.3M18 14.3c1.8.8 3 2.7 3 5.7"/>',
+  layers:'<path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/>',
+  gauge:'<path d="M12 14l4-4"/><path d="M3.5 17a9 9 0 1 1 17 0"/>',
+  alert:'<path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/>',
+  chat:'<path d="M4 5h16v11H9l-5 4V5Z"/>',
+  chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  wage:'<circle cx="12" cy="12" r="9"/><path d="M15 9.2c-.6-1-1.7-1.5-3-1.5-1.7 0-3 .9-3 2.2 0 3 6 1.6 6 4.4 0 1.3-1.3 2.2-3 2.2-1.4 0-2.6-.6-3.1-1.6M12 6v1.7M12 16.5v1.7"/>',
+  brief:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V4h6v3M3 12h18"/>',
+  list:'<path d="M9 6h12M9 12h12M9 18h12"/><path d="m3 6 1 1 2-2M3 12l1 1 2-2M3 18l1 1 2-2"/>',
+  shield:'<path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6l-8-3Z"/>',
+  compare:'<path d="M4 20V8M9 20V12M15 20V6M20 20V10"/>',
+  sliders:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
+  crew:'<circle cx="7" cy="9" r="2.5"/><circle cx="17" cy="9" r="2.5"/><circle cx="12" cy="7" r="2.5"/><path d="M2.5 19c0-2.5 2-4.5 4.5-4.5M21.5 19c0-2.5-2-4.5-4.5-4.5M7 19c0-2.8 2.2-5 5-5s5 2.2 5 5"/>',
+  trend:'<path d="M3 6l7 7 4-4 7 7"/><path d="M21 11v5h-5"/>',
+  grid03:'<path d="M8 3H6.2C5.0799 3 4.51984 3 4.09202 3.21799C3.71569 3.40973 3.40973 3.71569 3.21799 4.09202C3 4.51984 3 5.0799 3 6.2V8M8 21H6.2C5.0799 21 4.51984 21 4.09202 20.782C3.71569 20.5903 3.40973 20.2843 3.21799 19.908C3 19.4802 3 18.9201 3 17.8V16M21 8V6.2C21 5.0799 21 4.51984 20.782 4.09202C20.5903 3.71569 20.2843 3.40973 19.908 3.21799C19.4802 3 18.9201 3 17.8 3H16M21 16V17.8C21 18.9201 21 19.4802 20.782 19.908C20.5903 20.2843 20.2843 20.5903 19.908 20.782C19.4802 21 18.9201 21 17.8 21H16M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"/>',
+  lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  check:'<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+  x:'<path d="M6 6l12 12M18 6 6 18"/>',
+  upload:'<path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/>',
+  download:'<path d="M12 4v12M7 11l5 5 5-5"/><path d="M4 16v4h16v-4"/>',
+  cal:'<rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+  card:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  file:'<path d="M6 3h8l4 4v14H6V3Z"/><path d="M14 3v4h4"/>',
+  arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  pin:'<path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/>'
+};
+function ic(n, cls){ return '<svg class="i'+(cls?' '+cls:'')+'" viewBox="0 0 24 24" aria-hidden="true">'+(P[n]||'')+'</svg>'; }
+function $(s){ return document.querySelector(s); }
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+
+/* ---------- sample data ---------- */
+var BID = { id:'lakemont', name:'Lakemont County Facilities Janitorial Services', short:'Lakemont County Facilities', loc:'Lakemont County, OH', addr:'4 sites across Lakemont County, OH', deadline:'12/04/2026' };
+var WIN = 1184600, JAIN_EST = 1201300, SQFT = 386000;
+
+var PIPE = [
+  { id:'riverside', name:'Riverside Medical Pavilion', type:'Medical office', loc:'Columbus, OH', status:'won', price:1036000, when:'Active since Mar 2024' },
+  { id:'northgate', name:'Northgate Office Park', type:'Corporate campus', loc:'Dublin, OH', status:'won', price:742000, when:'Active since Aug 2023' },
+  { id:'lakemont', name:BID.short, type:'Government, 4 buildings', loc:BID.loc, status:'bidding', price:null, when:'Due ' + BID.deadline, mystery:true },
+  { id:'easton', name:'Easton Retail Commons', type:'Retail', loc:'Columbus, OH', status:'bidding', price:null, when:'Due 01/15/2027', draft:true },
+  { id:'franklin', name:'Franklin Park Charter Schools', type:'Education', loc:'Columbus, OH', status:'lost', price:890400, when:'Awarded Jun 2026' },
+  { id:'scioto', name:'Scioto Distribution Center', type:'Industrial', loc:'Groveport, OH', status:'lost', price:418500, when:'Awarded Feb 2026' }
+];
+
+var WON = {
+  riverside:{ sqft:298000, start:'Mar 2024', value:1036000, margin:14.2, target:15.0, wage:17.10, payroll:52800, ot:6.8, hours:2900, crew:24, quality:94, trend:[15.1,14.8,13.9,13.6,14.4,14.2],
+    note:'Margin dipped in June and July when overtime rose during a crew turnover at the clinic floors.' },
+  northgate:{ sqft:265000, start:'Aug 2023', value:742000, margin:17.9, target:15.0, wage:16.25, payroll:34400, ot:3.1, hours:2050, crew:17, quality:91, trend:[17.2,17.5,18.1,17.8,18.3,17.9],
+    note:'Running above target. Lower wage floor and a stable day crew keep overtime near 3%.' }
+};
+
+var CARDS = [
+  { id:'xray', name:'X-Ray', icon:'grid03', blurb:'Facility at a glance', src:'extracted from RFP', req:[] },
+  { id:'bsc', name:'BSC Assessment', icon:'users', blurb:'Who you\u2019re bidding as', req:[] },
+  { id:'chat', name:'Chat', icon:'chat', blurb:'One question per card', req:[], repeat:true },
+  { id:'won', name:'See won & active bid', icon:'chart', blurb:'Live dashboard of a won bid', req:[], repeat:true },
+  { id:'floor', name:'Floor breakdown', icon:'layers', blurb:'Buildings, spaces, floors', req:['xray'] },
+  { id:'rates', name:'Production rates', icon:'gauge', blurb:'Your rates and adjustments', req:['bsc'] },
+  { id:'risks', name:'Risks & open questions', icon:'alert', blurb:'What could sink the bid', req:['xray'] },
+  { id:'labor', name:'Local labor market', icon:'wage', blurb:'Wage floor and burden', req:[], proposed:true },
+  { id:'incumbent', name:'Incumbent intel', icon:'brief', blurb:'Who holds it and why it\u2019s rebid', req:[], proposed:true },
+  { id:'scope', name:'Scope & frequency', icon:'list', blurb:'Tasks by area and frequency', req:['xray'], proposed:true },
+  { id:'compliance', name:'Compliance checklist', icon:'shield', blurb:'Insurance, bonding, certs', req:['xray'], proposed:true },
+  { id:'comps', name:'Comparable bids', icon:'compare', blurb:'$/sq ft on similar work', req:['bsc'], proposed:true },
+  { id:'margin', name:'Margin simulator', icon:'sliders', blurb:'Cost in, price out', req:['rates'], proposed:true },
+  { id:'ptw', name:'Price-to-win curve', icon:'trend', blurb:'Win odds by price', req:[], cost:2, proposed:true },
+  { id:'staffing', name:'Staffing plan', icon:'crew', blurb:'FTEs and hours by shift', req:['floor','rates'], proposed:true, unreachable:true }
+];
+function card(id){ for (var i=0;i<CARDS.length;i++) if (CARDS[i].id===id) return CARDS[i]; }
+
+var STEPS = {
+  xray:['Parsing the 214-page RFP','Extracting sites, square footage and terms','Checking qualifications against your profile'],
+  bsc:['Loading Summit Building Services','Summarizing 42 bids from the last 24 months','Matching strategic objectives'],
+  floor:['Reading floor plans (Exhibits C\u2013F)','Measuring cleanable area by space','Classifying floor types'],
+  rates:['Loading your production standards','Applying RFP-specific adjustments','Highlighting rates this bid uses'],
+  risks:['Scanning contract terms','Ranking risks by severity','Drafting open questions'],
+  labor:['Pulling metro wage data','Checking county ordinances','Estimating burden'],
+  incumbent:['Searching public award records','Matching the incumbent contract','Reading rebid notices'],
+  scope:['Extracting scope & service frequencies','Grouping tasks by area','Flagging periodic work'],
+  compliance:['Extracting insurance and bonding terms','Listing required certifications','Checking participation goals'],
+  comps:['Finding similar facilities in your history','Normalizing to $/sq ft per year','Adding outcomes'],
+  margin:['Loading your cost structure','Building the simulator','Ready'],
+  ptw:['Modeling award outcomes on similar bids','Fitting the win-probability curve','Hiding the exact sweet spot']
+};
+
+/* ---------- state ---------- */
+var state;
+function fresh(){ return { player:null, played:[], view:'pipeline', wonId:null, filter:'all', guess:null, chat:[], asked:[], scope:'bid', chatOpen:false, lastRevealed:null, seen:{} }; }
+state = fresh();
+function spent(){ var n=0; state.played.forEach(function(id){ n += (card(id).cost||1); }); return n; }
+function left(){ return 3 - spent(); }
+function has(id){ return state.played.indexOf(id) > -1; }
+function reqMet(c){ return c.req.every(has); }
+function cardState(c){
+  if (state.guess) return has(c.id) ? 'played' : 'out';
+  if (!c.repeat && has(c.id)) return 'played';
+  if (c.unreachable) return 'locked';
+  if (!reqMet(c)) return 'locked';
+  if ((c.cost||1) > left()) return 'out';
+  return 'available';
+}
+function reqText(c){
+  if (c.unreachable) return 'Needs 4 cards';
+  return 'After ' + c.req.map(function(r){ return card(r).name; }).join(' + ');
+}
+
+/* ---------- toast ---------- */
+var toastT;
+function toast(msg){
+  var old = document.querySelector('.toast'); if (old) old.remove();
+  var t = document.createElement('div'); t.className='toast'; t.setAttribute('role','status'); t.textContent = msg;
+  document.body.appendChild(t); clearTimeout(toastT); toastT = setTimeout(function(){ t.remove(); }, 2600);
+}
+
+/* ---------- nav ---------- */
+function renderCrumbs(){
+  var h = '<button type="button" data-go="pipeline" aria-label="Home">'+ic('home')+'</button>'+ic('chev');
+  if (state.view==='pipeline') h += '<span class="cur">Bid pipeline</span>';
+  else {
+    h += '<button type="button" data-go="pipeline" class="hide-s">Bid pipeline</button><span class="hide-s">'+ic('chev')+'</span>';
+    h += '<span class="cur">' + esc(state.view==='bid' ? BID.short : PIPE.filter(function(p){return p.id===state.wonId;})[0].name) + '</span>';
+  }
+  $('#crumbs').innerHTML = h;
+  var nm = state.player && state.player.name ? state.player.name : 'Guest player';
+  $('#whoName').textContent = nm;
+  $('#avatar').textContent = nm.split(/\s+/).map(function(w){return w[0]||'';}).join('').slice(0,2).toUpperCase();
+}
+
+/* ---------- views ---------- */
+function statusTag(s){ return '<span class="tag '+s+'">'+(s==='won'?'Won':s==='lost'?'Lost':'Bidding')+'</span>'; }
+
+function renderPipeline(){
+  var rows = PIPE.filter(function(p){ return state.filter==='all' || p.status===state.filter; }).map(function(p){
+    var price = p.mystery ? '<b>???</b>' : p.draft ? '<span class="muted">Draft</span>' : money(p.price);
+    var act = '';
+    if (p.mystery) act = '<span class="row-act">Open X-Ray '+ic('arrow')+'</span>';
+    else if (p.status==='won') act = '<span class="row-act">'+(has('won') && state.seen && state.seen[p.id] ? ic('chart')+'Dashboard' : ic('lock')+'Dashboard')+'</span>';
+    return '<tr class="row'+(p.mystery?' mystery':'')+'" tabindex="0" data-row="'+p.id+'">'+
+      '<td><div class="fac">'+esc(p.name)+(p.mystery?'<span class="guess-me">Guess this one</span>':'')+'</div><div class="fac-sub">'+esc(p.type)+'</div></td>'+
+      '<td>'+esc(p.loc)+'</td><td>'+statusTag(p.status)+'</td><td class="num">'+price+'</td><td class="muted small">'+esc(p.when)+'</td><td class="num">'+act+'</td></tr>';
+  }).join('');
+  var f = function(k,l){ return '<button type="button" data-filter="'+k+'" aria-pressed="'+(state.filter===k)+'">'+l+'</button>'; };
+  return '<p class="eyebrow">Bid pipeline</p><h1>Summit Building Services</h1>'+
+    '<p class="sub">You\u2019re bidding as Summit Building Services. Guess the winning annual price for the live bid marked <b>Guess this one</b>, using up to three cards.</p>'+
+    '<div class="seg" role="group" aria-label="Filter bids">'+f('all','All bids')+f('won','Won')+f('lost','Lost')+f('bidding','Bidding')+'</div>'+
+    '<div class="pipe tbl-wrap"><table><thead><tr><th>Facility</th><th>Location</th><th>Status</th><th class="num">Annual bid</th><th>Updated</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+    '<p class="small muted" style="margin-top:12px">Price, address and status are free on every bid. Margins, wages, payroll and overtime on won bids take the <b>See won &amp; active bid</b> card.</p>';
+}
+
+function lockedBlock(id){
+  var c = card(id), st = cardState(c);
+  var why = c.unreachable ? 'Needs Floor breakdown and Production rates: four cards. Shown in the results email after ISSA.'
+    : st==='locked' ? 'Unlocks after ' + c.req.map(function(r){return '<b>'+card(r).name+'</b>';}).join(' + ') + '.'
+    : st==='out' ? (state.guess ? 'Not played this round.' : 'Costs '+(c.cost||1)+' cards. You have '+left()+' left.')
+    : (c.cost===2 ? 'Costs two cards.' : 'Play this card to reveal it.');
+  var btn = st==='available' ? '<button class="btn primary" type="button" data-play="'+id+'">Play card</button>' : '<span class="muted">'+ic('lock')+'</span>';
+  return '<div class="locked" id="sec-'+id+'"><span class="ico grey">'+ic(c.icon)+'</span><div class="grow"><h2>'+esc(c.name)+(c.proposed?' <span class="tag proposed">Proposed</span>':'')+'</h2><div class="why">'+why+'</div></div>'+btn+'</div>';
+}
+function secHead(id, title, icon, color, src){
+  return '<div class="sec-h"><span class="ico '+color+'">'+ic(icon)+'</span><h2>'+title+'</h2>'+(card(id)&&card(id).proposed?'<span class="tag proposed">Proposed</span>':'')+(src?'<span class="src">'+src+'</span>':'')+'<button class="ic-btn" type="button" data-openchat aria-label="Ask about this in chat">'+ic('chat')+'</button></div>';
+}
+function sec(id, inner){ return '<section class="sec'+(state.lastRevealed===id?' revealed':'')+'" id="sec-'+id+'">'+inner+'</section>'; }
+
+var SECTIONS = {
+  xray: function(){
+    return sec('xray', secHead('xray','Opportunity overview','home','teal','Source: RFP pp. 3\u20139')+
+      '<div class="sec-body"><p>Lakemont County is soliciting janitorial services for four county buildings totaling 386,000 cleanable square feet: the Administration Building, the County Courthouse, the Public Health Center and the Main Library. Scope covers nightly cleaning Monday\u2013Friday, three day porters, periodic floor care and all supplies. The initial term is three years with two one-year extensions. Proposals are scored on price (40%), experience with government facilities, staffing plan and transition plan.</p>'+
+      '<div class="hr"></div><p class="small muted" style="margin-bottom:8px">Qualifications</p><div class="chips"><span class="chip">3+ years government facilities</span><span class="chip">Background checks, all staff</span><span class="chip">E-Verify</span><span class="chip">Performance bond</span><span class="chip">County living wage compliance</span></div></div>');
+  },
+  bsc: function(){
+    return sec('bsc', secHead('bsc','BSC Assessment: Summit Building Services','users','purple','Source: your bid history')+
+      '<div class="sec-body"><div class="rows">'+
+      '<div><span class="k">Company</span><span>Columbus, OH \u00b7 about $38M revenue \u00b7 420 cleaners</span></div>'+
+      '<div><span class="k">Win rate</span><span>31% overall (13 of 42 bids, last 24 months). Public sector: 6 of 19 since 2023.</span></div>'+
+      '<div><span class="k">Strongest verticals</span><span>Medical office, corporate campus, government offices</span></div>'+
+      '<div><span class="k">States</span><span>Ohio, Indiana, Kentucky</span></div>'+
+      '<div><span class="k">Strategic objectives</span><span>Grow public sector to 25% of revenue (now 14%). Hold gross margin at 14% or better. Land an anchor account in Lakemont County.</span></div>'+
+      '</div></div>');
+  },
+  floor: function(){
+    var B = [
+      ['Administration Building','142,000','6 floors',[['Private & open offices','Carpet',90000],['Corridors','VCT',28000],['Conference & break rooms','Carpet / VCT',10000],['Restrooms','Ceramic tile',8000],['Lobby','Terrazzo',6000]]],
+      ['County Courthouse','118,000','5 floors',[['Chambers & offices','Carpet',40000],['Courtrooms','Carpet / wood',30000],['Public corridors','Terrazzo',30000],['Holding & secure areas','Sealed concrete',10000],['Restrooms','Ceramic tile',8000]]],
+      ['Public Health Center','64,000','2 floors',[['Exam & clinical rooms','Sheet vinyl',24000],['Offices','Carpet',20000],['Waiting & corridors','VCT',14000],['Restrooms','Ceramic tile',6000]]],
+      ['Main Library','62,000','3 floors',[['Stacks','Carpet',30000],['Reading & public areas','Carpet',18000],['Offices','Carpet',8000],['Restrooms','Ceramic tile',6000]]]
+    ];
+    var rows = B.map(function(b){
+      return '<tr class="group"><td>'+b[0]+'</td><td class="muted small" style="font-weight:400">'+b[2]+'</td><td class="num">'+b[1]+'</td></tr>'+
+        b[3].map(function(s){ return '<tr><td style="padding-left:24px">'+s[0]+'</td><td>'+s[1]+'</td><td class="num">'+s[2].toLocaleString('en-US')+'</td></tr>'; }).join('');
+    }).join('');
+    return sec('floor', secHead('floor','Floor breakdown','layers','blue','Source: RFP Exhibits C\u2013F')+
+      '<div class="sec-body"><p class="lead">386,000 cleanable sq ft across 4 buildings</p><div class="tbl-wrap"><table><thead><tr><th>Building / space</th><th>Floor type</th><th class="num">Sq ft</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>');
+  },
+  rates: function(){
+    var R = [['Private offices','Carpet','3,800','\u2014',0],['Open office','Carpet','4,200','\u2014',0],['Corridors','VCT','5,000','\u221210% heavy public traffic',1],['Lobbies','Terrazzo','3,000','\u221210% heavy public traffic',1],['Restrooms','Ceramic tile','1,300','\u221210% if more than 6 fixtures',1],['Courtrooms','Carpet / wood','3,000','\u221210% secure-area escort',1],['Holding / secure','Sealed concrete','2,500','\u221210% secure-area escort',1],['Exam / clinical','Sheet vinyl','2,000','\u221215% healthcare disinfection',1],['Library stacks','Carpet','4,500','\u2014',1],['Warehouse floor','Sealed concrete','9,000','\u2014',0]];
+    var rows = R.map(function(r){ return '<tr'+(r[4]?' class="hl"':'')+'><td>'+r[0]+'</td><td>'+r[1]+'</td><td class="num">'+r[2]+'</td><td>'+r[3]+'</td></tr>'; }).join('');
+    return sec('rates', secHead('rates','Production rate table','gauge','amber','Source: Summit standards, rev. 2026')+
+      '<div class="sec-body"><p class="small muted">Square feet cleaned per labor hour. Rows this bid uses are highlighted. Adjustments stack; add \u22125% for the first 90 days of any new account.</p><div class="tbl-wrap"><table><thead><tr><th>Space</th><th>Floor</th><th class="num">Sq ft / hr</th><th>Adjustment</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>');
+  },
+  scope: function(){
+    var S = [['Offices','Trash, vacuum traffic lanes','Full vacuum, dust','High dusting','Carpet extraction 2\u00d7/yr'],['Restrooms','Clean, disinfect, restock','Machine scrub floors','Descale fixtures','Grout clean 1\u00d7/yr'],['Corridors & lobbies','Dust mop, damp mop','Burnish','Spot clean walls','Strip & wax 2\u00d7/yr'],['Courtrooms','Full clean','Polish wood','Upholstery vacuum','\u2014'],['Clinical rooms','Disinfect touchpoints, wet mop','Wall spot disinfect','Vent cleaning','Strip & refinish 1\u00d7/yr'],['Library','Trash, vacuum','Dust stack tops','Dust shelving','Carpet extraction 1\u00d7/yr']];
+    var rows = S.map(function(r){ return '<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td>'+r[4]+'</td></tr>'; }).join('');
+    return sec('scope', secHead('scope','Scope & service frequencies','list','teal','Source: RFP Section 4')+
+      '<div class="sec-body"><p class="lead">Nightly cleaning Monday\u2013Friday, plus 3 day porters 7:00 AM\u20133:30 PM</p><div class="tbl-wrap"><table><thead><tr><th>Area</th><th>Nightly</th><th>Weekly</th><th>Monthly</th><th>Periodic</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="small muted" style="margin-top:10px">Day porters cover the Administration Building, Courthouse and Public Health Center; restrooms 3\u00d7 per day.</p></div>');
+  },
+  compliance: function(){
+    return sec('compliance', secHead('compliance','Compliance','shield','grey','Source: RFP Section 7')+
+      '<div class="sec-body"><p class="lead">4 insurance and bonding requirements, 5 certifications</p><p class="small muted" style="margin-bottom:4px">Insurance & bonding</p><ul class="plain"><li>General liability, $2M per occurrence</li><li>Umbrella, $5M</li><li>Workers\u2019 compensation, statutory</li><li>Performance bond, 100% of annual contract value</li></ul><div class="hr"></div><p class="small muted" style="margin-bottom:8px">Certifications</p><div class="chips"><span class="chip">E-Verify participation</span><span class="chip">Background checks and courthouse badging</span><span class="chip">Bloodborne pathogens training (Health Center)</span><span class="chip">CIMS preferred</span><span class="chip">MBE/WBE participation goal, 15%</span></div></div>');
+  },
+  risks: function(){
+    var R = [['high','County living wage of $17.50/hr plus a $1.80/hr health supplement, with an annual CPI escalator'],['high','Contractor supplies all consumables, including public restroom paper, with no cap'],['med','Courthouse badging takes about 10 business days; escorts required in holding areas'],['med','Liquidated damages of $250 per missed service'],['med','Termination for convenience on 30 days\u2019 notice']];
+    var Q = ['Does the library\u2019s Saturday schedule (9 AM\u20135 PM) need weekend cleaning?','Are exam rooms terminal-cleaned nightly, or only on request?','Is there a transition period with the incumbent?','Will the county provide janitor closets and storage at all four sites?'];
+    return sec('risks', secHead('risks','RFP risk review','alert','red','Source: RFP pp. 61\u201388')+
+      '<div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th>Severity</th><th>Risk</th></tr></thead><tbody>'+R.map(function(r){ return '<tr><td><span class="tag '+r[0]+'">'+(r[0]==='high'?'High':'Medium')+'</span></td><td>'+r[1]+'</td></tr>'; }).join('')+'</tbody></table></div>'+
+      '<div class="hr"></div><p class="small muted" style="margin-bottom:6px">Open questions for the county</p><ul class="plain">'+Q.map(function(q){return '<li>'+q+'</li>';}).join('')+'</ul></div>');
+  },
+  labor: function(){
+    return sec('labor', secHead('labor','Local market intelligence','pin','teal','Source: metro wage data, county code')+
+      '<div class="sec-body"><div class="rows">'+
+      '<div><span class="k">Metro median wage</span><span>$16.40/hr for janitorial work</span></div>'+
+      '<div><span class="k">County living wage</span><span>$17.50/hr plus $1.80/hr health supplement ($19.30 effective)</span></div>'+
+      '<div><span class="k">Burden estimate</span><span>22\u201326% of wages (payroll taxes, workers\u2019 comp, PTO)</span></div>'+
+      '<div><span class="k">Union status</span><span>Non-union; no collective bargaining agreement</span></div>'+
+      '<div><span class="k">Labor market</span><span>The living wage clears the metro median by $2.90/hr, so the ordinance, not the market, sets labor cost on this bid. Expect 3\u20134 weeks to staff a night crew.</span></div>'+
+      '</div></div>');
+  },
+  incumbent: function(){
+    return sec('incumbent', secHead('incumbent','Incumbent & rebid intel','brief','grey','Source: public award records')+
+      '<div class="sec-body"><div class="rows">'+
+      '<div><span class="k">Incumbent</span><span>ClearPoint Services, since 2022</span></div>'+
+      '<div><span class="k">Prior contract value</span><span>$1.0M\u2013$1.1M per year (range)</span></div>'+
+      '<div><span class="k">Why it\u2019s rebid</span><span>Contract expires January 2027. Two cure notices in 2025 for missed restroom service.</span></div>'+
+      '<div><span class="k">What changed</span><span>The prior award predates the county living wage ordinance and a 2024 scope expansion at the Public Health Center.</span></div>'+
+      '</div></div>');
+  },
+  comps: function(){
+    var C = [['Westbrook County Annex (2024)','Government offices','120,000','Won','3.22'],['Metro Transit Headquarters (2025)','Government offices','210,000','Won','2.88'],['Riverside Medical Pavilion','Medical office','298,000','Won','3.48'],['Northgate Office Park','Corporate campus','265,000','Won','2.80'],['Franklin Park Charter Schools','Education','340,000','Lost (award at $2.41)','2.62']];
+    return sec('comps', secHead('comps','Comparable bids','compare','blue','Source: your bid history')+
+      '<div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th>Facility</th><th>Type</th><th class="num">Sq ft</th><th>Outcome</th><th class="num">$ / sq ft / yr</th></tr></thead><tbody>'+
+      C.map(function(c){ return '<tr><td>'+c[0]+'</td><td>'+c[1]+'</td><td class="num">'+c[2]+'</td><td>'+c[3]+'</td><td class="num">$'+c[4]+'</td></tr>'; }).join('')+
+      '</tbody></table></div></div>');
+  },
+  margin: function(){
+    return sec('margin', secHead('margin','Margin simulator','sliders','amber','')+
+      '<div class="sec-body"><p class="small muted">Enter your estimated annual cost to deliver the contract. Jain shows the price that hits your target margin.</p>'+
+      '<div class="sim"><div><label class="small muted" for="simCost">Estimated annual cost</label><input type="text" id="simCost" inputmode="numeric" placeholder="$0" autocomplete="off"></div>'+
+      '<div><label class="small muted" for="simM">Target gross margin: <b id="simMv">12%</b></label><input class="slider" type="range" id="simM" min="4" max="20" value="12"></div></div>'+
+      '<div class="hr"></div><div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap"><div><div class="small muted">Implied annual price</div><div class="out-price" id="simOut">\u2014</div><div class="small muted" id="simSf"></div></div><button class="btn" type="button" id="simUse" style="margin-left:auto">Use as my guess</button></div></div>');
+  },
+  ptw: function(){
+    var xs=[], d='', W=640, H=220, x0=48, x1=620, y0=18, y1=190;
+    function X(p){ return x0 + (p-0.95)/(1.45-0.95)*(x1-x0); }
+    function Y(v){ return y1 - v*(y1-y0); }
+    for (var p=0.95; p<=1.4501; p+=0.01){ var v = 0.92/(1+Math.exp((p-1.215)/0.055)); d += (d?'L':'M') + X(p).toFixed(1)+' '+Y(v).toFixed(1); }
+    var grid='', labels='';
+    [0,0.25,0.5,0.75,1].forEach(function(v){ grid += '<line x1="'+x0+'" x2="'+x1+'" y1="'+Y(v)+'" y2="'+Y(v)+'" style="stroke:var(--border)"/>'; });
+    [0.95,1.05,1.15,1.25,1.35,1.45].forEach(function(p){ labels += '<span style="position:absolute; left:'+(X(p)/W*100)+'%; bottom:0; transform:translateX(-50%); font-size:11.5px; color:var(--muted)">$'+p.toFixed(2)+'M</span>'; });
+    var vl = X(1.14)/W*100, vr = X(1.28)/W*100;
+    return sec('ptw', secHead('ptw','Price-to-win curve','trend','purple','Source: 118 similar awards')+
+      '<div class="sec-body"><p class="small muted">Probability of winning at each annual price, modeled on similar public-sector awards.</p>'+
+      '<div class="ptw" style="padding-bottom:26px"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Win probability falls as price rises; the steepest part of the curve is hidden">'+grid+
+      '<path d="'+d+'" style="fill:none; stroke:var(--teal); stroke-width:3"/>'+
+      '<text x="4" y="'+(Y(1)+4)+'" style="font-size:11px; fill:var(--muted)">100%</text><text x="10" y="'+(Y(0.5)+4)+'" style="font-size:11px; fill:var(--muted)">50%</text><text x="18" y="'+(Y(0)+4)+'" style="font-size:11px; fill:var(--muted)">0%</text></svg>'+
+      '<div class="veil" style="left:'+vl+'%; width:'+(vr-vl)+'%">Sweet spot<br>hidden</div>'+labels+'</div></div>');
+  }
+};
+var ORDER = ['xray','bsc','floor','rates','scope','compliance','risks','labor','incumbent','comps','margin','ptw','staffing'];
+
+function renderBid(){
+  var x = has('xray');
+  var stat = function(ico,color,lab,val,note,chat){
+    if (!x) return '<div class="stat"><div class="lab"><span class="ico '+color+'">'+ic(ico)+'</span>'+lab+'</div><div class="skel"></div><div class="skel s"></div><div class="note">Play <b>X-Ray</b></div></div>';
+    return '<div class="stat"><div class="lab"><span class="ico '+color+'">'+ic(ico)+'</span>'+lab+'</div><div class="val">'+val+'</div>'+(chat?'<button type="button" class="link" data-openchat>'+ic('chat')+'See full details in chat</button>':'<div class="note">'+note+'</div>')+'</div>';
+  };
+  var h = '<p class="eyebrow">Bid X-Ray</p><h1>'+esc(BID.name)+' <span class="ver">v.1</span></h1>'+
+    '<dl class="meta"><div><dt>Address</dt><dd>'+BID.addr+'</dd></div><div><dt>Facility type</dt><dd>'+(x?'Government offices, courthouse, clinic, library':'<span class="muted">Play X-Ray</span>')+'</dd></div><div><dt>Submission deadline</dt><dd>'+BID.deadline+'</dd></div></dl>'+
+    '<div class="actions"><button class="btn primary" type="button" data-inert>'+ic('upload')+'Upload Document</button><button class="btn" type="button" data-inert>'+ic('download')+'Create Powerpoint</button><button class="btn" type="button" data-inert>'+ic('download')+'Export PDF</button></div>'+
+    '<div class="stats">'+stat('layers','grey','Total square footage','386,000 <small>sf</small>','Across 4 buildings')+stat('cal','green','Term','3 <small>years</small>','3 yr + 2\u00d71')+stat('card','blue','Payment terms','Net 30','',true)+stat('file','red','Termination','30 <small>days</small>','',true)+'</div>';
+  var played = [], lockedList = [];
+  ORDER.forEach(function(id){ if (has(id) && SECTIONS[id]) played.push(SECTIONS[id]()); else lockedList.push(lockedBlock(id)); });
+  if (played.length) h += played.join('');
+  h += '<p class="small muted" style="margin:18px 0 8px">'+(played.length?'Still hidden':'Everything below is hidden until you play its card')+'</p>' + lockedList.join('');
+  return h;
+}
+
+function renderWon(){
+  var p = PIPE.filter(function(r){return r.id===state.wonId;})[0], w = WON[p.id];
+  var bars = '', max = 20, min = 10, W=560, H=200, pad=36, bw=48, gap=(W-pad-24-bw*6)/5;
+  var months=['Apr','May','Jun','Jul','Aug','Sep'];
+  function Y(v){ return 20 + (max-v)/(max-min)*(H-50); }
+  w.trend.forEach(function(v,i){ var x = pad + i*(bw+gap); bars += '<rect x="'+x+'" y="'+Y(v)+'" width="'+bw+'" height="'+(H-30-Y(v))+'" rx="4" style="fill:var(--teal)"/><text x="'+(x+bw/2)+'" y="'+(Y(v)-6)+'" text-anchor="middle" style="font-size:12px; fill:var(--text)">'+v.toFixed(1)+'%</text><text x="'+(x+bw/2)+'" y="'+(H-10)+'" text-anchor="middle" style="font-size:12px; fill:var(--muted)">'+months[i]+'</text>'; });
+  var ty = Y(w.target);
+  var diff = (w.margin - w.target).toFixed(1);
+  var st = function(ico,color,lab,val,note,cls){ return '<div class="stat"><div class="lab"><span class="ico '+color+'">'+ic(ico)+'</span>'+lab+'</div><div class="val">'+val+'</div><div class="note'+(cls?' delta '+cls:'')+'">'+note+'</div></div>'; };
+  return '<button class="btn ghost back" type="button" data-go="pipeline">'+ic('back')+'Back to pipeline</button>'+
+    '<p class="eyebrow">Active contract</p><h1>'+esc(p.name)+' '+statusTag('won')+'</h1>'+
+    '<dl class="meta"><div><dt>Location</dt><dd>'+esc(p.loc)+'</dd></div><div><dt>Contract start</dt><dd>'+w.start+'</dd></div><div><dt>Cleanable area</dt><dd>'+w.sqft.toLocaleString('en-US')+' sq ft ($'+(w.value/w.sqft).toFixed(2)+'/sq ft/yr)</dd></div></dl>'+
+    '<div class="dash">'+
+      st('wage','green','Annual value',money(w.value),'Billed monthly')+
+      st('trend','teal','Gross margin',w.margin.toFixed(1)+'%',(diff>=0?'+':'')+diff+' pts vs '+w.target.toFixed(0)+'% target', diff>=0?'up':'down')+
+      st('wage','blue','Average wage','$'+w.wage.toFixed(2)+' <small>/hr</small>','Across '+w.crew+' cleaners')+
+      st('card','grey','Monthly payroll',money(w.payroll),'Before burden')+
+      st('clock','red','Overtime',w.ot.toFixed(1)+'%','Share of labor hours')+
+      st('gauge','amber','Labor hours',w.hours.toLocaleString('en-US')+' <small>/mo</small>','Quality score '+w.quality+'/100')+
+    '</div>'+
+    '<section class="sec">'+secHead('','Gross margin by month','chart','teal','Live from payroll and billing')+
+    '<div class="sec-body chart"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Monthly gross margin, April to September">'+bars+
+    '<line x1="'+(pad-8)+'" x2="'+(W-16)+'" y1="'+ty+'" y2="'+ty+'" style="stroke:var(--amber); stroke-width:1.5; stroke-dasharray:5 4"/><text x="'+(W-16)+'" y="'+(ty-6)+'" text-anchor="end" style="font-size:11.5px; fill:var(--amber)">Target '+w.target.toFixed(0)+'%</text></svg>'+
+    '<p class="small muted" style="margin-top:10px">'+w.note+'</p></div></section>';
+}
+
+function render(){
+  renderCrumbs();
+  var app = $('#app');
+  app.innerHTML = state.view==='pipeline' ? renderPipeline() : state.view==='bid' ? renderBid() : renderWon();
+  renderTray(); renderChat(); wireSim();
+  if (state.lastRevealed){
+    var el = document.getElementById('sec-'+state.lastRevealed);
+    if (el) el.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start'});
+    state.lastRevealed = null;
+  }
+}
+function go(view){ state.view = view; window.scrollTo(0,0); render(); }
+
+/* ---------- tray ---------- */
+function renderTray(){
+  var t = $('#tray');
+  var pips = ''; for (var i=0;i<3;i++) pips += '<span class="pip'+(i<spent()?' used':'')+'"></span>';
+  if (state.guess){
+    t.innerHTML = '<div class="tray-in"><div class="hand"><span class="t">Guess locked</span><div class="pips">'+pips+'</div></div><div class="done-bar"><span class="big">'+money(state.guess)+' / yr</span><span class="muted">Results arrive by email after ISSA: how close you were, plus the top 3.</span></div><div class="tray-r"><button class="btn primary" type="button" id="previewMail">Preview results email</button><button class="btn" type="button" data-newplayer>New player</button></div></div>';
+    return;
+  }
+  var DECO = '<svg class="deco" viewBox="0 0 161 186" fill="none" aria-hidden="true"><path d="M12.7959 180.092C12.7959 180.092 11.3368 176.495 9.71692 174.875C8.09703 173.255 4.49994 171.796 4.49994 171.796C4.49994 171.796 8.09703 170.337 9.71692 168.717C11.3368 167.097 12.7959 163.5 12.7959 163.5C12.7959 163.5 14.255 167.097 15.8749 168.717C17.4948 170.337 21.0919 171.796 21.0919 171.796C21.0919 171.796 17.4948 173.255 15.8749 174.875C14.255 176.495 12.7959 180.092 12.7959 180.092Z" fill="currentColor"/><line x1="12.6894" y1="-4.5" x2="12.6894" y2="210.375" stroke="currentColor" stroke-width="0.972285"/><line x1="170.812" y1="171.742" x2="-93" y2="171.742" stroke="currentColor" stroke-width="0.972285"/></svg>';
+  var LOCK = '<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M8.5 5V4C8.5 2.61929 7.38071 1.5 6 1.5C4.61929 1.5 3.5 2.61929 3.5 4V5M6 7.25V8.25M4.4 10.5H7.6C8.44008 10.5 8.86012 10.5 9.18099 10.3365C9.46323 10.1927 9.6927 9.96323 9.83651 9.68099C10 9.36012 10 8.94008 10 8.1V7.4C10 6.55992 10 6.13988 9.83651 5.81901C9.6927 5.53677 9.46323 5.3073 9.18099 5.16349C8.86012 5 8.44008 5 7.6 5H4.4C3.55992 5 3.13988 5 2.81901 5.16349C2.53677 5.3073 2.3073 5.53677 2.16349 5.81901C2 6.13988 2 6.55992 2 7.4V8.1C2 8.94008 2 9.36012 2.16349 9.68099C2.3073 9.96323 2.53677 10.1927 2.81901 10.3365C3.13988 10.5 3.55992 10.5 4.4 10.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var cards = CARDS.map(function(c){
+    var s = cardState(c), cnt = state.played.filter(function(x){return x===c.id;}).length;
+    var cost = s==='played' ? ic('check')+' Played' : c.repeat && cnt ? 'Played \u00d7'+cnt : (c.cost||1)+' card'+((c.cost||1)>1?'s':'');
+    var cls = s==='played' ? ' played' : s==='locked' ? ' locked-c' : s==='out' ? ' out' : '';
+    var foot = s==='locked' ? '<span class="lockpill">'+LOCK+esc(reqText(c))+'</span>' : '';
+    var src = c.src || (c.proposed ? 'from Jain research' : 'extracted from RFP');
+    return '<button type="button" class="card hc'+cls+'" data-card="'+c.id+'"'+(s==='locked'||s==='out'?' aria-disabled="true"':'')+' aria-label="'+esc(c.name+', '+c.blurb+(s==='locked'?', locked: '+reqText(c):'')+(s==='played'?', played':''))+'">'+DECO+
+      '<span class="top">'+ic(c.icon)+'<span class="cost">'+cost+'</span></span>'+
+      '<span class="body"><span class="nm">'+esc(c.name)+'</span><span class="dsc"><span class="bl">'+esc(c.blurb)+'</span>'+'<span class="src">'+esc(src)+'</span>'+'</span></span>'+
+      '<span class="ft">'+foot+'</span></button>';
+  }).join('');
+  t.innerHTML = '<div class="tray-in"><div class="hand"><span class="t">'+left()+' of 3 cards left</span><div class="pips">'+pips+'</div><span class="h">Some cards unlock others. Choose your path.</span></div><div class="cards" role="list">'+cards+'</div><div class="tray-r"><button class="btn primary" type="button" id="lockIn">Lock in guess</button></div></div>';
+}
+
+/* ---------- playing cards ---------- */
+function tryCard(id){
+  if (state.guess) return;
+  var c = card(id), s = cardState(c);
+  if (id==='chat'){ openChat(true); return; }
+  if (s==='played'){ if (SECTIONS[id]){ state.lastRevealed = id; go('bid'); } return; }
+  if (s==='locked'){ toast(c.unreachable ? 'Staffing plan needs Floor breakdown and Production rates: four cards. It appears in the results email.' : c.name+' unlocks after '+c.req.map(function(r){return card(r).name;}).join(' + ')+'.'); return; }
+  if (s==='out'){ toast(left() ? c.name+' costs '+(c.cost||1)+' cards. You have '+left()+' left.' : 'No cards left. Lock in your guess.'); return; }
+  if (id==='won'){ state.filter='won'; go('pipeline'); toast('Choose a won bid to open its live dashboard.'); return; }
+  play(id);
+}
+function play(id, after){
+  var c = card(id), steps = STEPS[id] || ['Reading source documents','Extracting details','Tracing every figure to its source'];
+  var m = $('#modal');
+  m.innerHTML = '<div class="scrim"><div class="dlg" role="dialog" aria-modal="true" aria-labelledby="pt"><div class="dlg-b"><h3 id="pt">Playing '+esc(c.name)+'</h3>'+
+    '<div class="info">Jain is examining the RFP and your data. Every finding points back to its source.</div><ul class="steps">'+
+    steps.map(function(s,i){ return '<li><span class="circ" id="st'+i+'"></span>'+esc(s)+'</li>'; }).join('')+'</ul><div class="bar"><i id="pbar"></i></div></div></div></div>';
+  var fast = matchMedia('(prefers-reduced-motion: reduce)').matches, dt = fast ? 120 : 480, i = 0;
+  function tick(){
+    if (i>0){ var p = $('#st'+(i-1)); p.className='circ ok'; p.innerHTML = ic('check'); }
+    if (i<steps.length){ $('#st'+i).className='circ spin'; $('#pbar').style.width = ((i+0.5)/steps.length*100)+'%'; i++; setTimeout(tick, dt); }
+    else { $('#pbar').style.width='100%'; setTimeout(function(){
+      m.innerHTML=''; state.played.push(id);
+      if (after) after(); else { state.lastRevealed = id; go('bid'); }
+      toast(c.name+' played. '+left()+' card'+(left()===1?'':'s')+' left.');
+    }, dt/2); }
+  }
+  tick();
+}
+
+/* ---------- won dashboards ---------- */
+function openWon(id){
+  if (state.seen[id]){ state.wonId=id; go('won'); return; }
+  if (state.guess){ toast('Your guess is locked.'); return; }
+  if (left()<1){ toast('No cards left. Lock in your guess.'); return; }
+  var p = PIPE.filter(function(r){return r.id===id;})[0];
+  modal('<div class="dlg-b"><h3>Open the live dashboard?</h3><p class="muted" style="margin:0">See margin, wages, payroll and overtime for <b>'+esc(p.name)+'</b>. This plays your <b>See won &amp; active bid</b> card.</p></div>'+
+    '<div class="dlg-f"><button class="btn" type="button" data-close>Cancel</button><button class="btn primary" type="button" id="okWon">Play card</button></div>');
+  $('#okWon').onclick = function(){ closeModal(); play('won', function(){ state.seen[id]=true; state.wonId=id; go('won'); }); };
+}
+
+/* ---------- chat ---------- */
+var PROMPTS = {
+  bid:[
+    { id:'drivers', q:'What drives cost most on this bid?', t:'Cost drivers', a:'Labor. With the county living wage at $17.50/hr plus a $1.80/hr health supplement, labor is roughly 80% of cost. The Courthouse is the most expensive building per square foot because of escorted access to secure areas. Supplies are contractor-furnished, including public restroom paper.' },
+    { id:'unusual', q:'What\u2019s unusual about the scope?', t:'Scope', a:'Two things. Every cleaner needs courthouse badging (about 10 business days), and holding areas need escorts, which slows production. The Public Health Center also requires nightly disinfection of exam rooms to healthcare standards, not office standards.' },
+    { id:'porters', q:'How many day porters does the RFP require?', t:'Day porters', a:'Three: one each at the Administration Building, Courthouse and Public Health Center, Monday\u2013Friday, 7:00 AM\u20133:30 PM. The library has no day porter requirement.' }
+  ],
+  org:[
+    { id:'avg', q:'What\u2019s our average $/sq ft on won public-sector bids?', t:'Public-sector pricing', a:'Across 6 won public-sector bids since 2023: $2.95 per sq ft per year on average, ranging from $2.60 to $3.40. Your two public-sector losses were both priced above $3.30.' },
+    { id:'franklin', q:'Why did we lose Franklin Park Charter Schools?', t:'Franklin Park', a:'You bid $2.62/sq ft; the award went to $2.41/sq ft. Your staffing plan carried about 12% more night hours than the RFP\u2019s frequencies required.' }
+  ]
+};
+function renderChat(){
+  var b = $('#chatBody');
+  var msgs = '<div class="msg"><div class="who2">Jain</div><div class="ttl">Ask Jain</div><div class="tx">Each question costs one card. Pick one below, about this bid or across your organization.</div></div>';
+  state.chat.forEach(function(m){
+    if (m.role==='you') msgs += '<div class="msg you"><div class="who2">You</div><div class="tx">'+esc(m.text)+'</div></div>';
+    else if (m.typing) msgs += '<div class="msg"><div class="who2">Jain</div><div class="typing" aria-label="Jain is typing"><span></span><span></span><span></span></div></div>';
+    else msgs += '<div class="msg"><div class="who2">Jain</div><div class="ttl">'+esc(m.title)+'</div><div class="tx">'+esc(m.text)+'</div></div>';
+  });
+  b.innerHTML = msgs; b.scrollTop = b.scrollHeight;
+  $('#chatScope').innerHTML = '<button type="button" data-scope="bid" aria-pressed="'+(state.scope==='bid')+'">Just to this bid</button><button type="button" data-scope="org" aria-pressed="'+(state.scope==='org')+'">Across your organization</button>';
+  $('#prompts').innerHTML = PROMPTS[state.scope].map(function(p){
+    var asked = state.asked.indexOf(p.id)>-1, dis = asked || state.guess || left()<1;
+    return '<button type="button" class="prompt" data-ask="'+p.id+'"'+(dis?' disabled':'')+'><span>'+esc(p.q)+'</span><span class="c">'+(asked?'Asked':'1 card')+'</span></button>';
+  }).join('');
+  document.body.classList.toggle('chat-open', state.chatOpen);
+}
+function openChat(open){ state.chatOpen = open; if (open && state.view==='bid') state.scope='bid'; renderChat(); }
+function ask(pid){
+  if (state.guess) return;
+  if (left()<1){ toast('No cards left. Lock in your guess.'); return; }
+  var p = PROMPTS.bid.concat(PROMPTS.org).filter(function(x){return x.id===pid;})[0];
+  state.played.push('chat'); state.asked.push(pid);
+  state.chat.push({role:'you', text:p.q}); var typing = {role:'jain', typing:true}; state.chat.push(typing);
+  renderChat(); renderTray();
+  setTimeout(function(){ typing.typing=false; typing.title=p.t; typing.text=p.a; renderChat(); toast('Chat card played. '+left()+' card'+(left()===1?'':'s')+' left.'); }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 50 : 900);
+}
+
+/* ---------- margin sim ---------- */
+function parseMoney(v){ var n = parseInt(String(v).replace(/[^0-9]/g,''),10); return isNaN(n)?0:n; }
+function wireSim(){
+  var c = $('#simCost'); if (!c) return;
+  var m = $('#simM');
+  if (state.simCost) c.value = money(state.simCost);
+  if (state.simM) m.value = state.simM;
+  function upd(){
+    var cost = parseMoney(c.value), mg = +m.value; state.simCost = cost; state.simM = mg;
+    $('#simMv').textContent = mg+'%';
+    if (!cost){ $('#simOut').textContent='\u2014'; $('#simSf').textContent=''; return; }
+    var price = cost/(1-mg/100); state.simPrice = price;
+    $('#simOut').textContent = money(price)+' / yr';
+    $('#simSf').textContent = has('xray') ? '$'+(price/SQFT).toFixed(2)+' per sq ft per year' : '';
+  }
+  c.oninput = function(){ var n = parseMoney(c.value); c.value = n ? money(n) : ''; upd(); };
+  m.oninput = upd; upd();
+  $('#simUse').onclick = function(){ if (state.simPrice) openGuess(Math.round(state.simPrice)); else toast('Enter an estimated annual cost first.'); };
+}
+
+/* ---------- modals ---------- */
+var lastFocus;
+function modal(inner, wide){
+  lastFocus = document.activeElement;
+  $('#modal').innerHTML = '<div class="scrim" data-scrim><div class="dlg'+(wide?' wide':'')+'" role="dialog" aria-modal="true">'+inner+'</div></div>';
+  var f = $('#modal').querySelector('input, button.primary, button'); if (f) f.focus();
+}
+function closeModal(){ if (typeof htpStop==='function') htpStop(); $('#modal').innerHTML=''; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+
+function openCheckin(){
+  modal('<div class="dlg-b"><p class="eyebrow">ISSA 2026</p><h3>The Price Is Right, Jain edition</h3><p class="muted" style="margin:0">Guess the winning annual bid on a live janitorial RFP. Check in so we can send your results after the show.</p>'+
+    '<div class="f"><label for="ciName">Name</label><input type="text" id="ciName" autocomplete="name"></div>'+
+    '<div class="f"><label for="ciCo">Company</label><input type="text" id="ciCo" autocomplete="organization"></div>'+
+    '<div class="f"><label for="ciEmail">Work email</label><input type="email" id="ciEmail" autocomplete="email" placeholder="you@company.com"></div><div class="err" id="ciErr"></div>'+
+    '<p class="demo-note">Demo with sample data. Nothing you enter here is saved or sent.</p></div>'+
+    '<div class="dlg-f"><button class="btn ghost left" type="button" id="ciSkip">Skip for demo</button><button class="btn primary" type="button" id="ciGo">Start playing</button></div>');
+  $('#ciGo').onclick = function(){
+    var n=$('#ciName').value.trim(), e=$('#ciEmail').value.trim();
+    if (!n){ $('#ciErr').textContent='Enter your name to play.'; $('#ciName').focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){ $('#ciErr').textContent='Enter a work email. Results are sent there after ISSA.'; $('#ciEmail').focus(); return; }
+    state.player = {name:n, company:$('#ciCo').value.trim(), email:e}; closeModal(); render(); openWizard(0);
+  };
+  $('#ciSkip').onclick = function(){ state.player = {name:'Guest player', company:'', email:''}; closeModal(); render(); openWizard(0); };
+  $('#modal').querySelector('.dlg').addEventListener('keydown', function(ev){ if (ev.key==='Enter') $('#ciGo').click(); });
+}
+
+function openGuess(prefill){
+  var chips = state.played.length ? state.played.map(function(id){ return '<span class="chip">'+esc(card(id).name)+'</span>'; }).join('') : '<span class="muted small">No cards played. Pure instinct.</span>';
+  modal('<div class="dlg-b"><h3>What\u2019s the winning annual bid?</h3><p class="muted" style="margin:0">'+esc(BID.name)+'. Closest without going over wins.</p>'+
+    '<div class="money"><span>$</span><input type="text" id="gIn" inputmode="numeric" autocomplete="off" aria-label="Your guess in dollars per year" placeholder="0"><span class="per muted">/ yr</span></div><div class="err" id="gErr"></div>'+
+    '<p class="small muted" style="margin:6px 0 0">Cards played</p><div class="played-list">'+chips+'</div>'+
+    (left()>0?'<p class="small muted" style="margin:12px 0 0">You still have '+left()+' card'+(left()===1?'':'s')+'. Once you lock in, the round ends.</p>':'')+'</div>'+
+    '<div class="dlg-f"><button class="btn" type="button" data-close>Keep playing</button><button class="btn primary" type="button" id="gGo">Lock in guess</button></div>');
+  var g = $('#gIn');
+  if (prefill) g.value = prefill.toLocaleString('en-US');
+  g.oninput = function(){ var n = parseMoney(g.value); g.value = n ? n.toLocaleString('en-US') : ''; };
+  g.addEventListener('keydown', function(ev){ if (ev.key==='Enter') $('#gGo').click(); });
+  $('#gGo').onclick = function(){
+    var n = parseMoney(g.value);
+    if (n < 10000){ $('#gErr').textContent = 'Enter an annual price, like 1,250,000.'; g.focus(); return; }
+    state.guess = n; openChat(false); closeModal(); render(); openLocked();
+  };
+}
+function openLocked(){
+  var em = state.player && state.player.email ? esc(state.player.email) : 'your inbox';
+  modal('<div class="dlg-b" style="text-align:center; padding:32px 28px"><div class="bigcheck" style="margin:0 auto 14px">'+ic('check')+'</div><h3>Guess locked</h3><div class="amount">'+money(state.guess)+' / yr</div>'+
+    '<p class="muted" style="margin:6px auto 0; max-width:40ch">The winning price stays secret until ISSA ends. We\u2019ll send '+em+' how close you were, plus the top 3.</p></div>'+
+    '<div class="dlg-f"><button class="btn left" type="button" data-newplayer>New player</button><button class="btn primary" type="button" id="lkMail">Preview results email</button></div>');
+  $('#lkMail').onclick = openMail;
+}
+function openMail(){
+  var off = (state.guess - WIN)/WIN*100, over = state.guess > WIN;
+  var name = state.player && state.player.name && state.player.name!=='Guest player' ? state.player.name.split(' ')[0] : 'there';
+  var to = state.player && state.player.email ? esc(state.player.email) : 'player@company.com';
+  modal('<div class="dlg-b"><div class="mail"><div class="mail-h"><b>Jain</b> to '+to+'<br>Subject: <b>Your Price Is Right results are in</b></div><div class="mail-b">'+
+    '<h4>Hi '+esc(name)+', here\u2019s how you did at ISSA</h4><p class="muted" style="margin:0">'+esc(BID.name)+'</p>'+
+    '<div class="res"><div><span>Winning bid</span><span class="v">'+money(WIN)+' / yr</span></div>'+
+    '<div><span>Your guess</span><span class="v">'+money(state.guess)+' \u00b7 '+Math.abs(off).toFixed(1)+'% '+(off>=0?'over':'under')+'</span></div>'+
+    '<div><span>Your rank</span><span class="v">'+(over?'Over the winning bid, not ranked':'#14 of 212')+'</span></div>'+
+    '<div><span>Jain\u2019s estimate</span><span class="v" style="color:var(--teal-text)">'+money(JAIN_EST)+' \u00b7 within '+((JAIN_EST-WIN)/WIN*100).toFixed(1)+'%</span></div></div>'+
+    '<p class="small muted" style="margin:0 0 6px">Top 3</p><div class="podium"><div><b>1st</b>[Winner name]<br><span class="muted">0.3% under</span></div><div><b>2nd</b>[Winner name]<br><span class="muted">0.9% under</span></div><div><b>3rd</b>[Winner name]<br><span class="muted">1.6% under</span></div></div>'+
+    '<button class="btn primary" type="button" data-inert style="width:100%; justify-content:center">See how Jain priced it</button></div></div>'+
+    '<p class="demo-note">Preview with sample results. Real results are sent after ISSA; rank and winners are placeholders.</p></div>'+
+    '<div class="dlg-f"><button class="btn" type="button" data-close>Close</button></div>', true);
+}
+
+/* ---------- how-to-play (animated) ---------- */
+var HTP_REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var HTP_SPRING = 'cubic-bezier(.34,1.56,.64,1)', HTP_OUT = 'cubic-bezier(.2,.8,.2,1)';
+var htpTimers = [], htpStep = 0, htpFlipped = false;
+function htpAt(ms, fn){ htpTimers.push(setTimeout(fn, ms)); }
+function htpA(el, kf, o){ if (!el) return; var opts = {fill:'forwards', easing:HTP_OUT}; for (var k in o) opts[k]=o[k]; return el.animate(kf, opts); }
+function htpStop(){
+  htpTimers.forEach(clearTimeout); htpTimers = [];
+  var art = $('#htpArt'); if (art) art.getAnimations({subtree:true}).forEach(function(a){ a.cancel(); });
+  var tr = $('#tray'); if (tr) tr.classList.remove('spot');
+}
+function htpEl(id){ return document.getElementById(id); }
+function htpBurst(el, color){
+  var art = $('#htpArt'); if (!art || !el) return;
+  var r = el.getBoundingClientRect(), p = art.getBoundingClientRect(), cx = r.left-p.left+r.width/2, cy = r.top-p.top+r.height/2;
+  for (var i=0;i<12;i++){ (function(i){
+    var s = document.createElement('span'); s.className='spark'; if (color) s.style.background=color;
+    s.style.left=cx+'px'; s.style.top=cy+'px'; art.appendChild(s);
+    var a = i/12*Math.PI*2, d = 46+Math.random()*28;
+    s.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:1},{transform:'translate(calc(-50% + '+(Math.cos(a)*d)+'px),calc(-50% + '+(Math.sin(a)*d)+'px)) scale(.2)',opacity:0}],{duration:650,easing:HTP_OUT}).onfinish=function(){ s.remove(); };
+  })(i); }
+}
+function htpPips(id, n){
+  var el = htpEl(id); if (!el) return;
+  [].forEach.call(el.querySelectorAll('.pip'), function(p,i){ var was = !p.classList.contains('used'); p.classList.toggle('used', i>=n); if (was && i>=n) htpA(p,[{transform:'scale(1.4)'},{transform:'scale(1)'}],{duration:350,fill:'none'}); });
+  el.querySelector('.l').textContent = n+' left';
+}
+function htpShake(el){ htpA(el,[{transform:'translateX(0)'},{transform:'translateX(-7px)'},{transform:'translateX(7px)'},{transform:'translateX(-5px)'},{transform:'translateX(4px)'},{transform:'translateX(0)'}],{duration:420,fill:'none'}); }
+function htpPlay(el){ htpA(el,[{transform:'translateY(0) scale(1)'},{transform:'translateY(-14px) scale(1.08)',offset:.4},{transform:'translateY(0) scale(1)'}],{duration:520,easing:HTP_SPRING,fill:'none'}); }
+var HTP_LOCK = '<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M8.5 5V4C8.5 2.61929 7.38071 1.5 6 1.5C4.61929 1.5 3.5 2.61929 3.5 4V5M6 7.25V8.25M4.4 10.5H7.6C8.44008 10.5 8.86012 10.5 9.18099 10.3365C9.46323 10.1927 9.6927 9.96323 9.83651 9.68099C10 9.36012 10 8.94008 10 8.1V7.4C10 6.55992 10 6.13988 9.83651 5.81901C9.6927 5.53677 9.46323 5.3073 9.18099 5.16349C8.86012 5 8.44008 5 7.6 5H4.4C3.55992 5 3.13988 5 2.81901 5.16349C2.53677 5.3073 2.3073 5.53677 2.16349 5.81901C2 6.13988 2 6.55992 2 7.4V8.1C2 8.94008 2 9.36012 2.16349 9.68099C2.3073 9.96323 2.53677 10.1927 2.81901 10.3365C3.13988 10.5 3.55992 10.5 4.4 10.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function htpCard(id, cardId, style, lock){
+  var c = card(cardId);
+  return '<div class="mc'+(lock?' locked':'')+'" id="'+id+'" style="'+style+'"><div class="mcb"><span class="mci">'+ic(c.icon)+'</span><b>'+esc(c.name)+'</b><span>'+esc(c.blurb)+'</span></div>'+(lock?'<span class="lockpill">'+HTP_LOCK+'<span class="lk">'+esc(lock)+'</span></span>':'<span class="mcx"></span>')+'</div>';
+}
+function htpMiniPips(id){ return '<div class="mpips" id="'+id+'"><span class="pip"></span><span class="pip"></span><span class="pip"></span><span class="l">3 left</span></div>'; }
+
+var HTP = [
+  { t:'Guess the winning bid', p:'One live RFP is the mystery bid. Guess the annual price that wins it.', aside:'You\u2019re bidding as Summit Building Services, a sample BSC.',
+    art:function(){ return '<div id="h1card"><div class="f3" id="h1flip"><div class="fc cback"></div><div class="fc fr" style="transform:rotateY(180deg)"><b>'+esc(BID.short)+'</b><span class="h1meta">Government, 4 buildings</span><div class="h1row"><span class="guess-me" id="h1tag" style="margin-left:0">Guess this one</span><span class="q" id="h1q">???</span></div></div></div></div>'; },
+    run:function run(){
+      var f=htpEl('h1flip'), q=htpEl('h1q'), tag=htpEl('h1tag'); if(!f) return; q.textContent='???'; tag.style.opacity=0;
+      if (HTP_REDUCE){ f.style.transform='rotateY(180deg)'; tag.style.opacity=1; return; }
+      htpA(f,[{transform:'translateY(-120px) rotateY(0) rotateZ(-14deg)'},{transform:'translateY(0) rotateY(0) rotateZ(-4deg)',offset:.45},{transform:'rotateY(180deg) rotateZ(0)'}],{duration:1100,easing:HTP_SPRING});
+      htpAt(1100,function(){ var n=0; var iv=setInterval(function(){ if(!htpEl('h1q')){clearInterval(iv);return;} q.textContent=money(400000+Math.random()*1600000); if(++n>14){ clearInterval(iv); q.textContent='???'; htpA(q,[{transform:'scale(1.6)',color:'var(--teal)'},{transform:'scale(1)'}],{duration:500,easing:HTP_SPRING,fill:'none'}); } },70); htpTimers.push(setTimeout(function(){clearInterval(iv);},2000)); });
+      htpAt(2400,function(){ htpA(tag,[{transform:'scale(2.4) rotate(-12deg)',opacity:0},{transform:'scale(1) rotate(0)',opacity:1}],{duration:380,easing:'cubic-bezier(.5,0,.75,0)'}); htpAt(380,function(){ htpA(htpEl('h1card'),[{transform:'translateY(3px)'},{transform:'none'}],{duration:200,fill:'none'}); }); });
+      htpAt(6500,function(){ if(htpStep===0) run(); });
+    } },
+  { t:'You get three cards', p:'Each card reveals a different kind of information. Your hand is at the bottom of the screen.',
+    art:function(){ return '<div class="deal cback" id="d0"></div><div class="deal cback" id="d1"></div><div class="deal cback" id="d2"></div><svg id="h2arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 13l7 7 7-7"/></svg>'; },
+    run:function run(){
+      var ds=[htpEl('d0'),htpEl('d1'),htpEl('d2')], arrow=htpEl('h2arrow'); if(!arrow) return; $('#tray').classList.add('spot');
+      var pos=function(i,dy,rot){ return 'translate('+((i-1)*70)+'px,'+(Math.abs(i-1)*8+(dy||0))+'px) rotate('+((i-1)*(rot||10))+'deg)'; };
+      if (HTP_REDUCE){ ds.forEach(function(d,i){ d.style.opacity=1; d.style.transform=pos(i); }); arrow.style.opacity=1; return; }
+      ds.forEach(function(d,i){ htpA(d,[{transform:'translate(220px,-260px) rotate(60deg)',opacity:0},{transform:pos(i),opacity:1}],{duration:700,delay:200+i*180,easing:HTP_SPRING}); });
+      htpAt(1300,function(){ ds.forEach(function(d,i){ htpA(d,[{transform:pos(i)},{transform:pos(i,-14,14)}],{duration:300,direction:'alternate',iterations:2,easing:'ease-in-out'}); }); });
+      htpAt(2300,function(){
+        ds.forEach(function(d,i){ htpA(d,[{transform:pos(i),opacity:1},{transform:'translate('+((i-1)*26)+'px,260px) rotate(0) scale(.4)',opacity:0}],{duration:650,delay:i*90,easing:'cubic-bezier(.6,0,.8,.4)'}); });
+        htpA(arrow,[{opacity:0,transform:'translateY(-10px)'},{opacity:1,transform:'translateY(0)'}],{duration:300,delay:500});
+        htpAt(800,function(){ htpA(arrow,[{transform:'translateY(0)'},{transform:'translateY(8px)'}],{duration:450,iterations:6,direction:'alternate',easing:'ease-in-out'}); });
+        htpAt(700,function(){ [].forEach.call(document.querySelectorAll('#tray .card'),function(c,i){ if(i<8) c.animate([{transform:'none'},{transform:'translateY(-10px)'},{transform:'none'}],{duration:450,delay:i*60,easing:HTP_SPRING}); }); });
+      });
+      htpAt(6500,function(){ if(htpStep===1) run(); });
+    } },
+  { t:'Some cards unlock others', p:'Some information takes more than 3 cards to reach, so choose wisely.',
+    art:function(){ return htpMiniPips('p3')+
+      htpCard('a1','xray','left:18px;top:52px')+'<div class="wire" style="left:150px;top:88px;width:62px"><i id="w1"></i></div>'+htpCard('a2','floor','left:212px;top:52px','After X-Ray')+
+      htpCard('b1','bsc','left:18px;top:140px')+'<div class="wire" style="left:150px;top:176px;width:62px"><i id="w2"></i></div>'+htpCard('b2','rates','left:212px;top:140px','After BSC Assessment')+
+      '<div class="goal" id="goal"><div class="gt"><b>Staffing plan</b><span id="glbl">Needs 4 cards</span></div><div class="slots"><i></i><i></i><i></i><i></i></div></div>'; },
+    run:function run(){
+      var a1=htpEl('a1'),a2=htpEl('a2'),b1=htpEl('b1'),b2=htpEl('b2'),goal=htpEl('goal'); if(!goal) return;
+      var slots=[].slice.call(goal.querySelectorAll('.slots i')), gl=htpEl('glbl');
+      [a1,b1].forEach(function(e){ e.className='mc'; }); [a2,b2].forEach(function(e){ e.className='mc locked'; });
+      a2.querySelector('.lk').textContent='After X-Ray'; b2.querySelector('.lk').textContent='After BSC Assessment';
+      slots.forEach(function(s){ s.className=''; }); gl.textContent='Needs 4 cards'; gl.style.color=''; htpPips('p3',3);
+      var fill=function(n){ slots[n].className='f'; htpA(slots[n],[{transform:'scale(1.5)'},{transform:'scale(1)'}],{duration:380,easing:HTP_SPRING,fill:'none'}); };
+      var unlock=function(src,wire,dst){ htpPlay(src); htpAt(250,function(){ src.classList.add('spent'); }); htpA(wire,[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{duration:350,delay:300});
+        htpAt(650,function(){ dst.className='mc lit'; htpBurst(dst); htpA(dst,[{transform:'scale(.9)'},{transform:'scale(1)'}],{duration:450,easing:HTP_SPRING,fill:'none'}); }); };
+      if (HTP_REDUCE){ a1.className=b1.className=a2.className='mc spent'; b2.className='mc lit'; htpEl('w1').style.transform=htpEl('w2').style.transform='scaleX(1)'; htpPips('p3',0); [0,1,2].forEach(function(i){slots[i].className='f';}); slots[3].className='miss'; gl.textContent='3 of 4. Out of cards'; gl.style.color='var(--red)'; return; }
+      htpAt(600,function(){ htpPips('p3',2); unlock(a1,htpEl('w1'),a2); htpAt(300,function(){fill(0);}); });
+      htpAt(2000,function(){ htpPips('p3',1); unlock(b1,htpEl('w2'),b2); htpAt(300,function(){fill(1);}); });
+      htpAt(3400,function(){ htpPlay(a2); htpPips('p3',0); htpAt(250,function(){ a2.className='mc spent'; }); htpAt(300,function(){ fill(2); gl.textContent='3 of 4'; }); });
+      htpAt(4500,function(){ htpShake(b2); htpShake(goal); slots[3].className='miss'; gl.textContent='3 of 4. Out of cards'; gl.style.color='var(--red)'; });
+      htpAt(7800,function(){ if(htpStep===2) run(); });
+    } },
+  { t:'Chat and live dashboards', p:'You can play these more than once. Each play costs a card.',
+    art:function(){ return htpMiniPips('p4')+htpCard('h4chat','chat','left:30px;top:150px')+htpCard('h4dash','won','left:196px;top:150px')+
+      '<span class="badge" id="bc" style="left:148px;top:142px">\u00d71</span><span class="badge" id="bd" style="left:314px;top:142px">\u00d71</span>'+
+      '<div class="bubble" id="q1" style="left:52px;top:68px;width:96px"><i style="width:70px"></i><i style="width:46px"></i></div>'+
+      '<div class="bubble" id="q2" style="left:52px;top:68px;width:96px"><i style="width:78px"></i><i style="width:34px"></i></div>'+
+      '<div class="minichart" id="ch" style="left:226px;top:72px"><i style="height:10px"></i><i style="height:18px"></i><i style="height:14px"></i><i style="height:24px"></i><i style="height:20px"></i></div>'; },
+    run:function run(){
+      var chat=htpEl('h4chat'),dash=htpEl('h4dash'),bc=htpEl('bc'),bd=htpEl('bd'); if(!chat) return; htpPips('p4',3); bc.style.opacity=bd.style.opacity=0;
+      if (HTP_REDUCE){ bc.textContent='\u00d72'; bc.style.opacity=bd.style.opacity=1; htpPips('p4',0); return; }
+      var pop=function(el,t){ el.textContent=t; htpA(el,[{transform:'scale(0)',opacity:0},{transform:'scale(1)',opacity:1}],{duration:400,easing:HTP_SPRING}); };
+      var rise=function(el){ htpA(el,[{opacity:0,transform:'translateY(14px) scale(.6)'},{opacity:1,transform:'translateY(0) scale(1)',offset:.3},{opacity:1,transform:'translateY(-6px)',offset:.8},{opacity:0,transform:'translateY(-20px)'}],{duration:1500}); };
+      htpAt(500,function(){ htpPlay(chat); rise(htpEl('q1')); htpPips('p4',2); htpAt(350,function(){ pop(bc,'\u00d71'); }); });
+      htpAt(2100,function(){ htpPlay(chat); rise(htpEl('q2')); htpPips('p4',1); htpAt(350,function(){ pop(bc,'\u00d72'); htpBurst(bc); }); });
+      htpAt(3700,function(){ htpPlay(dash); rise(htpEl('ch')); htpPips('p4',0); htpAt(350,function(){ pop(bd,'\u00d71'); }); });
+      htpAt(7000,function(){ if(htpStep===3) run(); });
+    } },
+  { t:'Try a practice card', p:'It\u2019s free. Tap it to see how Jain traces each finding back to the RFP.',
+    art:function(){ return '<svg id="h5link" aria-hidden="true"><path id="h5path" d="M228 200 C 252 200, 254 130, 270 130"/></svg>'+
+      '<button type="button" id="h5wrap" aria-label="Play the practice card: Procurement timeline"><div class="f3" id="h5flip">'+
+      '<div class="fc fr pulse" id="h5front"><span class="ic">'+ic('cal')+'<span>Free</span></span><b>Procurement timeline</b><span class="h1meta">Key dates for this RFP</span></div>'+
+      '<div class="fc xr bk"><div class="xbar">Bid X-Ray</div><div class="xbody"><span class="lbl">Procurement timeline</span>'+
+      '<div class="tl2"><div><b>Oct 6</b><span>RFP released</span></div><div><b>Nov 18</b><span>Site walk</span></div><div><b>Nov 24</b><span>Q&amp;A closes</span></div><div class="due"><b>Dec 4</b><span>Bid due, 2:00 PM</span></div></div>'+
+      '<span class="srcchip" id="h5src">'+ic('file')+'Source: RFP</span></div></div></div></button>'+
+      '<div id="h5rfp" aria-hidden="true"><span class="t">RFP</span><i></i><i style="width:80%"></i><i></i><i class="h" id="h5hl"></i><i style="width:70%"></i><i></i><i style="width:60%"></i></div>'+
+      '<div id="h5tap">Tap to play</div><div id="h5cursor"></div>'; },
+    run:function run(){
+      var w=htpEl('h5wrap'); if(!w) return;
+      if (htpFlipped){ htpEl('h5flip').style.transform='rotateY(180deg)'; htpEl('h5front').classList.remove('pulse'); htpEl('h5tap').style.opacity=0; htpEl('h5rfp').style.opacity=1; htpEl('h5path').style.opacity=1; }
+      w.onclick=function(e){ e.stopPropagation(); if(htpFlipped) return; htpFlipped=true; htpTimers.forEach(clearTimeout); htpTimers=[];
+        htpEl('h5front').classList.remove('pulse'); htpEl('h5tap').style.opacity=0; htpEl('h5flip').style.transform='rotateY(180deg)'; htpTrace(); };
+      if (htpFlipped || HTP_REDUCE) return;
+      var hint=function(){ if(htpFlipped||htpStep!==4||!htpEl('h5cursor')) return; htpA(htpEl('h5cursor'),[{opacity:0,left:'230px',top:'320px'},{opacity:1,left:'130px',top:'170px',offset:.5},{opacity:1,left:'130px',top:'170px',transform:'scale(.7)',offset:.65},{opacity:0,left:'130px',top:'170px',transform:'scale(1)'}],{duration:1500,fill:'none'}); htpAt(4000,hint); };
+      htpAt(2800,hint);
+    } },
+  { t:'Lock in your guess', p:'Closest without going over wins. Results arrive by email after ISSA.', aside:'The top 3 are announced, along with Jain\u2019s own estimate.',
+    art:function(){ return '<div id="h6input"><span class="d">$</span><span class="odo" id="odo"></span><span class="yr">/ yr</span></div><div id="h6stamp">LOCKED IN</div>'+
+      '<span id="h6env">'+ic('mail')+'</span><div id="h6mail">'+ic('mail')+'Results by email after ISSA</div>'; },
+    run:function run(){
+      var o=htpEl('odo'); if(!o) return; var G='1,250,000'; o.innerHTML='';
+      G.split('').forEach(function(ch){ if(ch===','){ var s=document.createElement('span'); s.className='sep'; s.textContent=','; o.appendChild(s); return; }
+        var c=document.createElement('span'); c.className='col'; c.dataset.t=ch; for(var r=0;r<3;r++) for(var d=0;d<10;d++){ var x=document.createElement('span'); x.textContent=d; c.appendChild(x); } o.appendChild(c); });
+      var cols=[].slice.call(o.querySelectorAll('.col')), st=htpEl('h6stamp'), mail=htpEl('h6mail'), env=htpEl('h6env'); st.style.opacity=0; mail.style.opacity=0;
+      var y=function(c){ return 'translateY(-'+((20+ +c.dataset.t)*40)+'px)'; };
+      if (HTP_REDUCE){ cols.forEach(function(c){ c.style.transform=y(c); }); st.style.opacity=1; mail.style.opacity=1; return; }
+      cols.forEach(function(c,i){ htpA(c,[{transform:'translateY(0)'},{transform:y(c)}],{duration:1100+i*160,delay:300,easing:'cubic-bezier(.2,.9,.25,1.05)'}); });
+      htpAt(2500,function(){ htpA(st,[{transform:'scale(3) rotate(-25deg)',opacity:0},{transform:'scale(1) rotate(-10deg)',opacity:1}],{duration:280,easing:'cubic-bezier(.6,0,.9,.4)'});
+        htpAt(280,function(){ var dlg=$('#modal .dlg'); if(dlg) htpA(dlg,[{transform:'translate(0,0)'},{transform:'translate(-3px,2px)'},{transform:'translate(3px,-2px)'},{transform:'none'}],{duration:220,fill:'none'}); htpBurst(st,'var(--green)'); }); });
+      htpAt(3400,function(){ htpA(env,[{opacity:1,transform:'translate(0,0) rotate(0)'},{opacity:1,transform:'translate(150px,-40px) rotate(-12deg)',offset:.6},{opacity:0,transform:'translate(320px,-120px) rotate(-20deg) scale(.5)'}],{duration:900,easing:'cubic-bezier(.5,0,.6,1)'});
+        htpA(mail,[{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:400,delay:600}); });
+      htpAt(7500,function(){ if(htpStep===5) run(); });
+    } }
+];
+function htpTrace(){
+  var rfp=htpEl('h5rfp'), path=htpEl('h5path'), src=htpEl('h5src'), hl=htpEl('h5hl');
+  if (HTP_REDUCE){ rfp.style.opacity=1; path.style.opacity=1; return; }
+  htpAt(700,function(){ htpA(src,[{transform:'scale(1)'},{transform:'scale(1.2)'},{transform:'scale(1)'}],{duration:450,easing:HTP_SPRING,fill:'none'}); });
+  htpAt(1000,function(){ path.style.opacity=1; var L=path.getTotalLength(); htpA(path,[{strokeDashoffset:L,strokeDasharray:''+L},{strokeDashoffset:0,strokeDasharray:''+L}],{duration:550,easing:'ease-in-out'});
+    htpA(rfp,[{opacity:0,transform:'translateX(30px) rotate(6deg)'},{opacity:1,transform:'none'}],{duration:550,easing:HTP_SPRING}); rfp.style.opacity=1; });
+  htpAt(1650,function(){ htpA(hl,[{transform:'scaleX(.2)'},{transform:'scaleX(1)'}],{duration:400}); htpAt(350,function(){ htpBurst(hl,'var(--amber)'); }); });
+}
+function htpDeal(from){
+  if (state.played.length || state.guess) return;
+  var pips = [].slice.call(document.querySelectorAll('#tray .pips .pip'));
+  pips.forEach(function(p){ p.classList.add('used'); });
+  pips.forEach(function(p,i){
+    if (HTP_REDUCE){ p.classList.remove('used'); return; }
+    var to=p.getBoundingClientRect(), sx=from.left+from.width/2-11, sy=from.top+from.height/2-15;
+    var g=document.createElement('div'); g.className='ghostcard'; g.style.left=sx+'px'; g.style.top=sy+'px'; document.body.appendChild(g);
+    g.animate([{transform:'rotate(-30deg) scale(2.2)',opacity:0},{opacity:1,offset:.15},{transform:'translate('+(to.left-sx)+'px,'+(to.top-sy)+'px) rotate(0) scale(1)',opacity:1}],{duration:700,delay:200+i*150,easing:'cubic-bezier(.3,.7,.2,1)',fill:'forwards'})
+      .onfinish=function(){ g.remove(); p.classList.remove('used'); p.animate([{transform:'scale(1.35)'},{transform:'scale(1)'}],{duration:380,easing:HTP_SPRING}); };
+  });
+}
+function htpClose(){
+  var d=$('#modal .dlg'), from = d ? d.getBoundingClientRect() : null;
+  htpStop(); closeModal(); if (from) htpDeal(from);
+}
+function openWizard(i){
+  i = i||0; if (i===0) htpFlipped=false;
+  htpStop(); htpStep=i; var w=HTP[i], last=i===HTP.length-1;
+  var dots = HTP.map(function(_,k){ return '<span'+(k===i?' class="on"':'')+'></span>'; }).join('');
+  modal('<div class="htp"><div class="htp-art" id="htpArt" title="Tap to replay">'+w.art()+(i!==4?'<span class="replay">\u21bb Tap to replay</span>':'')+'</div>'+
+    '<div class="htp-txt"><h3 id="wzT">'+w.t+'</h3><p>'+w.p+'</p>'+(w.aside?'<p class="aside">'+w.aside+'</p>':'')+'</div></div>'+
+    '<div class="dlg-f"><div class="dots" aria-hidden="true">'+dots+'</div>'+
+    (i>0 ? '<button class="btn" type="button" id="wzBack">Back</button>' : '<button class="btn ghost" type="button" id="wzSkip">Skip</button>')+
+    '<button class="btn primary" type="button" id="wzNext">'+(last?'Start playing':'Next')+'</button></div>', true);
+  var dlg=$('#modal .dlg'); dlg.classList.add('htp-dlg'); dlg.setAttribute('aria-labelledby','wzT');
+  w.run();
+  $('#wzNext').focus();
+  $('#wzNext').onclick = function(){ if (last) htpClose(); else openWizard(i+1); };
+  if ($('#wzBack')) $('#wzBack').onclick = function(){ openWizard(i-1); };
+  if ($('#wzSkip')) $('#wzSkip').onclick = htpClose;
+  $('#htpArt').onclick = function(){ if (i!==4){ htpStop(); w.run(); } };
+  dlg.onkeydown = function(ev){ if (ev.key==='ArrowRight' && !last) openWizard(i+1); if (ev.key==='ArrowLeft' && i>0) openWizard(i-1); };
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click', function(e){
+  var t = e.target.closest('button, tr.row, [data-scrim]');
+  if (!t) return;
+  if (t.hasAttribute('data-scrim')){ if (e.target===t && state.player) closeModal(); return; }
+  if (t.dataset.go){ go(t.dataset.go); return; }
+  if (t.dataset.filter){ state.filter = t.dataset.filter; render(); return; }
+  if (t.dataset.row){ rowClick(t.dataset.row); return; }
+  if (t.dataset.card){ tryCard(t.dataset.card); return; }
+  if (t.dataset.play){ tryCard(t.dataset.play); return; }
+  if (t.hasAttribute('data-openchat')){ openChat(true); return; }
+  if (t.dataset.scope){ state.scope = t.dataset.scope; renderChat(); return; }
+  if (t.dataset.ask){ ask(t.dataset.ask); return; }
+  if (t.hasAttribute('data-close')){ closeModal(); return; }
+  if (t.hasAttribute('data-inert')){ toast('Not part of the game in this demo.'); return; }
+  if (t.hasAttribute('data-newplayer')){ reset(); return; }
+  if (t.id==='lockIn'){ openGuess(); return; }
+  if (t.id==='previewMail'){ openMail(); return; }
+  if (t.id==='chatClose'){ openChat(false); return; }
+  if (t.id==='howTo'){ if (state.player) openWizard(0); return; }
+  if (t.id==='newPlayer'){ if (state.played.length && !state.guess){ modal('<div class="dlg-b"><h3>Start a new player?</h3><p class="muted" style="margin:0">This round\u2019s cards and guess will be cleared.</p></div><div class="dlg-f"><button class="btn" type="button" data-close>Cancel</button><button class="btn primary" type="button" data-newplayer>New player</button></div>'); } else reset(); return; }
+});
+document.addEventListener('keydown', function(e){
+  if (e.key==='Escape'){ if ($('#modal').innerHTML && state.player && !document.querySelector('#pt')) closeModal(); else if (state.chatOpen) openChat(false); }
+  if ((e.key==='Enter' || e.key===' ') && e.target.matches && e.target.matches('tr.row')){ e.preventDefault(); rowClick(e.target.dataset.row); }
+});
+function rowClick(id){
+  var p = PIPE.filter(function(r){return r.id===id;})[0];
+  if (p.mystery){ go('bid'); return; }
+  if (p.status==='won'){ openWon(id); return; }
+  toast(p.status==='lost' ? 'Lost bids show price and status only. Ask about them in chat.' : 'This draft isn\u2019t part of the game.');
+}
+function reset(){ state = fresh(); closeModal(); render(); openCheckin(); }
+
+$('#chatClose').innerHTML = ic('x');
+$('#upIc').innerHTML = ic('upload');
+$('#sendIc').innerHTML = ic('arrow');
+render();
+openCheckin();
+})();
+</script>
+</body>
+</html>
