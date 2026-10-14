@@ -6,7 +6,7 @@
 <title>Jain · The Price Is Right (demo)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wght@400&family=Poppins:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wght@400;600&family=Poppins:wght@300;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --nav:#233038; --nav-line:#3a4a52; --nav-text:#ffffff;
@@ -285,6 +285,34 @@ body.chat-open .chat{transform:none}
 .amount{font-size:34px; font-weight:600; letter-spacing:-.5px; margin:6px 0 4px; font-variant-numeric:tabular-nums}
 .demo-note{font-size:12px; color:var(--faint); margin-top:12px}
 
+/* check-in */
+.dlg.checkin{position:relative; width:min(717px,100%); border-radius:24px; overflow:auto; background:#e7eef1 url("assets/checkin/pattern.png?v=3") left top / 184px 184px repeat; box-shadow:0 24px 64px rgba(0,0,0,.25)}
+.ci-sr{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+.ci-issa{position:absolute; left:23px; top:20px; width:122px; height:24.766px; overflow:hidden; pointer-events:none}
+.ci-issa img{position:absolute; left:0; top:0; width:100%; height:153.69%; max-width:none}
+.ci-col{width:min(320.26px,calc(100% - 48px)); margin:41px auto; display:flex; flex-direction:column; align-items:center; gap:26px}
+.ci-hero{position:relative; width:308.929px; max-width:100%; height:278.194px; flex:none}
+.ci-logo{position:absolute; left:21.26px; top:0; width:266.26px; height:278.194px; overflow:hidden; pointer-events:none}
+.ci-logo img{position:absolute; height:113.61%; left:-54.87%; top:-7.4%; width:211.13%; max-width:none}
+.ci-badge{position:absolute; left:calc(50% - 0.3px); top:227px; transform:translateX(-50%); display:flex; align-items:flex-end; gap:4.41px; background:#01534d; padding:7.35px 14.7px; border-radius:999px}
+.ci-brand{display:flex; align-items:flex-start; gap:5.21px}
+.ci-mark{display:block; margin-top:4.66px; flex:none}
+.ci-jain{font:300 36.015px/1 Poppins,sans-serif; letter-spacing:-0.7203px; color:#f2e8ec}
+.ci-edition{font:300 11.76px/1.2 Poppins,sans-serif; color:#fafafa}
+.ci-fields{display:flex; flex-direction:column; gap:16px; width:100%}
+.ci-field{display:flex; flex-direction:column; gap:6px}
+.ci-field span{font:600 15px/20px Poppins,sans-serif; color:#46443f}
+.dlg.checkin .ci-field input{font:400 14px/20px Archivo,sans-serif; color:#1e1d1a; background:#fafafa; border:1px solid #c2bfba; border-radius:8px; padding:8px 12px; box-shadow:0 1px 2px rgba(0,0,0,.05); width:100%}
+.dlg.checkin .ci-field input::placeholder{color:#787470; opacity:1}
+.dlg.checkin .ci-field input:focus{outline:2px solid #c9dfe2; border-color:#447c86}
+.ci-actions{display:flex; flex-direction:column; align-items:center; gap:8px; width:100%}
+.dlg.checkin .err{min-height:0; margin:0; width:100%; text-align:center}
+.dlg.checkin .err:empty{display:none}
+.ci-start{width:100%; height:48px; border-radius:999px; border:2px solid rgba(255,255,255,.12); background:#447c86; color:#fafafa; font:600 16px/24px Archivo,sans-serif; box-shadow:0 1px 2px rgba(0,0,0,.05), inset 0 0 0 1px rgba(0,0,0,.18), inset 0 -2px 0 rgba(0,0,0,.05); cursor:pointer; display:flex; align-items:center; justify-content:center}
+.ci-start:hover{background:#366670}
+.ci-skip{border:0; background:transparent; padding:0; color:#396770; font:600 14px/20px Archivo,sans-serif; cursor:pointer}
+.ci-skip:hover{color:#2d5560}
+
 /* email */
 .mail{border:1px solid var(--border); border-radius:10px; overflow:hidden}
 .mail-h{padding:12px 16px; border-bottom:1px solid var(--border); font-size:12.5px; color:var(--muted); background:var(--surface-2)}
@@ -394,6 +422,7 @@ body.chat-open .chat{transform:none}
 .mpips .pip{width:15px; height:20px}
 .mpips .l{margin-left:6px}
 .mc{position:absolute; width:132px; height:74px; background:var(--surface); border-radius:6px; padding:8px 8px 8px 14px; box-shadow:0 2px 6px rgba(0,0,0,.06); display:flex; flex-direction:column; gap:4px; transition:opacity .35s, box-shadow .35s; font-family:Archivo,Inter,system-ui,sans-serif; color:var(--card-ink)}
+#h4chat, #h4dash{height:91px}
 .mcb{display:flex; flex-direction:column; gap:1px; font-size:10px; line-height:1.3; color:var(--text)}
 .mcb b{font:600 11px/1.2 Poppins,Inter,system-ui,sans-serif}
 .mci svg.i{width:13px; height:13px}
@@ -408,7 +437,7 @@ body.chat-open .chat{transform:none}
 .wire i{position:absolute; inset:0; background:var(--teal); transform:scaleX(0); transform-origin:left}
 .goal{position:absolute; left:18px; right:18px; top:240px; border:1px solid var(--amber); background:var(--amber-tint); border-radius:7px; padding:9px 12px; display:flex; align-items:center; justify-content:space-between}
 .goal .gt{display:flex; flex-direction:column; font-size:11.5px; color:var(--amber); font-weight:600}
-.goal .gt b{font-size:13px; color:var(--text)}
+.goal .gt b{font:700 13px/1.2 Poppins,Inter,system-ui,sans-serif; color:var(--text)}
 .goal .slots{display:flex; gap:5px}
 .goal .slots i{width:16px; height:21px; border-radius:3px; outline:1.5px dashed var(--amber); outline-offset:-1.5px}
 .goal .slots i.f{background:var(--amber); outline-style:solid}
@@ -418,29 +447,35 @@ body.chat-open .chat{transform:none}
 .htp-art .bubble i{display:block; height:5px; border-radius:3px; background:var(--border-strong)}
 .htp-art .minichart{position:absolute; display:flex; align-items:flex-end; gap:4px; height:36px; padding:6px 8px; background:var(--surface); border:1px solid var(--border); border-radius:8px; box-shadow:0 6px 14px rgba(0,0,0,.1); opacity:0}
 .htp-art .minichart i{width:7px; background:var(--teal); border-radius:2px}
-#h5wrap{position:absolute; left:24px; top:60px; width:204px; height:184px; perspective:1000px; background:none; border:0; padding:0; cursor:pointer}
-#h5flip{transition:transform .8s cubic-bezier(.3,1.4,.4,1)}
-#h5wrap .fr{border-color:var(--teal); padding:14px; gap:4px}
-#h5wrap .fr .ic{display:flex; justify-content:space-between; font-size:11.5px; color:var(--muted)}
-#h5wrap .fr .ic svg.i{color:var(--teal)}
-.pulse{animation:htpBreathe 2s ease-in-out infinite}
-@keyframes htpBreathe{50%{box-shadow:0 0 0 7px var(--teal-border),0 10px 26px rgba(0,0,0,.12)}}
-.xr{background:var(--surface); border:1px solid var(--border); overflow:hidden; display:flex; flex-direction:column; box-shadow:0 10px 26px rgba(0,0,0,.14); text-align:left}
-.xr .xbar{background:var(--nav); color:#dfe7e9; font-size:10.5px; font-weight:600; padding:6px 10px}
-.xr .xbody{padding:9px 10px; display:flex; flex-direction:column; gap:6px}
-.xr .lbl{font-size:10.5px; color:var(--muted)}
-.tl2{font-size:10.5px} .tl2 div{display:flex; gap:8px; padding:1.5px 0} .tl2 b{min-width:38px; color:var(--muted); font-weight:500}
-.tl2 .due b, .tl2 .due span{color:var(--red); font-weight:600}
-.srcchip{align-self:flex-start; display:inline-flex; align-items:center; gap:3px; font-size:10px; font-weight:600; color:var(--teal-text); background:var(--teal-tint); border-radius:4px; padding:2px 6px}
-.srcchip svg.i{width:11px; height:11px}
-#h5rfp{position:absolute; left:270px; top:70px; width:90px; height:120px; background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:10px 9px; display:flex; flex-direction:column; gap:6px; box-shadow:0 8px 20px rgba(0,0,0,.12); opacity:0}
-#h5rfp .t{font-size:9.5px; font-weight:700; color:var(--muted)}
-#h5rfp i{display:block; height:4px; border-radius:2px; background:var(--border)}
-#h5rfp i.h{background:var(--amber-tint); outline:1.5px solid var(--amber); height:8px; transform-origin:left}
-#h5link{position:absolute; inset:0; width:100%; height:100%; pointer-events:none}
-#h5link path{fill:none; stroke:var(--teal); stroke-width:2; stroke-dasharray:4 4; opacity:0}
-#h5tap{position:absolute; left:24px; width:204px; top:258px; text-align:center; font-size:13px; color:var(--muted); transition:opacity .3s}
-#h5cursor{position:absolute; width:26px; height:26px; border-radius:50%; background:rgba(68,124,134,.25); border:2px solid var(--teal); opacity:0; pointer-events:none}
+.htp-art:has(.prac){background:#1b2d31}
+.prac{position:absolute; inset:0; padding:22px 18px 20px; display:flex; flex-direction:column; justify-content:space-between}
+.prac-links{position:absolute; inset:0; width:100%; height:100%; pointer-events:none}
+.prac-links path{fill:none; stroke:#6aa7b1; stroke-width:2}
+.prac-row{display:grid; grid-template-columns:190px 104px; justify-content:space-between; align-items:center; position:relative; z-index:1}
+.prac-card,.prac-doc,.prac-intel{background:#1a2226; border:1px solid #2b363b; border-radius:10px; color:#e9edec; text-align:left}
+.prac-card{padding:12px 12px 10px; display:flex; flex-direction:column; gap:7px}
+.prac-card b{font-size:13.5px; font-weight:600; letter-spacing:-.15px; line-height:1.2}
+.prac-dates{display:flex; flex-direction:column; gap:4px; font-size:11.5px; line-height:1.25}
+.prac-dates div{display:grid; grid-template-columns:48px 1fr; gap:8px}
+.prac-dates span:first-child{color:#a4adaf}
+.prac-dates .due span{color:#f0766c; font-weight:600}
+.prac-chip{align-self:flex-start; display:inline-flex; align-items:center; gap:5px; margin-top:2px; background:#314e55; color:#93cad2; border-radius:7px; padding:4px 8px; font-size:11px; font-weight:600}
+.prac-chip svg{width:12px; height:12px; flex:none}
+.prac-doc{padding:10px 10px 12px; display:flex; flex-direction:column; gap:8px; min-height:118px}
+.prac-doc .t{font-size:12px; font-weight:600; color:#a4adaf}
+.prac-doc i,.prac-globe i,.prac-search i{display:block; height:5px; border-radius:3px; background:#38454b}
+.prac-doc i.h{height:8px; background:#6b5420; border-radius:3px}
+.prac-mark{width:16px; height:16px; color:#a4adaf}
+.prac-sub{font-size:12px; color:#a4adaf; margin-top:-3px}
+.prac-intel{padding:10px; display:flex; flex-direction:column; gap:8px}
+.prac-brand{display:flex; gap:6px; align-items:flex-start; color:#93cad2; font-weight:600; font-size:13px; line-height:1.15}
+.prac-brand svg{width:14px; height:14px; margin-top:1px; flex:none}
+.prac-search{display:flex; align-items:center; gap:6px; border:1px solid #2b363b; border-radius:8px; padding:5px 7px; color:#7d888b}
+.prac-search svg{width:12px; height:12px; flex:none}
+.prac-search i{flex:1; height:4px}
+.prac-globe{display:flex; align-items:center; gap:6px; color:#7eb8c0}
+.prac-globe svg{width:13px; height:13px; flex:none}
+.prac-globe i{flex:1; height:4px}
 #h6input{position:absolute; left:30px; top:110px; width:320px; height:70px; background:var(--surface); border:1px solid var(--border-strong); border-radius:8px; display:flex; align-items:center; padding:0 16px; gap:6px; font-size:30px; font-weight:600; font-variant-numeric:tabular-nums; box-shadow:0 6px 18px rgba(0,0,0,.08)}
 #h6input .d{color:var(--muted); font-weight:400}
 #h6input .yr{font-size:14px; color:var(--muted); font-weight:400; align-self:flex-end; margin-bottom:20px}
@@ -835,7 +870,7 @@ function renderTray(){
     var cost = s==='played' ? ic('check')+' Played' : c.repeat && cnt ? 'Played \u00d7'+cnt : (c.cost||1)+' card'+((c.cost||1)>1?'s':'');
     var cls = s==='played' ? ' played' : s==='locked' ? ' locked-c' : s==='out' ? ' out' : '';
     var foot = s==='locked' ? '<span class="lockpill">'+LOCK+esc(reqText(c))+'</span>' : '';
-    var src = c.src || (c.proposed ? 'from Jain research' : 'extracted from RFP');
+    var src = c.src || (c.proposed ? 'from Jain Intelligence' : 'extracted from RFP');
     return '<button type="button" class="card hc'+cls+'" data-card="'+c.id+'"'+(s==='locked'||s==='out'?' aria-disabled="true"':'')+' aria-label="'+esc(c.name+', '+c.blurb+(s==='locked'?', locked: '+reqText(c):'')+(s==='played'?', played':''))+'">'+DECO+
       '<span class="top">'+ic(c.icon)+'<span class="cost">'+cost+'</span></span>'+
       '<span class="body"><span class="nm">'+esc(c.name)+'</span><span class="dsc"><span class="bl">'+esc(c.blurb)+'</span>'+'<span class="src">'+esc(src)+'</span>'+'</span></span>'+
@@ -954,12 +989,20 @@ function modal(inner, wide){
 function closeModal(){ if (typeof htpStop==='function') htpStop(); $('#modal').innerHTML=''; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
 
 function openCheckin(){
-  modal('<div class="dlg-b"><p class="eyebrow">ISSA 2026</p><h3>The Price Is Right, Jain edition</h3><p class="muted" style="margin:0">Guess the winning annual bid on a live janitorial RFP. Check in so we can send your results after the show.</p>'+
-    '<div class="f"><label for="ciName">Name</label><input type="text" id="ciName" autocomplete="name"></div>'+
-    '<div class="f"><label for="ciCo">Company</label><input type="text" id="ciCo" autocomplete="organization"></div>'+
-    '<div class="f"><label for="ciEmail">Work email</label><input type="email" id="ciEmail" autocomplete="email" placeholder="you@company.com"></div><div class="err" id="ciErr"></div>'+
-    '<p class="demo-note">Demo with sample data. Nothing you enter here is saved or sent.</p></div>'+
-    '<div class="dlg-f"><button class="btn ghost left" type="button" id="ciSkip">Skip for demo</button><button class="btn primary" type="button" id="ciGo">Start playing</button></div>');
+  modal('<h3 class="ci-sr" id="pt">The Price Is Right, Jain edition</h3>'+
+    '<div class="ci-issa"><img src="assets/checkin/issa-show.png" alt="ISSA Show"></div>'+
+    '<div class="ci-col">'+
+      '<div class="ci-hero"><div class="ci-logo"><img src="assets/checkin/price-is-right.png" alt="The Price Is Right"></div>'+
+        '<div class="ci-badge"><span class="ci-brand"><img class="ci-mark" src="assets/checkin/jain-mark.svg" alt=""><span class="ci-jain">Jain</span></span><span class="ci-edition">edition</span></div></div>'+
+      '<div class="ci-fields">'+
+        '<label class="ci-field"><span>Name</span><input type="text" id="ciName" autocomplete="name" placeholder="e.g Apple Smith"></label>'+
+        '<label class="ci-field"><span>Company</span><input type="text" id="ciCo" autocomplete="organization" placeholder="e.g Smith"></label>'+
+        '<label class="ci-field"><span>Work Email</span><input type="email" id="ciEmail" autocomplete="email" placeholder="e.g smith@company.com"></label>'+
+      '</div>'+
+      '<div class="ci-actions"><div class="err" id="ciErr"></div><button class="ci-start" type="button" id="ciGo">Start Playing</button><button class="ci-skip" type="button" id="ciSkip">Skip for demo</button></div>'+
+    '</div>');
+  $('#modal .dlg').classList.add('checkin');
+  $('#modal .dlg').setAttribute('aria-labelledby','pt');
   $('#ciGo').onclick = function(){
     var n=$('#ciName').value.trim(), e=$('#ciEmail').value.trim();
     if (!n){ $('#ciErr').textContent='Enter your name to play.'; $('#ciName').focus(); return; }
@@ -1110,24 +1153,24 @@ var HTP = [
       htpAt(3700,function(){ htpPlay(dash); rise(htpEl('ch')); htpPips('p4',0); htpAt(350,function(){ pop(bd,'\u00d71'); }); });
       htpAt(7000,function(){ if(htpStep===3) run(); });
     } },
-  { t:'Try a practice card', p:'It\u2019s free. Tap it to see how Jain traces each finding back to the RFP.',
-    art:function(){ return '<svg id="h5link" aria-hidden="true"><path id="h5path" d="M228 200 C 252 200, 254 130, 270 130"/></svg>'+
-      '<button type="button" id="h5wrap" aria-label="Play the practice card: Procurement timeline"><div class="f3" id="h5flip">'+
-      '<div class="fc fr pulse" id="h5front"><span class="ic">'+ic('cal')+'<span>Free</span></span><b>Procurement timeline</b><span class="h1meta">Key dates for this RFP</span></div>'+
-      '<div class="fc xr bk"><div class="xbar">Bid X-Ray</div><div class="xbody"><span class="lbl">Procurement timeline</span>'+
-      '<div class="tl2"><div><b>Oct 6</b><span>RFP released</span></div><div><b>Nov 18</b><span>Site walk</span></div><div><b>Nov 24</b><span>Q&amp;A closes</span></div><div class="due"><b>Dec 4</b><span>Bid due, 2:00 PM</span></div></div>'+
-      '<span class="srcchip" id="h5src">'+ic('file')+'Source: RFP</span></div></div></div></button>'+
-      '<div id="h5rfp" aria-hidden="true"><span class="t">RFP</span><i></i><i style="width:80%"></i><i></i><i class="h" id="h5hl"></i><i style="width:70%"></i><i></i><i style="width:60%"></i></div>'+
-      '<div id="h5tap">Tap to play</div><div id="h5cursor"></div>'; },
-    run:function run(){
-      var w=htpEl('h5wrap'); if(!w) return;
-      if (htpFlipped){ htpEl('h5flip').style.transform='rotateY(180deg)'; htpEl('h5front').classList.remove('pulse'); htpEl('h5tap').style.opacity=0; htpEl('h5rfp').style.opacity=1; htpEl('h5path').style.opacity=1; }
-      w.onclick=function(e){ e.stopPropagation(); if(htpFlipped) return; htpFlipped=true; htpTimers.forEach(clearTimeout); htpTimers=[];
-        htpEl('h5front').classList.remove('pulse'); htpEl('h5tap').style.opacity=0; htpEl('h5flip').style.transform='rotateY(180deg)'; htpTrace(); };
-      if (htpFlipped || HTP_REDUCE) return;
-      var hint=function(){ if(htpFlipped||htpStep!==4||!htpEl('h5cursor')) return; htpA(htpEl('h5cursor'),[{opacity:0,left:'230px',top:'320px'},{opacity:1,left:'130px',top:'170px',offset:.5},{opacity:1,left:'130px',top:'170px',transform:'scale(.7)',offset:.65},{opacity:0,left:'130px',top:'170px',transform:'scale(1)'}],{duration:1500,fill:'none'}); htpAt(4000,hint); };
-      htpAt(2800,hint);
-    } },
+  { t:'Try a practice card', p:'It\u2019s free. Jain traces each finding back to the RFP, or to Jain intelligence.',
+    art:function(){
+      var file='<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 2h5l3 3v9H4V2Z"/><path d="M9 2v3h3"/></svg>';
+      var plus='<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 5v6M5 8h6"/></svg>';
+      var spark='<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1.2 9.1 6 14 7.2 9.1 8.4 8 13.2 6.9 8.4 2 7.2 6.9 6Z"/><path d="M12.4 1.6 12.9 3.2 14.5 3.7 12.9 4.2 12.4 5.8 11.9 4.2 10.3 3.7 11.9 3.2Z"/></svg>';
+      var search='<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="7" r="4"/><path d="m10.2 10.2 3 3"/></svg>';
+      var globe='<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M2.2 8h11.6M8 2.2c1.8 1.8 1.8 9.8 0 11.6M8 2.2c-1.8 1.8-1.8 9.8 0 11.6"/></svg>';
+      var g='<div class="prac-globe">'+globe+'<i></i></div>';
+      return '<div class="prac">'+
+        '<svg class="prac-links" viewBox="0 0 380 360" aria-hidden="true"><path d="M208 108 C 242 120, 244 72, 262 90"/><path d="M208 252 C 238 256, 246 236, 260 246"/></svg>'+
+        '<div class="prac-row"><div class="prac-card"><b>Procurement timeline</b><div class="prac-dates">'+
+          '<div><span>Oct 6</span><span>RFP released</span></div><div><span>Nov 18</span><span>Site walk</span></div><div><span>Nov 24</span><span>Q&amp;A closes</span></div><div class="due"><span>Dec 4</span><span>Bid due, 2:00 PM</span></div>'+
+        '</div><span class="prac-chip">'+file+'From the RFP</span></div>'+
+        '<div class="prac-doc"><span class="t">RFP</span><i></i><i style="width:88%"></i><i class="h"></i><i style="width:76%"></i><i style="width:64%"></i></div></div>'+
+        '<div class="prac-row"><div class="prac-card"><span class="prac-mark">'+ic('wage')+'</span><b>Local labor market</b><span class="prac-sub">Wage floor and burden</span><span class="prac-chip">'+plus+'From Jain intelligence</span></div>'+
+        '<div class="prac-intel"><div class="prac-brand">'+spark+'<span>Jain<br>intelligence</span></div><div class="prac-search">'+search+'<i></i></div>'+g+g+g+'</div></div></div>';
+    },
+    run:function(){} },
   { t:'Lock in your guess', p:'Closest without going over wins. Results arrive by email after ISSA.', aside:'The top 3 are announced, along with Jain\u2019s own estimate.',
     art:function(){ return '<div id="h6input"><span class="d">$</span><span class="odo" id="odo"></span><span class="yr">/ yr</span></div><div id="h6stamp">LOCKED IN</div>'+
       '<span id="h6env">'+ic('mail')+'</span><div id="h6mail">'+ic('mail')+'Results by email after ISSA</div>'; },
@@ -1147,10 +1190,10 @@ var HTP = [
     } }
 ];
 function htpTrace(){
-  var rfp=htpEl('h5rfp'), path=htpEl('h5path'), src=htpEl('h5src'), hl=htpEl('h5hl');
+  var rfp=htpEl('h5rfp'), path=htpEl('h5link'), src=htpEl('h5src'), hl=htpEl('h5hl');
   if (HTP_REDUCE){ rfp.style.opacity=1; path.style.opacity=1; return; }
   htpAt(700,function(){ htpA(src,[{transform:'scale(1)'},{transform:'scale(1.2)'},{transform:'scale(1)'}],{duration:450,easing:HTP_SPRING,fill:'none'}); });
-  htpAt(1000,function(){ path.style.opacity=1; var L=path.getTotalLength(); htpA(path,[{strokeDashoffset:L,strokeDasharray:''+L},{strokeDashoffset:0,strokeDasharray:''+L}],{duration:550,easing:'ease-in-out'});
+  htpAt(1000,function(){ var drawn=htpA(path,[{opacity:0},{opacity:1}],{duration:550,easing:'ease-in-out'}); if(drawn) drawn.onfinish=function(){ path.style.opacity=1; };
     htpA(rfp,[{opacity:0,transform:'translateX(30px) rotate(6deg)'},{opacity:1,transform:'none'}],{duration:550,easing:HTP_SPRING}); rfp.style.opacity=1; });
   htpAt(1650,function(){ htpA(hl,[{transform:'scaleX(.2)'},{transform:'scaleX(1)'}],{duration:400}); htpAt(350,function(){ htpBurst(hl,'var(--amber)'); }); });
 }
