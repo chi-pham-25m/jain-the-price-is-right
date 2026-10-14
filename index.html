@@ -6,7 +6,7 @@
 <title>Jain · The Price Is Right (demo)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wght@400;600&family=Poppins:wght@300;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wght@300;400;500;600;700&family=Poppins:wght@300;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --nav:#233038; --nav-line:#3a4a52; --nav-text:#ffffff;
@@ -44,24 +44,82 @@ button{font:inherit; color:inherit}
 :focus-visible{outline:2px solid var(--teal); outline-offset:2px; border-radius:6px}
 svg.i{width:16px; height:16px; flex:none; stroke:currentColor; fill:none; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round}
 
-/* nav */
-.nav{position:sticky; top:env(safe-area-inset-top,0px); z-index:30; background:var(--nav); color:var(--nav-text); height:44px; display:flex; align-items:center; gap:16px; padding:0 16px}
-.logo{display:flex; align-items:center; gap:6px; font-size:20px; font-weight:400; letter-spacing:-.2px}
-.logo svg{width:15px; height:15px}
-.crumbs{display:flex; align-items:center; gap:8px; font-weight:600; font-size:14px; min-width:0; margin-left:12px}
-.crumbs button{background:none; border:0; color:#cfd8db; padding:0; cursor:pointer; display:flex; align-items:center; font-weight:500}
-.crumbs button:hover{color:#fff}
-.crumbs .cur{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.crumbs svg.i{width:14px; height:14px; color:#9fb0b6}
-.nav-r{margin-left:auto; display:flex; align-items:center; gap:8px}
-.nav-btn{border:1px solid #6c7b82; background:transparent; color:#fff; border-radius:6px; padding:4px 10px; font-size:12.5px; cursor:pointer; white-space:nowrap}
-.nav-btn:hover{border-color:#aab7bc}
-.who{display:flex; align-items:center; gap:8px; border:1px solid var(--nav-line); border-radius:999px; padding:3px 10px 3px 3px; font-size:13px; font-weight:600}
-.avatar{width:22px; height:22px; border-radius:50%; background:#8d8aa6; color:#fff; display:grid; place-items:center; font-size:9.5px; font-weight:700}
+/* nav — Figma header */
+.nav{position:sticky; top:env(safe-area-inset-top,0px); z-index:30; background:#233038; color:#fafafa; height:64px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:12px; padding:0 16px 0 0}
+.logo{display:flex; align-items:center; gap:4px; width:224px; padding:0 24px; background:none; border:0; color:#c9dde1; cursor:pointer; font:300 24px/32px Archivo,sans-serif}
+.logo img{display:block; flex:none}
+.nav-search{display:flex; align-items:center; gap:10px; height:40px; width:min(576px,100%); margin:0 auto; padding:0 16px; border-radius:999px; background:rgba(255,255,255,.1)}
+.nav-search img{display:block; flex:none}
+.nav-search input{flex:1; min-width:0; border:0; outline:none; background:transparent; color:#fafafa; font:400 14px/20px Archivo,sans-serif}
+.nav-search input::placeholder{color:rgba(250,250,250,.6)}
+.nav-search kbd{flex:none; padding:2px 6px; border-radius:8px; background:rgba(255,255,255,.1); color:rgba(250,250,250,.7); font:600 11px/16.5px Archivo,sans-serif}
+.crumbs{display:flex; align-items:center; gap:8px; max-width:900px; margin:0 auto; padding:16px 24px 0; font-weight:600; font-size:14px; min-width:0; color:var(--muted)}
+.crumbs button{background:none; border:0; color:var(--teal-text); padding:0; cursor:pointer; display:flex; align-items:center; font-weight:500}
+.crumbs button:hover{color:var(--text)}
+.crumbs .cur{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--text)}
+.crumbs svg.i{width:14px; height:14px; color:var(--faint)}
+body.on-pipe .crumbs, body.on-bid .crumbs{display:none}
+.nav-r{display:flex; align-items:center; gap:8px}
+.nav-btn{border:0; background:transparent; color:#fafafa; border-radius:8px; padding:8px 10px; font:600 13px/20px Archivo,sans-serif; cursor:pointer; white-space:nowrap}
+.nav-btn:hover{background:rgba(255,255,255,.1)}
+.nav-ico{width:36px; height:36px; border:0; border-radius:999px; background:rgba(255,255,255,.1); display:grid; place-items:center; cursor:pointer; padding:0}
+.nav-ico img{display:block}
+.who{display:flex; align-items:center; gap:8px; background:#233f44; border:1px solid #2e535a; border-radius:999px; padding:4px 8px; color:#fafafa; font:600 14px/20px Archivo,sans-serif; letter-spacing:.35px}
+.who img{display:block; flex:none}
+.avatar{width:24px; height:24px; border-radius:50%; background:#b7b2ca; color:#fafafa; display:grid; place-items:center; font:600 10px/15px Archivo,sans-serif}
 
 /* layout */
 .shell{transition:padding-right .2s ease}
 .page{max-width:900px; margin:0 auto; padding:28px 24px 250px}
+.page.pipe-page{max-width:none; margin:0; padding:28px 32px 240px; background:#f8f9f8; color:#1e1d1a; font-family:Archivo,sans-serif}
+body.on-pipe{background:#f8f9f8}
+.page.xr-page{max-width:none; margin:0; padding:0 24px 240px; background:#f8f9f8; color:#1e1d1a; font-family:Archivo,sans-serif}
+body.on-bid{background:#f8f9f8}
+.xr-backbar{background:#fff; margin:0 -24px 16px; padding:0 40px}
+.xr-back{display:inline-flex; align-items:center; gap:8px; border:0; background:transparent; color:#4e8d98; font:500 14px/20px Archivo,sans-serif; padding:12px 0; cursor:pointer}
+.xr-back img,.xr-actions img,.xr-ico img,.xr-page .link img{display:block}
+.xr-hero{background:#fafafa; border:1px solid #e1e3e8; border-radius:12px; padding:24px; display:flex; flex-direction:column; gap:24px; box-shadow:0 1px 1.5px rgba(0,0,0,.1), 0 1px 1px rgba(0,0,0,.1); margin:0 0 16px}
+.xr-kicker{display:flex; align-items:center; gap:8px}
+.xr-kicker .eye{font:600 12px/16px Archivo,sans-serif; letter-spacing:.6px; text-transform:uppercase; color:#447c86}
+.xr-hero .ver{background:#fff; border:1px solid #dedbd6; border-radius:999px; padding:2px 10px; font:500 13px/19.5px Archivo,sans-serif; color:#46443f}
+.xr-hero h1{display:block; margin:8px 0 0; font:600 30px/36px Poppins,sans-serif; color:#0d1b2e; letter-spacing:0}
+.xr-hero .meta{margin:8px 0 0; padding:0; border:0; gap:16px 32px}
+.xr-hero .meta dt{font:600 12px/16px Archivo,sans-serif; letter-spacing:.6px; text-transform:uppercase; color:#767c8a; margin:0 0 2px}
+.xr-hero .meta dd{font:400 14px/20px Archivo,sans-serif; color:#1d2027}
+.xr-actions{display:flex; flex-wrap:wrap; gap:12px}
+.xr-actions .btn{border-radius:10px; padding:8px 12px; font:600 14px/20px Archivo,sans-serif; box-shadow:0 1px 1.5px rgba(0,0,0,.1), 0 1px 1px rgba(0,0,0,.1)}
+.xr-actions .btn{background:#fafafa; border-color:#c2bfba; color:#46443f}
+.xr-actions .btn.primary{background:#396770; border-color:#396770; color:#fff}
+.xr-page .stats{gap:14px; margin:0 0 16px}
+.xr-page .stat{background:#fff; border:1px solid #dedbd6; border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:10px}
+.xr-page .stat .lab{gap:10px; font:400 13px/19.5px Archivo,sans-serif; color:#5c5956}
+.xr-ico{width:32px; height:32px; border-radius:8px; display:grid; place-items:center; flex:none}
+.xr-ico.sqft,.xr-ico.pay{background:#e8f1f2}
+.xr-ico.term{background:#e7f5ec}
+.xr-ico.termn{background:#fdecec}
+.xr-page .stat .val{margin:0; font:700 28px/24px Archivo,sans-serif; color:#1e1d1a; letter-spacing:0}
+.xr-page .stat .val.phrase{font-size:19px; line-height:24px}
+.xr-page .stat .val small{font:400 16px/24px Archivo,sans-serif; color:#5c5956}
+.xr-page .stat .note{font:400 13px/19.5px Archivo,sans-serif; color:#5c5956}
+.xr-page .link{font:500 13px/19.5px Archivo,sans-serif; color:#396770; gap:4px}
+.xr-tabs{display:flex; gap:4px; background:#fff; border:1px solid #dedbd6; border-radius:12px; padding:6px; margin:0 0 16px; overflow:auto}
+.xr-tabs button{height:36px; padding:0 14px; border:0; border-radius:10px; background:transparent; color:#5c5956; font:500 14px/20px Archivo,sans-serif; cursor:pointer; white-space:nowrap}
+.xr-tabs button[aria-selected="true"]{background:#f3f8f9; color:#396770}
+.xr-sections{display:flex; flex-direction:column; gap:14px}
+.xr-sections.pair{display:grid; grid-template-columns:1fr 1fr; align-items:start}
+.xr-sections .wide,.xr-hidden{grid-column:1 / -1}
+.xr-hidden{margin:0}
+.xr-page .sec,.xr-page .locked{margin:0; border-radius:12px; border-color:#dedbd6; background:#fff}
+.xr-page .sec-h h2{font:600 16px/24px Archivo,sans-serif; color:#1e1d1a}
+.xr-page .sec-h .src{font:400 12px/18px Archivo,sans-serif; color:#6b6b68}
+.xr-page .ico{width:32px; height:32px; border-radius:8px}
+@media (max-width:1100px){ .xr-page .stats,.xr-sections.pair{grid-template-columns:1fr 1fr} }
+@media (max-width:720px){
+  .page.xr-page{padding:0 14px 280px}
+  .xr-backbar{margin:0 -14px 12px; padding:0 14px}
+  .xr-hero .meta,.xr-page .stats,.xr-sections.pair{grid-template-columns:1fr}
+  .xr-hero h1{font-size:24px; line-height:30px}
+}
 body.chat-open .shell{padding-right:360px}
 @media (max-width:1100px){ body.chat-open .shell{padding-right:0} }
 .eyebrow{color:var(--teal-text); font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; margin:0 0 6px}
@@ -153,7 +211,79 @@ tr.group td{background:var(--surface-2); font-weight:600}
 .fac{font-weight:600}
 .fac-sub{color:var(--muted); font-size:12px; font-weight:400}
 .guess-me{display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight:600; color:var(--on-teal); background:var(--teal); border-radius:999px; padding:2px 8px; margin-left:8px; vertical-align:1px}
-.row-act{color:var(--teal-text); font-size:12.5px; font-weight:500; display:inline-flex; gap:5px; align-items:center; white-space:nowrap}
+.row-act{color:#396770; font:600 13px/20px Archivo,sans-serif; display:inline-flex; gap:5px; align-items:center; white-space:nowrap}
+.row-act svg.i{width:14px; height:14px}
+
+/* pipeline skin */
+.pl-head{display:flex; flex-direction:column; gap:4px; margin:0 0 24px}
+.pl-head h1{font:600 31px/38.75px Archivo,sans-serif; letter-spacing:-.31px; color:#1e1d1a; margin:0}
+.pl-count{margin:0; font:400 15px/22.5px Archivo,sans-serif; color:#5c5956}
+.pl-sub{margin:2px 0 0; font:400 15px/22.5px Archivo,sans-serif; color:#5c5956; max-width:70ch}
+.pl-stats{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; margin:0 0 20px}
+.pl-stat{background:#fff; border:1px solid #dedbd6; border-radius:16px; padding:20px; box-shadow:0 1px 1px rgba(0,0,0,.05); display:flex; flex-direction:column; gap:12px; text-align:left; color:inherit; font:inherit; width:100%}
+button.pl-stat{cursor:pointer}
+button.pl-stat:hover{border-color:#c2bfba}
+.pl-stat .lab{display:flex; align-items:center; justify-content:space-between; gap:12px; font:600 12px/18px Archivo,sans-serif; letter-spacing:.72px; text-transform:uppercase; color:#5c5956}
+.pl-ico{width:32px; height:32px; border-radius:10px; display:grid; place-items:center; flex:none}
+.pl-ico.open{background:#f3f8f9}
+.pl-ico.wait{background:#eef4ff}
+.pl-ico.val{background:#edfbf2}
+.pl-ico.due{background:#fff7ed}
+.pl-ico img{display:block}
+.pl-stat b{display:block; font:700 33px/49.5px Archivo,sans-serif; color:#1e1d1a; font-weight:700}
+.pl-stat b.open{color:#b54708}
+.pl-stat b.dash{color:#5c5956}
+.pl-stat b.due{font-size:22px; line-height:33px; color:#1e1d1a}
+.pl-stat b.due.late{color:#d42020}
+.pl-stat .note{display:block; margin-top:4px; font:400 13px/19.5px Archivo,sans-serif; color:#5c5956; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.pl-board{background:#fff; border:1px solid #dedbd6; border-radius:16px; box-shadow:0 1px 2px rgba(0,0,0,.05); overflow:hidden}
+.pl-board-h{display:flex; align-items:center; gap:10px; padding:16px 20px 12px}
+.pl-board-h h2{margin:0; font:600 17px/21.25px Archivo,sans-serif; color:#1e1d1a}
+.pl-countpill{background:#eeedea; color:#46443f; border-radius:999px; padding:2px 8px; font:600 13px/19.5px Archivo,sans-serif}
+.pl-board-h .grow{margin-left:auto}
+.pl-new{display:inline-flex; align-items:center; gap:6px; height:36px; padding:0 12px; border:0; border-radius:10px; background:#447c86; color:#fff; font:600 13px/19.5px Archivo,sans-serif; box-shadow:0 1px 1px rgba(0,0,0,.05); cursor:pointer}
+.pl-new img{display:block}
+.pl-tools{display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:0 20px 12px; border-bottom:1px solid #dedbd6}
+.pl-q{position:relative; flex:1 1 144px; max-width:256px; min-width:144px}
+.pl-q img{position:absolute; left:8px; top:9px; display:block}
+.pl-q input{width:100%; height:32px; border:1px solid #dedbd6; border-radius:10px; background:#fff; padding:0 8px 0 28px; font:400 13px/20px Archivo,sans-serif; color:#1e1d1a}
+.pl-q input::placeholder{color:#5c5956}
+.pl-filters{display:flex; gap:8px; flex-wrap:wrap}
+.pl-filters button{height:32px; padding:0 10px; border:1px solid #dedbd6; border-radius:10px; background:#fff; color:#46443f; font:500 13px/19.5px Archivo,sans-serif; cursor:pointer}
+.pl-filters button[aria-pressed="true"]{background:#f3f8f9; border-color:#447c86; color:#1e1d1a; font-weight:600}
+.pl-table{padding:16px 20px 20px}
+.pl-table .tbl-wrap{border:1px solid #dedbd6; border-radius:12px; overflow:auto}
+.pl-table table{min-width:880px; font-family:Archivo,sans-serif}
+.pl-table th{background:#f7f8f7; color:#6b7473; font:600 12px/16px Archivo,sans-serif; padding:12px 20px; border-bottom:1px solid #d8dcdb; white-space:nowrap}
+.pl-table td{padding:12px 20px; border-bottom:1px solid #d8dcdb; vertical-align:middle; background:#fff; font:400 13px/18.5px Archivo,sans-serif; color:#46443f}
+.pl-table tr:last-child td{border-bottom:0}
+.pl-table tr.row{cursor:pointer}
+.pl-table tr.row:hover td{background:#f8f9f8}
+.pl-table tr.mystery td{background:#f3f8f9}
+.pl-table tr.mystery:hover td{background:#f3f8f9}
+.pl-opp{font:600 15px/21.4px Archivo,sans-serif; color:#1e1d1a}
+.pl-opp .fac-sub{font:400 13px/18.5px Archivo,sans-serif; color:#5c5956; margin-top:2px}
+.pl-table td.pl-guess{display:flex; align-items:center; gap:12px}
+.pl-guess .fac-sub{margin-top:0; font:400 12px/18.5px Archivo,sans-serif; color:#6b6b68}
+.guess-pill{flex:none; display:inline-flex; align-items:center; justify-content:center; padding:6px 10px; border-radius:9999px; background:#01534d; color:#e6fed0; font:700 9.75px/13.875px Poppins,sans-serif; white-space:nowrap}
+.stage{display:inline-flex; align-items:center; gap:6px; height:28px; padding:0 8px; border:1px solid #dedbd6; border-radius:8px; background:#fff; font:500 13px/18.5px Archivo,sans-serif; color:#46443f; white-space:nowrap}
+.stage i{width:6px; height:6px; border-radius:50%; background:#839405; flex:none}
+.stage.won i{background:#2f7d47}
+.stage.lost i{background:#8a8680}
+.stage.bidding i,.stage.guess i{background:#447c86}
+.stage.guess{background:#f3f8f9; border-color:#c9dfe2}
+.pl-table .due{display:inline-flex; align-items:center; height:24px; padding:2px 8px; border-radius:999px; border:1px solid #c9dfe2; background:#f3f8f9; color:#396770; font:500 13px/18.5px Archivo,sans-serif; white-space:nowrap}
+.pl-table .due.late{border-color:#ff9b9b; background:#fff1f1; color:#d42020}
+.pl-val{font:500 13px/18.5px Archivo,sans-serif; color:#46443f; white-space:nowrap}
+.pl-val .unk{font-weight:700; color:#1e1d1a}
+.pl-foot{margin:12px 0 0; font:400 13px/19.5px Archivo,sans-serif; color:#5c5956}
+@media (max-width:1100px){ .pl-stats{grid-template-columns:1fr 1fr} }
+@media (max-width:720px){
+  .pl-stats{grid-template-columns:1fr}
+  .logo{width:auto; padding:0 12px 0 16px}
+  .nav-search kbd{display:none}
+  .nav-btn{padding:8px}
+}
 
 /* tray */
 .tray{position:fixed; left:0; right:0; bottom:0; z-index:25; background:var(--tray-bg); border-top:1px solid var(--border); box-shadow:var(--shadow-up); padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
@@ -212,6 +342,7 @@ tr.group td{background:var(--surface-2); font-weight:600}
 .done-bar .big{font-size:18px; font-weight:600}
 @media (max-width:720px){
   .page{padding:20px 14px 300px}
+  .page.pipe-page{padding:20px 14px 280px}
   .meta{grid-template-columns:1fr 1fr}
   .stats{grid-template-columns:1fr 1fr}
   .kv{grid-template-columns:1fr; gap:2px 0} .kv dd{margin-bottom:8px}
@@ -226,7 +357,7 @@ tr.group td{background:var(--surface-2); font-weight:600}
 }
 
 /* chat */
-.chat{position:fixed; top:calc(env(safe-area-inset-top,0px) + 44px); right:0; bottom:0; width:360px; z-index:26; background:var(--surface); border-left:1px solid var(--border); display:flex; flex-direction:column; transform:translateX(100%); transition:transform .2s ease; padding-bottom:calc(140px + env(safe-area-inset-bottom,0px))}
+.chat{position:fixed; top:calc(env(safe-area-inset-top,0px) + 64px); right:0; bottom:0; width:360px; z-index:26; background:var(--surface); border-left:1px solid var(--border); display:flex; flex-direction:column; transform:translateX(100%); transition:transform .2s ease; padding-bottom:calc(140px + env(safe-area-inset-bottom,0px))}
 body.chat-open .chat{transform:none}
 @media (max-width:720px){ .chat{width:100%; padding-bottom:calc(190px + env(safe-area-inset-bottom,0px))} }
 .chat-h{display:flex; align-items:center; padding:12px 14px; font-weight:600; font-size:13px}
@@ -516,16 +647,17 @@ body.chat-open .chat{transform:none}
 </head>
 <body>
 <header class="nav">
-  <div class="logo" aria-label="Jain"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7.2" fill="#fff"/><path d="M8 3.6v8.8M3.6 8h8.8" stroke="#233038" stroke-width="1.8"/></svg>Jain</div>
-  <nav class="crumbs" id="crumbs" aria-label="Breadcrumb"></nav>
+  <button class="logo" type="button" data-go="pipeline" aria-label="Jain home"><img src="assets/pipeline/logo.svg" alt="" width="16" height="16">Jain</button>
+  <label class="nav-search"><img src="assets/pipeline/search.svg" alt="" width="17" height="17"><input id="navSearch" type="search" placeholder="Search bids, RFPs, or ask a question…" aria-label="Search bids" autocomplete="off"><kbd>⌘K</kbd></label>
   <div class="nav-r">
     <button class="nav-btn" id="howTo" type="button">How to play</button>
-    <button class="nav-btn hide-s" id="newPlayer" type="button">New player</button>
-    <span class="nav-btn hide-s" style="cursor:default" title="Everything in this demo is sample data">Sample data</span>
-    <div class="who"><span class="avatar" id="avatar">JD</span><span class="nm" id="whoName">Jane Doe</span></div>
+    <button class="nav-btn" id="newPlayer" type="button">New player</button>
+    <button class="nav-ico" type="button" data-inert aria-label="Notifications"><img src="assets/pipeline/bell.svg" alt="" width="17" height="17"></button>
+    <button class="nav-ico" type="button" data-inert aria-label="Admin tools"><img src="assets/pipeline/settings.svg" alt="" width="18" height="18"></button>
+    <div class="who"><span class="avatar" id="avatar">JD</span><span class="nm" id="whoName">Jane Doe</span><img src="assets/pipeline/chevron.svg" alt="" width="18" height="18"></div>
   </div>
 </header>
-<div class="shell"><main class="page" id="app"></main></div>
+<div class="shell"><nav class="crumbs" id="crumbs" aria-label="Breadcrumb"></nav><main class="page" id="app"></main></div>
 
 <aside class="chat" id="chat" aria-label="Chat with Jain">
   <div class="chat-h">New Chat <button class="ic-btn" id="chatClose" aria-label="Close chat" type="button"></button></div>
@@ -637,7 +769,7 @@ var STEPS = {
 
 /* ---------- state ---------- */
 var state;
-function fresh(){ return { player:null, played:[], view:'pipeline', wonId:null, filter:'all', guess:null, chat:[], asked:[], scope:'bid', chatOpen:false, lastRevealed:null, seen:{} }; }
+function fresh(){ return { player:null, played:[], view:'pipeline', wonId:null, filter:'all', q:'', xrtab:'exec', guess:null, chat:[], asked:[], scope:'bid', chatOpen:false, lastRevealed:null, seen:{} }; }
 state = fresh();
 function spent(){ var n=0; state.played.forEach(function(id){ n += (card(id).cost||1); }); return n; }
 function left(){ return 3 - spent(); }
@@ -680,23 +812,66 @@ function renderCrumbs(){
 
 /* ---------- views ---------- */
 function statusTag(s){ return '<span class="tag '+s+'">'+(s==='won'?'Won':s==='lost'?'Lost':'Bidding')+'</span>'; }
+function parseDue(p){ var m = /Due (\d{2})\/(\d{2})\/(\d{4})/.exec(p.when||''); return m ? new Date(+m[3], +m[1]-1, +m[2]) : null; }
+function dayDiff(d){ var t = new Date(); t.setHours(0,0,0,0); var x = new Date(d.getTime()); x.setHours(0,0,0,0); return Math.round((x-t)/86400000); }
+function stagePill(p){
+  if (p.mystery) return '<span class="stage guess"><i></i>Bidding</span>';
+  if (p.draft) return '<span class="stage guess"><i></i>Bidding</span>';
+  var s = p.status==='won'?'won':p.status==='lost'?'lost':'bidding';
+  var label = s==='won'?'Won':s==='lost'?'Lost':'Bidding';
+  return '<span class="stage '+s+'"><i></i>'+label+'</span>';
+}
+function whenCell(p){
+  var d = parseDue(p); if (!d) return esc(p.when);
+  var n = dayDiff(d);
+  var label = n<0 ? Math.abs(n)+'d late' : n===0 ? 'Due today' : 'Due '+(d.getMonth()+1)+'/'+d.getDate();
+  return '<span class="due'+(n<0?' late':'')+'">'+label+'</span>';
+}
+var SIZE = { riverside:'298,000 sq ft', northgate:'265,000 sq ft', lakemont:'386,000 sq ft' };
 
 function renderPipeline(){
-  var rows = PIPE.filter(function(p){ return state.filter==='all' || p.status===state.filter; }).map(function(p){
-    var price = p.mystery ? '<b>???</b>' : p.draft ? '<span class="muted">Draft</span>' : money(p.price);
+  var q = (state.q||'').trim().toLowerCase();
+  var list = PIPE.filter(function(p){
+    if (state.filter!=='all' && p.status!==state.filter) return false;
+    if (!q) return true;
+    return (p.name+' '+p.type+' '+p.loc+' '+p.when).toLowerCase().indexOf(q)>-1;
+  });
+  var rows = list.map(function(p){
+    var price = p.mystery ? '<b class="unk">???</b>' : p.draft ? '<span class="muted">Draft</span>' : money(p.price);
     var act = '';
     if (p.mystery) act = '<span class="row-act">Open X-Ray '+ic('arrow')+'</span>';
     else if (p.status==='won') act = '<span class="row-act">'+(has('won') && state.seen && state.seen[p.id] ? ic('chart')+'Dashboard' : ic('lock')+'Dashboard')+'</span>';
+    var opp = '<td><div class="pl-opp">'+esc(p.name)+'</div><div class="fac-sub">'+esc(p.type)+'</div></td>';
+    if (p.mystery) opp = '<td class="pl-guess"><div class="pl-opp"><div>'+esc(p.name)+'</div><div class="fac-sub">'+esc(p.type)+'</div></div><span class="guess-pill">Guess this one</span></td>';
     return '<tr class="row'+(p.mystery?' mystery':'')+'" tabindex="0" data-row="'+p.id+'">'+
-      '<td><div class="fac">'+esc(p.name)+(p.mystery?'<span class="guess-me">Guess this one</span>':'')+'</div><div class="fac-sub">'+esc(p.type)+'</div></td>'+
-      '<td>'+esc(p.loc)+'</td><td>'+statusTag(p.status)+'</td><td class="num">'+price+'</td><td class="muted small">'+esc(p.when)+'</td><td class="num">'+act+'</td></tr>';
-  }).join('');
+      opp+
+      '<td>'+stagePill(p)+'</td><td>'+esc(p.loc)+'</td><td>'+whenCell(p)+'</td><td class="pl-val">'+price+'</td><td>'+(SIZE[p.id]||'—')+'</td><td>'+act+'</td></tr>';
+  }).join('') || '<tr><td colspan="7" class="muted">No bids match that search.</td></tr>';
   var f = function(k,l){ return '<button type="button" data-filter="'+k+'" aria-pressed="'+(state.filter===k)+'">'+l+'</button>'; };
-  return '<p class="eyebrow">Bid pipeline</p><h1>Summit Building Services</h1>'+
-    '<p class="sub">You\u2019re bidding as Summit Building Services. Guess the winning annual price for the live bid marked <b>Guess this one</b>, using up to three cards.</p>'+
-    '<div class="seg" role="group" aria-label="Filter bids">'+f('all','All bids')+f('won','Won')+f('lost','Lost')+f('bidding','Bidding')+'</div>'+
-    '<div class="pipe tbl-wrap"><table><thead><tr><th>Facility</th><th>Location</th><th>Status</th><th class="num">Annual bid</th><th>Updated</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
-    '<p class="small muted" style="margin-top:12px">Price, address and status are free on every bid. Margins, wages, payroll and overtime on won bids take the <b>See won &amp; active bid</b> card.</p>';
+  var open = PIPE.filter(function(p){ return p.status==='bidding'; });
+  var next = null;
+  open.forEach(function(p){ var d = parseDue(p); if (!d) return; if (!next || d<next.d) next = {p:p, d:d}; });
+  var dueHtml = '—', dueNote = 'No open deadline', dueCls = 'due';
+  if (next){
+    var n = dayDiff(next.d);
+    dueHtml = n<0 ? Math.abs(n)+' days past due' : n===0 ? 'Due today' : n+' days left';
+    dueNote = next.p.name;
+    dueCls = 'due'+(n<0?' late':'');
+  }
+  var submitted = state.guess ? money(state.guess) : '—';
+  return '<div class="pl-head"><h1>Bid pipeline</h1><p class="pl-count">'+PIPE.length+' bids in Jain</p>'+
+    '<p class="pl-sub">You\u2019re bidding as Summit Building Services. Guess the winning annual price for the live bid marked <b>Guess this one</b>, using up to three cards.</p></div>'+
+    '<div class="pl-stats">'+
+      '<div class="pl-stat"><div class="lab">Open opportunities<span class="pl-ico open"><img src="assets/pipeline/stat-open.svg" alt="" width="16" height="16"></span></div><div><b class="open">'+open.length+'</b><span class="note">'+open.length+' still bidding</span></div></div>'+
+      '<div class="pl-stat"><div class="lab">Awaiting decision<span class="pl-ico wait"><img src="assets/pipeline/stat-await.svg" alt="" width="16" height="16"></span></div><div><b>'+(state.guess?1:0)+'</b><span class="note">'+(state.guess?'Guess locked in':'Nothing submitted yet')+'</span></div></div>'+
+      '<div class="pl-stat"><div class="lab">Submitted pipeline value<span class="pl-ico val"><img src="assets/pipeline/stat-value.svg" alt="" width="16" height="16"></span></div><div><b class="'+(state.guess?'':'dash')+'">'+submitted+'</b><span class="note">'+(state.guess?'Your locked guess':'Nothing submitted yet')+'</span></div></div>'+
+      '<button class="pl-stat" type="button"'+(next?' data-row="'+next.p.id+'"':'')+'><div class="lab">Next bid deadline<span class="pl-ico due"><img src="assets/pipeline/stat-due.svg" alt="" width="16" height="16"></span></div><div><b class="'+dueCls+'">'+dueHtml+'</b><span class="note">'+esc(dueNote)+'</span></div></button>'+
+    '</div>'+
+    '<section class="pl-board" aria-label="All opportunities"><div class="pl-board-h"><span class="pl-ico open"><img src="assets/pipeline/section.svg" alt="" width="16" height="16"></span><h2>All opportunities</h2><span class="pl-countpill">'+list.length+'</span><div class="grow"><button class="pl-new" type="button" data-inert><img src="assets/pipeline/plus.svg" alt="" width="14" height="14">New opportunity</button></div></div>'+
+    '<div class="pl-tools"><label class="pl-q"><img src="assets/pipeline/search-sm.svg" alt="" width="13" height="13"><input id="pipeQ" type="search" placeholder="Search opportunities" aria-label="Search opportunities" value="'+esc(state.q||'')+'" autocomplete="off"></label>'+
+    '<div class="pl-filters" role="group" aria-label="Filter bids">'+f('all','All bids')+f('won','Won')+f('lost','Lost')+f('bidding','Bidding')+'</div></div>'+
+    '<div class="pl-table"><div class="tbl-wrap"><table><thead><tr><th>Opportunity</th><th>Stage</th><th>Location</th><th>Bid deadline</th><th>Value</th><th>Size</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+    '<p class="pl-foot">Price, address and status are free on every bid. Margins, wages, payroll and overtime on won bids take the <b>See won &amp; active bid</b> card.</p></div></section>';
 }
 
 function lockedBlock(id){
@@ -818,21 +993,54 @@ var SECTIONS = {
 };
 var ORDER = ['xray','bsc','floor','rates','scope','compliance','risks','labor','incumbent','comps','margin','ptw','staffing'];
 
+var XR_TABS = [
+  { id:'exec', label:'Executive Summary', ids: ORDER.slice() },
+  { id:'floor', label:'Spaces & Floor Breakdown', ids:['floor'] },
+  { id:'risks', label:'RFP Risk Review & Open Questions', ids:['risks'] }
+];
+function xrTabOf(id){ var t = XR_TABS.filter(function(tab){ return tab.ids.indexOf(id)>-1; })[0]; return t ? t.id : 'exec'; }
 function renderBid(){
   var x = has('xray');
-  var stat = function(ico,color,lab,val,note,chat){
-    if (!x) return '<div class="stat"><div class="lab"><span class="ico '+color+'">'+ic(ico)+'</span>'+lab+'</div><div class="skel"></div><div class="skel s"></div><div class="note">Play <b>X-Ray</b></div></div>';
-    return '<div class="stat"><div class="lab"><span class="ico '+color+'">'+ic(ico)+'</span>'+lab+'</div><div class="val">'+val+'</div>'+(chat?'<button type="button" class="link" data-openchat>'+ic('chat')+'See full details in chat</button>':'<div class="note">'+note+'</div>')+'</div>';
+  if (state.lastRevealed){
+    var here = XR_TABS.filter(function(t){ return t.id===(state.xrtab||'exec'); })[0];
+    if (!here || here.ids.indexOf(state.lastRevealed)===-1) state.xrtab = xrTabOf(state.lastRevealed);
+  }
+  var tab = state.xrtab || 'exec';
+  var cur = XR_TABS.filter(function(t){ return t.id===tab; })[0] || XR_TABS[0];
+  var ico = function(name, cls){ return '<span class="xr-ico '+cls+'"><img src="assets/xray/'+name+'.svg" alt="" width="16" height="16"></span>'; };
+  var stat = function(icon, lab, val, note, chat, phrase){
+    if (!x) return '<div class="stat"><div class="lab">'+icon+lab+'</div><div class="skel"></div><div class="skel s"></div><div class="note">Play <b>X-Ray</b></div></div>';
+    var foot = chat ? '<button type="button" class="link" data-openchat><img src="assets/xray/stat-chat.svg" alt="" width="13" height="13">See full details in chat</button>' : '<div class="note">'+note+'</div>';
+    return '<div class="stat"><div class="lab">'+icon+lab+'</div><div class="val'+(phrase?' phrase':'')+'">'+val+'</div>'+foot+'</div>';
   };
-  var h = '<p class="eyebrow">Bid X-Ray</p><h1>'+esc(BID.name)+' <span class="ver">v.1</span></h1>'+
-    '<dl class="meta"><div><dt>Address</dt><dd>'+BID.addr+'</dd></div><div><dt>Facility type</dt><dd>'+(x?'Government offices, courthouse, clinic, library':'<span class="muted">Play X-Ray</span>')+'</dd></div><div><dt>Submission deadline</dt><dd>'+BID.deadline+'</dd></div></dl>'+
-    '<div class="actions"><button class="btn primary" type="button" data-inert>'+ic('upload')+'Upload Document</button><button class="btn" type="button" data-inert>'+ic('download')+'Create Powerpoint</button><button class="btn" type="button" data-inert>'+ic('download')+'Export PDF</button></div>'+
-    '<div class="stats">'+stat('layers','grey','Total square footage','386,000 <small>sf</small>','Across 4 buildings')+stat('cal','green','Term','3 <small>years</small>','3 yr + 2\u00d71')+stat('card','blue','Payment terms','Net 30','',true)+stat('file','red','Termination','30 <small>days</small>','',true)+'</div>';
-  var played = [], lockedList = [];
-  ORDER.forEach(function(id){ if (has(id) && SECTIONS[id]) played.push(SECTIONS[id]()); else lockedList.push(lockedBlock(id)); });
-  if (played.length) h += played.join('');
-  h += '<p class="small muted" style="margin:18px 0 8px">'+(played.length?'Still hidden':'Everything below is hidden until you play its card')+'</p>' + lockedList.join('');
-  return h;
+  var playedHtml = [], lockedHtml = [];
+  cur.ids.forEach(function(id){
+    var shown = has(id) && SECTIONS[id];
+    var html = shown ? SECTIONS[id]() : lockedBlock(id);
+    if (tab==='exec' && id==='xray') html = html.replace('class="sec', 'class="sec wide').replace('class="locked"', 'class="locked wide"');
+    (shown ? playedHtml : lockedHtml).push(html);
+  });
+  var blocks = playedHtml.join('');
+  if (lockedHtml.length) blocks += '<p class="small muted xr-hidden">'+(playedHtml.length?'Still hidden':'Everything in this tab is hidden until you play its card')+'</p>'+lockedHtml.join('');
+  var tabs = XR_TABS.map(function(t){
+    return '<button type="button" role="tab" data-xrtab="'+t.id+'" aria-selected="'+(t.id===cur.id)+'">'+t.label+'</button>';
+  }).join('');
+  return '<div class="xr-backbar"><button class="xr-back" type="button" data-go="pipeline"><img src="assets/xray/back.svg" alt="" width="16" height="16">Back to pipeline</button></div>'+
+    '<section class="xr-hero"><div><div class="xr-kicker"><span class="eye">Bid X-Ray</span><span class="ver">v.1</span></div>'+
+    '<h1>'+esc(BID.name)+'</h1>'+
+    '<dl class="meta"><div><dt>Address</dt><dd>'+BID.addr+'</dd></div><div><dt>Facility type</dt><dd>'+(x?'Government offices, courthouse, clinic, library':'<span class="muted">Play X-Ray</span>')+'</dd></div><div><dt>Submission deadline</dt><dd>'+BID.deadline+'</dd></div></dl></div>'+
+    '<div class="xr-actions"><button class="btn primary" type="button" data-inert><img src="assets/xray/upload.svg" alt="" width="16" height="16">Upload Document</button>'+
+    '<button class="btn" type="button" data-inert><img src="assets/xray/download.svg" alt="" width="16" height="16">Create Powerpoint</button>'+
+    '<button class="btn" type="button" data-inert><img src="assets/xray/download.svg" alt="" width="16" height="16">Export PDF</button>'+
+    '<button class="btn" type="button" data-inert><img src="assets/xray/download.svg" alt="" width="16" height="16">Download RFP(s)</button></div></section>'+
+    '<div class="stats">'+
+      stat(ico('stat-sqft','sqft'),'Total square footage','386,000 <small>sf</small>','Across 4 buildings')+
+      stat(ico('stat-term','term'),'Contract term','3 <small>years</small>','3 yr + 2\u00d71')+
+      stat(ico('stat-pay','pay'),'Payment terms','Net 30','',true,true)+
+      stat(ico('stat-termn','termn'),'Termination','30 <small>days</small>','',true)+
+    '</div>'+
+    '<div class="xr-tabs" role="tablist" aria-label="Bid X-Ray sections">'+tabs+'</div>'+
+    '<div class="xr-sections'+(tab==='exec'?' pair':'')+'">'+blocks+'</div>';
 }
 
 function renderWon(){
@@ -863,8 +1071,14 @@ function renderWon(){
 
 function render(){
   renderCrumbs();
+  document.body.classList.toggle('on-pipe', state.view==='pipeline');
+  document.body.classList.toggle('on-bid', state.view==='bid');
   var app = $('#app');
+  app.classList.toggle('pipe-page', state.view==='pipeline');
+  app.classList.toggle('xr-page', state.view==='bid');
   app.innerHTML = state.view==='pipeline' ? renderPipeline() : state.view==='bid' ? renderBid() : renderWon();
+  var ns = $('#navSearch');
+  if (ns && document.activeElement!==ns && ns.value!==(state.q||'')) ns.value = state.q||'';
   renderTray(); renderChat(); wireSim();
   if (state.lastRevealed){
     var el = document.getElementById('sec-'+state.lastRevealed);
@@ -1260,6 +1474,7 @@ document.addEventListener('click', function(e){
   if (t.hasAttribute('data-scrim')){ if (e.target===t && state.player) closeModal(); return; }
   if (t.dataset.go){ go(t.dataset.go); return; }
   if (t.dataset.filter){ state.filter = t.dataset.filter; render(); return; }
+  if (t.dataset.xrtab){ state.xrtab = t.dataset.xrtab; render(); return; }
   if (t.dataset.row){ rowClick(t.dataset.row); return; }
   if (t.dataset.card){ tryCard(t.dataset.card); return; }
   if (t.dataset.play){ tryCard(t.dataset.play); return; }
@@ -1275,7 +1490,19 @@ document.addEventListener('click', function(e){
   if (t.id==='howTo'){ if (state.player) openWizard(0); return; }
   if (t.id==='newPlayer'){ if (state.played.length && !state.guess){ modal('<div class="dlg-b"><h3>Start a new player?</h3><p class="muted" style="margin:0">This round\u2019s cards and guess will be cleared.</p></div><div class="dlg-f"><button class="btn" type="button" data-close>Cancel</button><button class="btn primary" type="button" data-newplayer>New player</button></div>'); } else reset(); return; }
 });
+document.addEventListener('input', function(e){
+  if (e.target.id!=='pipeQ' && e.target.id!=='navSearch') return;
+  state.q = e.target.value;
+  if (state.view!=='pipeline') return;
+  if (e.target.id==='pipeQ'){
+    var pos = e.target.selectionStart;
+    render();
+    var el = $('#pipeQ');
+    if (el){ el.focus(); try { el.setSelectionRange(pos, pos); } catch (err) {} }
+  } else render();
+});
 document.addEventListener('keydown', function(e){
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase()==='k'){ e.preventDefault(); var s=$('#navSearch'); if (s) s.focus(); return; }
   if (e.key==='Escape'){ if ($('#modal').innerHTML && state.player && !document.querySelector('#pt')) closeModal(); else if (state.chatOpen) openChat(false); }
   if ((e.key==='Enter' || e.key===' ') && e.target.matches && e.target.matches('tr.row')){ e.preventDefault(); rowClick(e.target.dataset.row); }
 });
