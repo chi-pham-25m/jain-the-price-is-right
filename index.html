@@ -815,6 +815,8 @@ function money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
 /* ---------- sample data ---------- */
 var BID = { id:'lakemont', name:'Lakemont County Facilities Janitorial Services', short:'Lakemont County Facilities', loc:'Lakemont County, OH', addr:'4 sites across Lakemont County, OH', deadline:'12/04/2026' };
 var WIN = 1184600, JAIN_EST = 1201300, SQFT = 386000;
+/* Paste the Apps Script web app URL ending in /exec. Leave blank until that deployment exists. */
+var SHEET_URL = 'https://script.google.com/macros/s/…/exec';
 
 var PIPE = [
   { id:'riverside', name:'Riverside Medical Pavilion', type:'Medical office', loc:'Columbus, OH', status:'won', price:1036000, when:'Active since Mar 2024' },
@@ -1359,8 +1361,22 @@ function openGuess(prefill){
   $('#gGo').onclick = function(){
     var n = parseMoney(g.value);
     if (n < 10000){ $('#gErr').textContent = 'Enter an annual price, like 1,250,000.'; g.focus(); return; }
-    state.guess = n; openChat(false); closeModal(); render(); openLocked();
+    state.guess = n; openChat(false); closeModal(); render(); openLocked(); submitPlayer();
   };
+}
+function submitPlayer(){
+  if (!SHEET_URL) return;
+  var name = (state.player && state.player.name ? state.player.name : '').trim().split(/\s+/);
+  var first = name.shift() || '';
+  var payload = {
+    firstName: first,
+    lastName: name.join(' '),
+    company: state.player && state.player.company ? state.player.company : '',
+    email: state.player && state.player.email ? state.player.email : '',
+    cards: state.played.map(function(id){ return card(id).name; }).join(', '),
+    guess: state.guess
+  };
+  fetch(SHEET_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload) }).catch(function(){});
 }
 function openLocked(){
   modal('<div class="gl-body"><div class="gl-marquee" id="glMarquee"><div class="gl-stage"><span class="gl-label">Your price</span>'+
