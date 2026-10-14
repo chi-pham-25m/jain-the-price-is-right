@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <title>Jain · The Price Is Right (demo)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +37,7 @@
   --red:#f0766c; --red-tint:#3a1f1d; --amber:#e3b35a; --amber-tint:#3a2f17; --green:#6cc08a; --green-tint:#1c3326;
   --purple:#b0a3e6; --purple-tint:#2a2548; --scrim:rgba(0,0,0,.6); --shadow-up:0 -6px 24px rgba(0,0,0,.35); --tray-bg:#12181b; --card-ink:#e9edec; --deco:#3a2f34; --deco-locked:#38454b; --mint:#2c4a3d; --on-mint:#e9edec;
 }
-html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px); height:100%}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px); height:100%; -webkit-text-size-adjust:100%; text-size-adjust:100%}
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0; background:var(--bg); color:var(--text); font-family:Inter, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; font-size:14px; line-height:1.45; -webkit-font-smoothing:antialiased}
 button{font:inherit; color:inherit}
@@ -251,15 +251,15 @@ body.chat-open .chat{transform:none}
 .send{width:24px; height:24px; border-radius:50%; background:#efeeeb; display:grid; place-items:center; color:var(--muted)}
 
 /* modals */
-.scrim{position:fixed; inset:0; z-index:50; background:var(--scrim); display:grid; place-items:center; padding:20px; animation:fade .15s ease}
+.scrim{position:fixed; inset:0; z-index:50; background:var(--scrim); display:grid; place-items:safe center; padding:max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); overflow:auto; animation:fade .15s ease}
 @keyframes fade{from{opacity:0}}
-.dlg{background:var(--surface); border-radius:12px; width:min(520px, 100%); max-height:calc(100% - 20px); overflow:auto; box-shadow:0 24px 64px rgba(0,0,0,.25)}
+.dlg{background:var(--surface); border-radius:12px; width:min(520px, 100%); max-height:calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); overflow:auto; box-shadow:0 24px 64px rgba(0,0,0,.25)}
 .dlg.wide{width:min(640px,100%)}
 .dlg-b{padding:24px}
 .dlg h3{font-size:19px; font-weight:600; margin:0 0 6px; letter-spacing:-.2px}
 .dlg .f{display:flex; flex-direction:column; gap:5px; margin-top:14px}
 .dlg label{font-size:12.5px; color:var(--muted); font-weight:500}
-.dlg input[type=text], .dlg input[type=email]{font:inherit; font-size:14px; padding:9px 11px; border:1px solid var(--border-strong); border-radius:7px; background:var(--surface); color:var(--text)}
+.dlg input[type=text], .dlg input[type=email]{font:inherit; font-size:16px; padding:9px 11px; border:1px solid var(--border-strong); border-radius:7px; background:var(--surface); color:var(--text)}
 .dlg input:focus{outline:2px solid var(--teal-border); border-color:var(--teal)}
 .dlg-f{display:flex; justify-content:flex-end; gap:8px; padding:14px 24px; background:var(--surface-2); border-top:1px solid var(--border); border-radius:0 0 12px 12px; align-items:center}
 .dlg-f .left{margin-right:auto}
@@ -302,7 +302,7 @@ body.chat-open .chat{transform:none}
 .ci-fields{display:flex; flex-direction:column; gap:16px; width:100%}
 .ci-field{display:flex; flex-direction:column; gap:6px}
 .ci-field span{font:600 15px/20px Poppins,sans-serif; color:#46443f}
-.dlg.checkin .ci-field input{font:400 14px/20px Archivo,sans-serif; color:#1e1d1a; background:#fafafa; border:1px solid #c2bfba; border-radius:8px; padding:8px 12px; box-shadow:0 1px 2px rgba(0,0,0,.05); width:100%}
+.dlg.checkin .ci-field input{font:400 16px/20px Archivo,sans-serif; color:#1e1d1a; background:#fafafa; border:1px solid #c2bfba; border-radius:8px; padding:8px 12px; box-shadow:0 1px 2px rgba(0,0,0,.05); width:100%}
 .dlg.checkin .ci-field input::placeholder{color:#787470; opacity:1}
 .dlg.checkin .ci-field input:focus{outline:2px solid #c9dfe2; border-color:#447c86}
 .ci-actions{display:flex; flex-direction:column; align-items:center; gap:8px; width:100%}
@@ -310,8 +310,18 @@ body.chat-open .chat{transform:none}
 .dlg.checkin .err:empty{display:none}
 .ci-start{width:100%; height:48px; border-radius:999px; border:2px solid rgba(255,255,255,.12); background:#447c86; color:#fafafa; font:600 16px/24px Archivo,sans-serif; box-shadow:0 1px 2px rgba(0,0,0,.05), inset 0 0 0 1px rgba(0,0,0,.18), inset 0 -2px 0 rgba(0,0,0,.05); cursor:pointer; display:flex; align-items:center; justify-content:center}
 .ci-start:hover{background:#366670}
-.ci-skip{border:0; background:transparent; padding:0; color:#396770; font:600 14px/20px Archivo,sans-serif; cursor:pointer}
+.ci-skip{border:0; background:transparent; padding:8px 12px; min-height:44px; color:#396770; font:600 14px/20px Archivo,sans-serif; cursor:pointer}
 .ci-skip:hover{color:#2d5560}
+@media (max-height:760px){
+  .ci-col{margin:16px auto; gap:14px}
+  .ci-fields{gap:12px}
+  .ci-hero{transform:scale(.78); transform-origin:top center; margin-bottom:-61px}
+}
+@media (max-height:640px){
+  .ci-col{margin:10px auto; gap:8px}
+  .ci-fields{gap:8px}
+  .ci-hero{transform:scale(.62); margin-bottom:-106px}
+}
 
 /* email */
 .mail{border:1px solid var(--border); border-radius:10px; overflow:hidden}
@@ -393,7 +403,8 @@ body.chat-open .chat{transform:none}
 
 @media (prefers-reduced-motion: reduce){ *,*::before,*::after{animation-duration:.01ms !important; transition-duration:.01ms !important} }
 /* how-to-play (animated) */
-.dlg.htp-dlg{width:min(860px,100%); overflow:hidden}
+.dlg.htp-dlg{width:min(860px,100%); overflow:auto; display:flex; flex-direction:column}
+.dlg.htp-dlg .dlg-f{position:sticky; bottom:0; z-index:2}
 .htp{display:grid; grid-template-columns:380px minmax(0,1fr); height:360px}
 .htp-art{position:relative; background:var(--teal-tint); border-right:1px solid var(--teal-border); overflow:hidden; cursor:pointer}
 .htp-art .replay{position:absolute; bottom:10px; right:12px; font-size:11.5px; color:var(--faint)}
