@@ -285,9 +285,20 @@ button.pl-stat:hover{border-color:#c2bfba}
   .nav-btn{padding:8px}
 }
 
-/* tray */
-.tray{position:fixed; left:0; right:0; bottom:0; z-index:25; background:var(--tray-bg); border-top:1px solid var(--border); box-shadow:var(--shadow-up); padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
-.tray-in{display:flex; align-items:stretch; gap:16px; max-width:1400px; margin:0 auto}
+/* tray drawer */
+.tray{--tray-peek:calc(48px + env(safe-area-inset-bottom,0px)); position:fixed; left:0; right:0; bottom:0; z-index:25; background:var(--tray-bg); border-top:1px solid var(--border); border-radius:16px 16px 0 0; box-shadow:var(--shadow-up); padding:0 16px calc(12px + env(safe-area-inset-bottom,0px)); transform:translateY(calc(100% - var(--tray-peek))); transition:transform .32s cubic-bezier(.2,.8,.2,1)}
+.tray.open{transform:translateY(0)}
+.tray.dragging{transition:none}
+.tray-handle{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; width:calc(100% + 32px); margin:0 -16px; padding:8px 16px; border:0; background:transparent; color:inherit; cursor:grab; touch-action:none; user-select:none}
+.tray:not(.open) .tray-handle{height:var(--tray-peek); box-sizing:border-box}
+.tray-handle:active{cursor:grabbing}
+.tray-grab{width:36px; height:4px; border-radius:999px; background:#c2bfba}
+.tray-peek{font:600 13px/1.2 Geist,sans-serif; color:var(--text)}
+.tray.open .tray-peek{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+.tray-in{display:flex; align-items:stretch; gap:16px; max-width:1400px; margin:0 auto; padding-bottom:4px}
+body:not(.tray-open) .page,
+body:not(.tray-open) .page.pipe-page,
+body:not(.tray-open) .page.xr-page{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 .hand{flex:none; width:128px; display:flex; flex-direction:column; justify-content:center; gap:6px}
 .hand .t{font-weight:600; font-size:13px}
 .pips{display:flex; gap:6px}
@@ -1190,11 +1201,68 @@ function render(){
 function go(view){ state.view = view; window.scrollTo(0,0); render(); }
 
 /* ---------- tray ---------- */
-function renderTray(){
+var trayOpen = false, trayPrevLeft = null, trayMoved = false;
+function setTray(open){
+  trayOpen = !!open;
+  var t = $('#tray'); if (!t) return;
+  t.classList.toggle('open', trayOpen);
+  document.body.classList.toggle('tray-open', trayOpen);
+  t.style.transform = '';
+  var h = t.querySelector('.tray-handle');
+  if (h) h.setAttribute('aria-expanded', trayOpen ? 'true' : 'false');
+}
+function trayFrame(peek, inner){
+  if (trayPrevLeft !== 0 && left()===0) trayOpen = true;
+  if (trayPrevLeft === 0 && left()>0) trayOpen = false;
+  trayPrevLeft = left();
   var t = $('#tray');
+  t.innerHTML = '<button type="button" class="tray-handle" aria-expanded="'+(trayOpen?'true':'false')+'" aria-label="'+esc(peek)+'"><span class="tray-grab"></span><span class="tray-peek">'+esc(peek)+'</span></button>'+inner;
+  t.classList.toggle('open', trayOpen);
+  document.body.classList.toggle('tray-open', trayOpen);
+  t.style.transform = '';
+}
+function wireTray(){
+  var t = $('#tray'); if (!t || t.dataset.wired) return;
+  t.dataset.wired = '1';
+  var drag = null;
+  t.addEventListener('pointerdown', function(e){
+    if (!e.target.closest('.tray-handle')) return;
+    drag = { y:e.clientY, id:e.pointerId };
+    trayMoved = false;
+    t.classList.add('dragging');
+    try { t.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+  t.addEventListener('pointermove', function(e){
+    if (!drag || e.pointerId!==drag.id) return;
+    var dy = e.clientY - drag.y;
+    if (Math.abs(dy)>6) trayMoved = true;
+    var h = t.offsetHeight, pad = parseFloat(getComputedStyle(t).paddingBottom)||12, peek = 48 + Math.max(0, pad-12);
+    var base = trayOpen ? 0 : Math.max(0, h - peek);
+    var next = Math.max(0, Math.min(Math.max(0, h - peek), base + dy));
+    t.style.transform = 'translateY('+next+'px)';
+  });
+  function end(e){
+    if (!drag || e.pointerId!==drag.id) return;
+    var dy = e.clientY - drag.y;
+    t.classList.remove('dragging');
+    drag = null;
+    if (!trayMoved){ t.style.transform = ''; return; }
+    if (dy < -28) setTray(true);
+    else if (dy > 28) setTray(false);
+    else setTray(trayOpen);
+  }
+  t.addEventListener('pointerup', end);
+  t.addEventListener('pointercancel', end);
+  t.addEventListener('click', function(e){
+    if (!e.target.closest('.tray-handle')) return;
+    if (trayMoved){ trayMoved = false; return; }
+    setTray(!trayOpen);
+  });
+}
+function renderTray(){
   var pips = ''; for (var i=0;i<3;i++) pips += '<span class="pip'+(i<spent()?' used':'')+'"></span>';
   if (state.guess){
-    t.innerHTML = '<div class="tray-in"><div class="hand"><span class="t">Guess locked</span><div class="pips">'+pips+'</div></div><div class="done-bar"><span class="big">'+money(state.guess)+' / yr</span><span class="muted">Results arrive by email after ISSA: how close you were, plus the top 3.</span></div><div class="tray-r"><button class="btn primary" type="button" id="previewMail">Preview results email</button><button class="btn" type="button" data-newplayer>New player</button></div></div>';
+    trayFrame('Guess locked', '<div class="tray-in"><div class="hand"><span class="t">Guess locked</span><div class="pips">'+pips+'</div></div><div class="done-bar"><span class="big">'+money(state.guess)+' / yr</span><span class="muted">Results arrive by email after ISSA: how close you were, plus the top 3.</span></div><div class="tray-r"><button class="btn primary" type="button" id="previewMail">Preview results email</button><button class="btn" type="button" data-newplayer>New player</button></div></div>');
     return;
   }
   var DECO = '<svg class="deco" viewBox="0 0 161 186" fill="none" aria-hidden="true"><path d="M12.7959 180.092C12.7959 180.092 11.3368 176.495 9.71692 174.875C8.09703 173.255 4.49994 171.796 4.49994 171.796C4.49994 171.796 8.09703 170.337 9.71692 168.717C11.3368 167.097 12.7959 163.5 12.7959 163.5C12.7959 163.5 14.255 167.097 15.8749 168.717C17.4948 170.337 21.0919 171.796 21.0919 171.796C21.0919 171.796 17.4948 173.255 15.8749 174.875C14.255 176.495 12.7959 180.092 12.7959 180.092Z" fill="currentColor"/><line x1="12.6894" y1="-4.5" x2="12.6894" y2="210.375" stroke="currentColor" stroke-width="0.972285"/><line x1="170.812" y1="171.742" x2="-93" y2="171.742" stroke="currentColor" stroke-width="0.972285"/></svg>';
@@ -1210,7 +1278,7 @@ function renderTray(){
       '<span class="body"><span class="nm">'+esc(c.name)+'</span><span class="dsc"><span class="bl">'+esc(c.blurb)+'</span>'+'<span class="src">'+esc(src)+'</span>'+'</span></span>'+
       '<span class="ft">'+foot+'</span></button>';
   }).join('');
-  t.innerHTML = '<div class="tray-in"><div class="hand"><span class="t">'+left()+' of 3 cards left</span><div class="pips">'+pips+'</div><span class="h">Some cards unlock others. Choose your path.</span></div><div class="cards" role="list">'+cards+'</div><div class="tray-r"><button class="btn primary" type="button" id="lockIn">Lock in guess</button></div></div>';
+  trayFrame(left()+' of 3 cards left', '<div class="tray-in"><div class="hand"><span class="t">'+left()+' of 3 cards left</span><div class="pips">'+pips+'</div><span class="h">Some cards unlock others. Choose your path.</span></div><div class="cards" role="list">'+cards+'</div><div class="tray-r"><button class="btn primary" type="button" id="lockIn">Lock in guess</button></div></div>');
 }
 
 /* ---------- playing cards ---------- */
@@ -1585,7 +1653,7 @@ var HTP = [
   { t:'You get three cards', p:'Each card reveals a different kind of information. Your hand is at the bottom of the screen.',
     art:function(){ return '<div class="deal cback" id="d0"></div><div class="deal cback" id="d1"></div><div class="deal cback" id="d2"></div><svg id="h2arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5 13l7 7 7-7"/></svg>'; },
     run:function run(){
-      var ds=[htpEl('d0'),htpEl('d1'),htpEl('d2')], arrow=htpEl('h2arrow'); if(!arrow) return; $('#tray').classList.add('spot');
+      var ds=[htpEl('d0'),htpEl('d1'),htpEl('d2')], arrow=htpEl('h2arrow'); if(!arrow) return; setTray(true); $('#tray').classList.add('spot');
       var pos=function(i,dy,rot){ return 'translate('+((i-1)*70)+'px,'+(Math.abs(i-1)*8+(dy||0))+'px) rotate('+((i-1)*(rot||10))+'deg)'; };
       if (HTP_REDUCE){ ds.forEach(function(d,i){ d.style.opacity=1; d.style.transform=pos(i); }); arrow.style.opacity=1; return; }
       ds.forEach(function(d,i){ htpA(d,[{transform:'translate(220px,-260px) rotate(60deg)',opacity:0},{transform:pos(i),opacity:1}],{duration:700,delay:200+i*180,easing:HTP_SPRING}); });
@@ -1695,7 +1763,7 @@ function htpDeal(from){
 }
 function htpClose(){
   var d=$('#modal .dlg'), from = d ? d.getBoundingClientRect() : null;
-  htpStop(); closeModal(); if (from) htpDeal(from);
+  htpStop(); closeModal(); if (left()>0) setTray(false); if (from) htpDeal(from);
 }
 function openWizard(i){
   i = i||0; if (i===0) htpFlipped=false;
@@ -1763,6 +1831,7 @@ function rowClick(id){
 }
 function reset(){ state = fresh(); closeModal(); render(); openCheckin(); }
 
+wireTray();
 $('#chatClose').innerHTML = ic('x');
 $('#upIc').innerHTML = ic('upload');
 $('#sendIc').innerHTML = ic('arrow');
