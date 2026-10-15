@@ -596,14 +596,15 @@ body.chat-open .chat{transform:none}
 
 @media (prefers-reduced-motion: reduce){ *,*::before,*::after{animation-duration:.01ms !important; transition-duration:.01ms !important} }
 /* how-to-play (animated) */
-.dlg.htp-dlg{width:min(860px,100%); overflow:auto; display:flex; flex-direction:column}
+.dlg.htp-dlg{width:min(680px, calc(100% - 40px)); overflow:auto; display:flex; flex-direction:column}
 .dlg.htp-dlg .dlg-f{position:sticky; bottom:0; z-index:2}
-.htp{display:grid; grid-template-columns:380px minmax(0,1fr); height:360px}
-.htp-art{position:relative; background:var(--teal-tint); border-right:1px solid var(--teal-border); overflow:hidden; cursor:pointer}
+.htp{display:grid; grid-template-columns:304px minmax(0,1fr); height:288px}
+.htp-art{position:relative; background:var(--teal-tint); border-right:1px solid var(--teal-border); overflow:hidden; cursor:pointer; display:flex; align-items:center; justify-content:center}
+.htp-stage{position:relative; width:380px; height:360px; flex:none; transform:scale(.78); transform-origin:center center}
 .htp-art .replay{position:absolute; bottom:10px; right:12px; font-size:11.5px; color:var(--faint)}
-.htp-txt{padding:44px 36px 24px}
-.htp-txt h3{font-size:24px; line-height:1.2; margin:0 0 12px}
-.htp-txt p{margin:0; font-size:16.5px; color:var(--muted); max-width:32ch; line-height:1.5}
+.htp-txt{padding:28px 28px 16px}
+.htp-txt h3{font-size:20px; line-height:1.2; margin:0 0 10px}
+.htp-txt p{margin:0; font-size:15px; color:var(--muted); max-width:32ch; line-height:1.45}
 .htp-txt .aside{margin-top:14px; font-size:13.5px; color:var(--faint)}
 .htp-txt h3, .htp-txt p{animation:htpIn .35s ease}
 @keyframes htpIn{from{opacity:0; transform:translateY(6px)}}
@@ -701,9 +702,9 @@ body.chat-open .chat{transform:none}
 .ghostcard{position:fixed; width:22px; height:30px; border-radius:4px; background:var(--teal); z-index:70; pointer-events:none}
 @media (max-width:760px){
   .htp{grid-template-columns:1fr; height:auto}
-  .htp-art{height:330px; border-right:0; border-bottom:1px solid var(--teal-border)}
-  .htp-txt{padding:22px 20px}
-  .htp-txt h3{font-size:21px}
+  .htp-art{height:288px; border-right:0; border-bottom:1px solid var(--teal-border)}
+  .htp-txt{padding:20px 20px 12px}
+  .htp-txt h3{font-size:18px}
 }
 /* ===== Guess locked modal — all classes prefixed gl- =====
    Uses the demo's tokens (--surface, --teal, etc.) with fallbacks,
@@ -1769,7 +1770,7 @@ function openWizard(i){
   i = i||0; if (i===0) htpFlipped=false;
   htpStop(); htpStep=i; var w=HTP[i], last=i===HTP.length-1;
   var dots = HTP.map(function(_,k){ return '<span'+(k===i?' class="on"':'')+'></span>'; }).join('');
-  modal('<div class="htp"><div class="htp-art" id="htpArt" title="Tap to replay">'+w.art()+(i!==4?'<span class="replay">\u21bb Tap to replay</span>':'')+'</div>'+
+  modal('<div class="htp"><div class="htp-art" id="htpArt" title="Tap to replay"><div class="htp-stage">'+w.art()+'</div>'+(i!==4?'<span class="replay">\u21bb Tap to replay</span>':'')+'</div>'+
     '<div class="htp-txt"><h3 id="wzT">'+w.t+'</h3><p>'+w.p+'</p>'+(w.aside?'<p class="aside">'+w.aside+'</p>':'')+'</div></div>'+
     '<div class="dlg-f"><div class="dots" aria-hidden="true">'+dots+'</div>'+
     (i>0 ? '<button class="btn" type="button" id="wzBack">Back</button>' : '<button class="btn ghost" type="button" id="wzSkip">Skip</button>')+
