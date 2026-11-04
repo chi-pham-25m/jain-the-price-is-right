@@ -45,21 +45,23 @@ button{font:inherit; color:inherit}
 svg.i{width:16px; height:16px; flex:none; stroke:currentColor; fill:none; stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round}
 
 /* nav — Figma header */
-.nav{position:sticky; top:env(safe-area-inset-top,0px); z-index:30; background:#233038; color:#fafafa; height:64px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:12px; padding:0 16px 0 0}
+.nav{position:sticky; top:env(safe-area-inset-top,0px); z-index:30; background:#233038; color:#fafafa; height:64px; display:flex; align-items:center; gap:12px; padding:0 16px 0 0}
 .logo{display:flex; align-items:center; gap:4px; width:224px; padding:0 24px; background:none; border:0; color:#c9dde1; cursor:pointer; font:300 24px/32px Archivo,sans-serif}
 .logo img{display:block; flex:none}
-.nav-search{display:flex; align-items:center; gap:10px; height:40px; width:min(576px,100%); margin:0 auto; padding:0 16px; border-radius:999px; background:rgba(255,255,255,.1)}
-.nav-search img{display:block; flex:none}
-.nav-search input{flex:1; min-width:0; border:0; outline:none; background:transparent; color:#fafafa; font:400 14px/20px Archivo,sans-serif}
-.nav-search input::placeholder{color:rgba(250,250,250,.6)}
-.nav-search kbd{flex:none; padding:2px 6px; border-radius:8px; background:rgba(255,255,255,.1); color:rgba(250,250,250,.7); font:600 11px/16.5px Archivo,sans-serif}
 .crumbs{display:flex; align-items:center; gap:8px; max-width:900px; margin:0 auto; padding:16px 24px 0; font-weight:600; font-size:14px; min-width:0; color:var(--muted)}
 .crumbs button{background:none; border:0; color:var(--teal-text); padding:0; cursor:pointer; display:flex; align-items:center; font-weight:500}
 .crumbs button:hover{color:var(--text)}
 .crumbs .cur{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:var(--text)}
 .crumbs svg.i{width:14px; height:14px; color:var(--faint)}
 body.on-pipe .crumbs, body.on-bid .crumbs{display:none}
-.nav-r{display:flex; align-items:center; gap:8px}
+.nav-r{display:flex; align-items:center; gap:8px; margin-left:auto}
+.day-switch{display:flex; align-items:center; padding:3px; border-radius:10px; background:rgba(255,255,255,.08); gap:2px}
+.day-switch button{display:flex; flex-direction:column; align-items:flex-start; border:0; background:transparent; color:#fafafa; border-radius:8px; padding:4px 10px; cursor:pointer; white-space:nowrap}
+.day-switch .day-k{font:600 11px/14px Archivo,sans-serif; opacity:.72}
+.day-switch .day-n{font:600 13px/16px Archivo,sans-serif}
+.day-switch button[aria-pressed="true"]{background:#fafafa; color:#233038}
+.day-switch button[aria-pressed="true"] .day-k{opacity:.62}
+.day-switch button:hover:not([aria-pressed="true"]){background:rgba(255,255,255,.1)}
 .nav-btn{border:0; background:transparent; color:#fafafa; border-radius:8px; padding:8px 10px; font:600 13px/20px Archivo,sans-serif; cursor:pointer; white-space:nowrap}
 .nav-btn:hover{background:rgba(255,255,255,.1)}
 .nav-ico{width:36px; height:36px; border:0; border-radius:999px; background:rgba(255,255,255,.1); display:grid; place-items:center; cursor:pointer; padding:0}
@@ -174,6 +176,7 @@ h1{font-size:28px; line-height:1.2; font-weight:600; letter-spacing:-.4px; margi
 .tag.proposed{color:var(--purple); border-color:var(--purple-tint); background:var(--purple-tint)}
 .tag.high{color:var(--red); border-color:var(--red); background:var(--red-tint)}
 .tag.med{color:var(--amber); border-color:var(--amber); background:var(--amber-tint)}
+.tag.low{color:var(--muted); border-color:var(--border)}
 .tag.won{color:var(--green); border-color:transparent; background:var(--green-tint)}
 .tag.lost{color:var(--muted); border-color:transparent; background:#efeeeb}
 .tag.bidding{color:var(--teal-text); border-color:transparent; background:var(--teal-tint)}
@@ -299,7 +302,6 @@ button.pl-stat:hover{border-color:#c2bfba}
 @media (max-width:720px){
   .pl-stats{grid-template-columns:1fr}
   .logo{width:auto; padding:0 12px 0 16px}
-  .nav-search kbd{display:none}
   .nav-btn{padding:8px}
 }
 
@@ -457,6 +459,10 @@ body.chat-open .chat{transform:none}
 /* check-in */
 .dlg.checkin{position:relative; width:min(717px,100%); border-radius:24px; overflow:auto; background:#e7eef1 url("assets/checkin/pattern.png?v=3") left top / 184px 184px repeat; box-shadow:0 24px 64px rgba(0,0,0,.25)}
 .ci-sr{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+.ci-days{position:absolute; top:44.766px; left:23px; z-index:2; display:flex; flex-direction:column; align-items:stretch; gap:8px; width:max-content; margin:16px 0}
+.ci-days button{border:1px solid #c2bfba; background:#fafafa; color:#1e1d1a; border-radius:999px; padding:8px 14px; font:600 14px/20px Archivo,sans-serif; cursor:pointer; white-space:nowrap}
+.ci-days button[aria-pressed="true"]{background:#233038; color:#fafafa; border-color:#233038}
+.ci-days button:hover:not([aria-pressed="true"]){background:#f3f8f9}
 .ci-issa{position:absolute; left:23px; top:20px; width:122px; height:24.766px; overflow:hidden; pointer-events:none}
 .ci-issa img{position:absolute; left:0; top:0; width:100%; height:153.69%; max-width:none}
 .ci-col{width:min(320.26px,calc(100% - 48px)); margin:41px auto; display:flex; flex-direction:column; align-items:center; gap:26px}
@@ -492,69 +498,6 @@ body.chat-open .chat{transform:none}
   .ci-col{margin:10px auto; gap:8px}
   .ci-fields{gap:8px}
   .ci-hero{transform:scale(.62); margin-bottom:-106px}
-}
-
-/* results email */
-.dlg:has(.ml){background:#fff; color:#1e1d1a; border-radius:16px; box-shadow:0 24px 64px rgba(0,0,0,.25)}
-.dlg:has(.ml) .dlg-b{padding:24px 24px 20px; display:flex; flex-direction:column; gap:16px}
-.dlg:has(.ml) .dlg-f{justify-content:space-between; gap:16px; background:#fbfbfa; border-top:1px solid #e7e6e3; padding:12px 24px; border-radius:0 0 16px 16px}
-.ml-meta{display:flex; align-items:center; gap:12px; min-width:0}
-.ml-meta img{display:block; flex:none}
-.ml-meta p{margin:0}
-.ml-from{font:600 13px/1.4 Geist,sans-serif; color:#1e1d1a}
-.ml-from span{font-weight:400; color:#6b6b68}
-.ml-sub{font:600 14px/1.4 Geist,sans-serif; color:#1e1d1a}
-.ml-card{background:#fff; border:1px solid #e7e6e3; border-radius:12px; overflow:hidden}
-.ml-bulbs{display:flex; align-items:center; justify-content:space-between; height:12px; padding:0 8px; background:linear-gradient(180deg,#ffe9a3 0%,#f2b632 45%,#b57a12 100%)}
-.ml-bulbs img{display:block; flex:none}
-.ml-hero{position:relative; display:flex; flex-direction:column; align-items:center; padding:28px 24px 22px; text-align:center; background:#16343c url("assets/mail/hero.png") center/cover no-repeat}
-.ml-brand{display:flex; align-items:flex-end; gap:3.8px; color:#fff}
-.ml-brand img{display:block; margin-bottom:3.4px}
-.ml-brand span{font:300 26.225px/1 Poppins,sans-serif; letter-spacing:-.5245px}
-.ml-kicker{margin:18px 0 0; font:400 13px/1.45 Poppins,sans-serif; color:#b9cde0}
-.ml-win{display:flex; align-items:baseline; justify-content:center; gap:6px; margin:0; padding:2px 0}
-.ml-win b{font:800 44px/1.1 Poppins,sans-serif; letter-spacing:-1px; color:#ffe9a3; text-shadow:0 2px 0 rgba(0,0,0,.3); font-variant-numeric:tabular-nums}
-.ml-win span{font:600 18px/1.45 Poppins,sans-serif; color:#b9cde0}
-.ml-bid{margin:0; font:400 13px/1.45 Poppins,sans-serif; color:#b9cde0}
-.ml-line{position:relative; width:min(530px,100%); height:128px; margin-top:18px}
-.ml-track{position:absolute; left:0; right:0; top:75px; height:2px; background:rgba(255,255,255,.18)}
-.ml-gap{position:absolute; top:73px; height:6px; overflow:hidden; display:flex}
-.ml-gap img{display:block; flex:none}
-.ml-halo,.ml-mk{position:absolute; top:76px; display:block; transform:translate(-50%,-50%)}
-.ml-tag{position:absolute; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; text-align:center; white-space:nowrap; font-variant-numeric:tabular-nums}
-.ml-tag.up{bottom:62px}
-.ml-tag.mid{top:40px; font:600 13px/1.3 Geist,sans-serif; color:#ffe9a3}
-.ml-tag b{font:600 13px/1.3 Geist,sans-serif; color:#fff}
-.ml-tag.up span{font:400 12px/1.3 Geist,sans-serif; color:#b9cde0}
-.ml-how{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 22px; border-top:1px solid #e7e6e3}
-.ml-how .lbl{margin:0 0 2px; font:500 12.5px/1.3 Geist,sans-serif; color:#6b6b68}
-.ml-rank{margin:0; display:flex; align-items:baseline; gap:6px; color:#1e1d1a}
-.ml-rank b{font:800 30px/1.1 Geist,sans-serif; letter-spacing:-.6px}
-.ml-rank span{font:500 14px/1.3 Geist,sans-serif; color:#6b6b68}
-.ml-aside{margin:0; width:min(250px,46%); text-align:right; font:400 14px/1.45 Geist,sans-serif; color:#1e1d1a}
-.ml-aside b{font-weight:600}
-.ml-pod{padding:4px 22px 8px}
-.ml-pod h4{margin:12px 0 2px; font:500 12.5px/1.3 Geist,sans-serif; color:#6b6b68}
-.ml-row{display:flex; align-items:center; gap:12px; padding:10px 0; border-top:1px solid #e7e6e3; font:600 14px/1.3 Geist,sans-serif; color:#1e1d1a}
-.ml-row:first-of-type{border-top:0}
-.ml-row .pct{margin-left:auto; font-weight:400; color:#6b6b68}
-.ml-badge{width:24px; height:24px; border-radius:12px; display:grid; place-items:center; flex:none; font:700 12px/1 Geist,sans-serif; color:#fff}
-.ml-badge.g1{background:#f2b632; color:#3d2a00}
-.ml-badge.g2{background:#a9b3b8}
-.ml-badge.g3{background:#c08a5a}
-.ml-pitch{background:#f3f8f9; border-top:1px solid #c9dfe2; padding:24px; text-align:center}
-.ml-pitch h4{margin:0; font:700 17px/1.35 Geist,sans-serif; letter-spacing:-.2px; color:#1e1d1a}
-.ml-pitch p{width:min(340px,100%); margin:8px auto 14px; font:400 14px/1.45 Geist,sans-serif; color:#6b6b68}
-.ml-pitch button{border:0; border-radius:8px; background:#447c86; color:#fff; padding:11px 22px; font:600 14px/1.2 Geist,sans-serif; cursor:pointer}
-.ml-pitch button:hover{background:#366670}
-.ml-legal{margin:0; padding:14px 22px 18px; border-top:1px solid #e7e6e3; text-align:center; font:400 11.5px/1.4 Geist,sans-serif; color:#6b6b68}
-.ml-note{margin:0; font:400 12px/1.4 Geist,sans-serif; color:#6b6b68}
-.dlg:has(.ml) .ml-close{background:#fff; color:#1e1d1a; border:1px solid #d6d5d1; border-radius:6px; padding:7px 12px; font:500 13px/1.2 Geist,sans-serif; cursor:pointer}
-.dlg:has(.ml) .ml-close:hover{background:#f4f3f1}
-@media (max-width:560px){
-  .ml-win b{font-size:34px}
-  .ml-how{align-items:flex-start; flex-direction:column}
-  .ml-aside{width:auto; text-align:left}
 }
 
 /* won dashboard */
@@ -814,13 +757,65 @@ body:has(#tray.spot) .scrim{padding-bottom:calc(272px + env(safe-area-inset-bott
 .sec.landing{opacity:0}
 .sec.popped{animation:pop .5s cubic-bezier(.34,1.4,.64,1)}
 @keyframes pop{0%{transform:scale(.97); box-shadow:0 0 0 3px var(--teal)} 60%{transform:scale(1.008)} 100%{transform:none; box-shadow:0 0 0 0 transparent}}
+
+/* unlocked X-Ray */
+body.unlocked .tray{display:none}
+body.unlocked .page.xr-page, body.unlocked .page.pipe-page, body.unlocked .page{padding-bottom:64px}
+body.unlocked #howTo{display:none}
+.ul-tag{display:inline-flex; align-items:center; gap:4px; font:600 11px/1 Geist,sans-serif; color:var(--on-teal); background:var(--teal); border-radius:999px; padding:4px 8px}
+.ul-tag svg.i{width:11px; height:11px; stroke-width:2.2}
+.ul{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,480px); gap:28px; align-items:start; background:#fff; border:1px solid #dedbd6; border-radius:12px; padding:22px 24px; margin:0 0 16px}
+.ul h2{margin:0 0 14px; font:600 16px/1.3 Poppins,Geist,sans-serif}
+.ul-res{margin:0; display:flex; flex-direction:column}
+.ul-res > div{display:grid; grid-template-columns:1fr auto; gap:2px 12px; padding:12px 0; border-bottom:1px solid var(--border)}
+.ul-res > div:last-child{border-bottom:0}
+.ul-res dt{color:var(--muted); font-size:13px}
+.ul-res dd{margin:0; font:600 18px/1.2 Geist,sans-serif; font-variant-numeric:tabular-nums; text-align:right}
+.ul-res .d{grid-column:1 / -1; text-align:right; font-size:12px; color:var(--muted); font-weight:400}
+.ul-res .win dd{color:var(--teal-text)}
+.ul-vid h2 span{font:400 13px/1.4 Geist,sans-serif; color:var(--muted); display:block; margin-top:3px}
+.vid{position:relative; aspect-ratio:16 / 9; border-radius:10px; overflow:hidden; background:#161f24}
+.vid iframe,.vid video{position:absolute; inset:0; width:100%; height:100%; border:0}
+.vid.ph{display:grid; place-items:center; background:#1b262c; border:1px dashed #3a4a52}
+.vid.ph .pl{display:flex; flex-direction:column; align-items:center; gap:10px; color:#a4adaf; font-size:12.5px; text-align:center; padding:16px}
+.vid.ph .pl b{color:#e9edec; font:600 14px/1.2 Geist,sans-serif}
+.play{width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,.12); display:grid; place-items:center}
+.play svg{width:20px; height:20px; margin-left:3px; fill:#fff}
+@media (max-width:900px){ .ul{grid-template-columns:1fr} }
+.dlg.wide.ty-dlg{width:min(720px, calc(100vw - 48px))}
+.ty h3{font:600 22px/1.25 Poppins,Geist,sans-serif; letter-spacing:-.3px; margin:0 0 4px}
+.ty p{margin:0 0 16px}
+.ty-dlg .dlg-f{gap:12px}
+.ty-miss{margin-left:auto; font-size:12.5px; color:var(--muted)}
+.ul-strip{display:flex; align-items:center; gap:20px; flex-wrap:wrap; background:#fff; border:1px solid #dedbd6; border-radius:12px; padding:14px 20px; margin:0 0 16px; font-size:13.5px}
+.ul-strip b{font-variant-numeric:tabular-nums}
+.ul-strip .link{margin-left:auto; font-size:13px}
+.tag.missed{color:var(--muted); background:#efeeeb; border-color:transparent}
+.xr-sections.bento{display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); gap:14px; align-items:stretch}
+.bento .b{grid-column:span var(--span); margin:0; min-width:0; display:flex; flex-direction:column}
+.bento .b .sec-body{flex:1}
+.b-band{grid-column:1 / -1; margin:18px 0 -4px; font:600 12px/1.2 Geist,sans-serif; letter-spacing:.4px; text-transform:uppercase; color:var(--muted)}
+.b-band:first-child{margin-top:4px}
+.sec-more{margin-top:12px}
+.bento .c4 .rows > div,.bento .c5 .rows > div{grid-template-columns:118px minmax(0,1fr); gap:12px}
+.bento .c4 .sec-h,.bento .c5 .sec-h{flex-wrap:wrap; row-gap:4px}
+.bento .c4 .sec-h .src,.bento .c5 .sec-h .src{margin-left:0; flex-basis:100%; white-space:normal}
+@media (max-width:1100px){ .bento .b{grid-column:1 / -1; grid-row:auto !important} }
+.sec p.staff-note{font-size:12px; color:var(--muted); margin:10px 0 0}
+.derived{color:var(--teal-text); font-weight:600; margin-left:2px}
+.assumed{color:var(--amber); font-weight:600; margin-left:2px}
+.ptw .winline{position:absolute; top:0; bottom:26px; width:0; border-left:2px dashed var(--teal)}
+.ptw .winlab{position:absolute; top:4px; transform:translateX(6px); font-size:11.5px; color:var(--teal-text); font-weight:600; white-space:nowrap}
 </style>
 </head>
 <body>
 <header class="nav">
   <button class="logo" type="button" data-go="pipeline" aria-label="Jain home"><img src="assets/pipeline/logo.svg" alt="" width="16" height="16">Jain</button>
-  <label class="nav-search"><img src="assets/pipeline/search.svg" alt="" width="17" height="17"><input id="navSearch" type="search" placeholder="Search bids, RFPs, or ask a question…" aria-label="Search bids" autocomplete="off"><kbd>⌘K</kbd></label>
   <div class="nav-r">
+    <div class="day-switch" role="group" aria-label="Which bid to review">
+      <button type="button" data-day="1" aria-pressed="true"><span class="day-k">Day 1</span><span class="day-n">Bayhaven</span></button>
+      <button type="button" data-day="2" aria-pressed="false"><span class="day-k">Day 2</span><span class="day-n">Northwick</span></button>
+    </div>
     <button class="nav-btn" id="howTo" type="button">How to play</button>
     <button class="nav-btn" id="newPlayer" type="button">New player</button>
     <button class="nav-ico" type="button" data-inert aria-label="Notifications"><img src="assets/pipeline/bell.svg" alt="" width="17" height="17"></button>
@@ -884,16 +879,17 @@ function $(s){ return document.querySelector(s); }
 function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
 
-/* ---------- sample data ---------- */
-var BID = { id:'lakemont', name:'Lakemont County Facilities Janitorial Services', short:'Lakemont County Facilities', loc:'Lakemont County, OH', addr:'4 sites across Lakemont County, OH', deadline:'12/04/2026' };
-var WIN = 1184600, JAIN_EST = 1201300, SQFT = 386000;
+/* ---------- live bid. Day 2 is index.html?day=2 ---------- */
+var PACK, BID, WIN, JAIN_EST, SQFT, PROMPTS;
 /* Paste the Apps Script web app URL ending in /exec. Leave blank until that deployment exists. */
 var SHEET_URL = 'https://script.google.com/macros/s/AKfycbw-q2MXhZYhYbdvXtYBYrsGWXrNnRHmAwyH9CmwOw63s2zty_kSRLTolPIJzeUpwau5/exec';
+/* Pricing Lab walkthrough. An .mp4/.webm file path, or an embed URL (YouTube /embed/, Vimeo player, Loom /embed/). Blank shows a placeholder. */
+var PRICING_LAB_VIDEO = '';
 
 var PIPE = [
   { id:'riverside', name:'Riverside Medical Pavilion', type:'Medical office', loc:'Columbus, OH', status:'won', price:1036000, when:'Active since Mar 2024' },
   { id:'northgate', name:'Northgate Office Park', type:'Corporate campus', loc:'Dublin, OH', status:'won', price:742000, when:'Active since Aug 2023' },
-  { id:'lakemont', name:BID.short, type:'Government, 4 buildings', loc:BID.loc, status:'bidding', price:null, when:'Due ' + BID.deadline, mystery:true },
+  { id:'live', name:'', type:'', loc:'', status:'bidding', price:null, when:'', mystery:true },
   { id:'easton', name:'Easton Retail Commons', type:'Retail', loc:'Columbus, OH', status:'bidding', price:null, when:'Due 01/15/2027', draft:true },
   { id:'franklin', name:'Franklin Park Charter Schools', type:'Education', loc:'Columbus, OH', status:'lost', price:890400, when:'Awarded Jun 2026' },
   { id:'scioto', name:'Scioto Distribution Center', type:'Industrial', loc:'Groveport, OH', status:'lost', price:418500, when:'Awarded Feb 2026' }
@@ -915,7 +911,6 @@ var CARDS = [
   { id:'rates', name:'Production rates', icon:'gauge', blurb:'Your rates and adjustments', req:['bsc'] },
   { id:'risks', name:'Risks & open questions', icon:'alert', blurb:'What could sink the bid', req:['xray'] },
   { id:'labor', name:'Local labor market', icon:'wage', blurb:'Wage floor and burden', req:[], proposed:true },
-  { id:'incumbent', name:'Incumbent intel', icon:'brief', blurb:'Who holds it and why it\u2019s rebid', req:[], proposed:true },
   { id:'scope', name:'Scope & frequency', icon:'list', blurb:'Tasks by area and frequency', req:['xray'], proposed:true },
   { id:'compliance', name:'Compliance checklist', icon:'shield', blurb:'Insurance, bonding, certs', req:['xray'], proposed:true },
   { id:'comps', name:'Comparable bids', icon:'compare', blurb:'$/sq ft on similar work', req:['bsc'], proposed:true },
@@ -942,11 +937,11 @@ var STEPS = {
 
 /* ---------- state ---------- */
 var state;
-function fresh(){ return { player:null, played:[], view:'pipeline', wonId:null, filter:'all', q:'', xrtab:'exec', guess:null, chat:[], asked:[], scope:'bid', chatOpen:false, lastRevealed:null, seen:{} }; }
+function fresh(){ return { player:null, played:[], view:'pipeline', wonId:null, filter:'all', q:'', xrtab:'exec', guess:null, chat:[], asked:[], scope:'bid', chatOpen:false, lastRevealed:null, seen:{}, unlocked:false, results:false, floorOpen:false }; }
 state = fresh();
 function spent(){ var n=0; state.played.forEach(function(id){ n += (card(id).cost||1); }); return n; }
 function left(){ return 3 - spent(); }
-function has(id){ return state.played.indexOf(id) > -1; }
+function has(id){ return state.unlocked || state.played.indexOf(id) > -1; }
 function reqMet(c){ return c.req.every(has); }
 function cardState(c){
   if (state.guess) return has(c.id) ? 'played' : 'out';
@@ -1000,7 +995,93 @@ function whenCell(p){
   var label = n<0 ? Math.abs(n)+'d late' : n===0 ? 'Due today' : 'Due '+(d.getMonth()+1)+'/'+d.getDate();
   return '<span class="due'+(n<0?' late':'')+'">'+label+'</span>';
 }
-var SIZE = { riverside:'298,000 sq ft', northgate:'265,000 sq ft', lakemont:'386,000 sq ft' };
+var SIZE = { riverside:'298,000 sq ft', northgate:'265,000 sq ft', live:'' };
+
+var PACKS = {
+  day1:{
+    day:1, win:229895.64, jainEst:233100, sqft:24000, pipeType:'Ambulatory surgery', sizeLabel:'24,000 sq ft', guessExample:'180,000',
+    bid:{ id:'live', name:'Bayhaven Surgery Center Environmental Services', short:'Bayhaven Surgery Center', loc:'Bayhaven, NJ', addr:'400 Clinic Drive, Bayhaven, NJ', deadline:'12/04/2026', facilityType:'Ambulatory surgery center' },
+    hero:{ sqft:'24,000 <small>sf</small>', sqftNote:'One building', term:'3 <small>years</small>', termNote:'Renewal needs a written amendment', pay:'Net 30', payNote:'Fees exclusive of tax', termn:'Immediate', termnNote:'With or without cause' },
+    overview:'Evening and day-porter cleaning for one ambulatory surgery center. The building mixes carpeted offices with VCT exams, lobbies, and corridors, ceramic terminal rooms, and a small concrete mechanical area. Operating rooms are terminally cleaned. The center can cut service days and switch the monthly price to a daily rate.',
+    floorLead:'24,000 cleanable sq ft in one building',
+    staffWhen:'Monday\u2013Friday',
+    buildings:[{ name:'Surgery center', sqft:24000, porters:1, spaces:[
+      ['Office','Carpet',6473],['Corridor','VCT',4162],['Exam','VCT',3302],['Terminal room','Ceramic',2741],['Lobby','VCT',2495],['Special','VCT',1297],['Storage','VCT',1041],['Restroom','Ceramic',595],['Future space','VCT',510],['Lounge','VCT',457],['Toilet','Ceramic',395],['Storage','Concrete',377],['Mechanical','Concrete',108],['Toilet','VCT',47]
+    ]}],
+    ratesNote:'Square feet cleaned per labor hour. Each room type on this bid has its own rate.',
+    rates:[['Special','VCT','400'],['Terminal room','Ceramic','475'],['Restroom and toilet','Ceramic, VCT','500'],['Exam','VCT','1,800'],['Future space','VCT','2,000'],['Office','Carpet','3,200'],['Lobby and lounge','VCT','3,200'],['Corridor','VCT','4,000'],['Storage and mechanical','VCT, concrete','5,000']],
+    scopeLead:'Five days a week. The evening crew is generally 5:00 p.m. to midnight. A day porter is generally 9:00 a.m. to 3:30 p.m. Clinical floors are damp-mopped with a germicidal.',
+    scopeNote:'The day porter covers the building during the day. The evening crew does the terminal clean. The center supplies the equipment, chemicals, and disposable products.',
+    scope:[['Hard floors in clinical areas, entrances, lobbies, and corridors','Dust-mop, spot-mop, and damp-mop with a germicidal.','Spray-buff or burnish corridors and waiting areas three days a week. Baseboards once a week.','\u2014','Strip and reseal hard floors annually. Scrub and refinish as required.'],['Carpeted offices','Vacuum, and spot-vacuum.','\u2014','\u2014','Top shampoo or deep extraction quarterly. Bonnet spray-clean as required.'],['Restrooms','Disinfect fixtures, damp-mop with a germicidal, empty and reline waste, clean glass and mirrors, and refill soap and paper.','Stainless steel and metal three days a week. High dust twice a week.','\u2014','Machine-scrub or strip floors, and wash walls, as required.'],['Operating rooms','Terminal clean: remove waste and linen, disinfect exposed surfaces from top to bottom with an EPA-registered disinfectant, sweep and mop, and keep the floor wet for the label dwell time.','\u2014','\u2014','Wear cap, shoe covers, and gloves. Gown, gloves, and a mask with eye protection when bloodborne exposure could be life-threatening.']],
+    insurance:['General liability, $1,000,000 per occurrence and $2,000,000 aggregate. The center and its affiliates are additional insureds. Coverage is primary and noncontributory.','Automobile liability, $1,000,000 per occurrence.','Workers\u2019 compensation as required by New Jersey law.','Janitorial service bond, not less than $25,000.'],
+    certs:['Criminal background check before assignment','11-panel drug screen at hire, with no positive result','Two references on file, plus school and work history','HIPAA and confidentiality training','Eligible to participate in federal health care programs'],
+    risks:[['high','The center may end the agreement immediately, with or without cause.'],['high','Operating-room work includes bloodborne-pathogen exposure, medical waste, and a required disinfectant dwell time.'],['med','The center can cut days per week on five working days\u2019 notice. Billing then follows the daily rate, while monthly, quarterly, and annual tasks stay on their original frequency.'],['med','The center supplies the chemicals and equipment, so the crew does not control the product list.']],
+    questions:['Has a written amendment renewed the agreement past the initial three years?','What is included in the 1,297 sq ft special area priced at 400 sq ft per labor hour?'],
+    labor:[['Bid wages','Night lead $20/hr, floor technician $18.56/hr, day porter $17.36/hr, environmental services technician $16.31/hr. No wage determination is in the agreement.'],['Burden','28% of wages, labeled NJ. Year-1 benefits include NJ sick time, vacation, and holiday.'],['Union','Not stated.'],['Market wage','No metro wage is attached to this package. The bid\u2019s own rates are what the model uses.']],
+    comps:null,
+    curve:{ min:120, max:360, mid:230, veil0:200, veil1:260, width:28, ticks:[120,180,240,300,360] },
+    curveNote:'Win probability falls as the annual price rises. The steep part of the curve is hidden.',
+    crewMail:'The crew sheet names one day porter, 8 hours a day, five days a week, and four cleaners at 4 hours each. It does not name the cleaners\u2019 shift.',
+    prompts:{
+      bid:[
+        { id:'drivers', q:'What drives the hours on this bid?', t:'Cost drivers', a:'The slow rooms. Special areas are 400 sq ft per labor hour and terminal rooms are 475, against offices at 3,200 and corridors at 4,000. The building is cleaned five days a week, with a day porter and an evening crew. Payroll burden is 28%.' },
+        { id:'cover', q:'What insurance and bond does the agreement require?', t:'Insurance', a:'General liability of $1,000,000 per occurrence and $2,000,000 aggregate, automobile liability of $1,000,000, New Jersey workers\u2019 compensation, and a janitorial service bond of at least $25,000.' },
+        { id:'screen', q:'Who is allowed on site?', t:'Qualifications', a:'A clear criminal background check, a negative 11-panel drug screen, two references, and HIPAA training. Anyone excluded from a federal health care program cannot stay on the account.' }
+      ],
+      org:[
+        { id:'crews', q:'What do our other surgery-center crews look like?', t:'Other crews', a:'Two other surgery centers in these files staff crews of 5 and 2, at average wages of $16.48 and $17.26. The files do not state a margin, or why a bid was lost.' }
+      ]
+    }
+  },
+  day2:{
+    day:2, win:29802.12, jainEst:30220, sqft:10000, pipeType:'Medical office', sizeLabel:'10,000 sq ft', guessExample:'40,000',
+    bid:{ id:'live', name:'Northwick Medical Offices Janitorial Services', short:'Northwick Medical Offices', loc:'Northwick, NJ', addr:'40 Office Park Drive, Northwick, NJ', deadline:'12/05/2026', facilityType:'Medical office building' },
+    hero:{ sqft:'10,000 <small>sf</small>', sqftNote:'One building', term:'Through 2026', termNote:'Then month to month', pay:'Net 30', payNote:'Monthly, in arrears', termn:'30 <small>days</small>', termnNote:'No penalty. Immediate on default.' },
+    overview:'Daily cleaning for a medical office building. Offices, exams, corridors, the lobby, restrooms, stairs, storage, and mechanical rooms are all vinyl, and each space type has its own production rate. Exam rooms are disinfected daily with a hospital-grade disinfectant. Carpet extraction, strip-and-wax, a day porter, and window washing sit outside the base price.',
+    floorLead:'10,000 cleanable sq ft in one building',
+    staffWhen:'daily',
+    buildings:[{ name:'Medical offices', sqft:10000, porters:0, spaces:[
+      ['Office','Vinyl',3693],['Exam','Vinyl',1959],['Corridor','Vinyl',1418],['Storage','Vinyl',706],['Stair','Vinyl',629],['Lobby','Vinyl',473],['Lounge','Vinyl',410],['Toilet','Vinyl',371],['Mechanical','Vinyl',341]
+    ]}],
+    ratesNote:'Square feet cleaned per labor hour. Each room type on this bid has its own rate.',
+    rates:[['Toilet','Vinyl','500'],['Stair','Vinyl','800'],['Exam','Vinyl','2,500'],['Lounge','Vinyl','3,200'],['Lobby','Vinyl','3,500'],['Office','Vinyl','3,700'],['Corridor','Vinyl','4,200'],['Storage','Vinyl','5,000'],['Mechanical','Vinyl','10,000']],
+    scopeLead:'Daily cleaning. Before leaving, the crew notifies the principal of faulty lights or plumbing, turns off the lights, sets the alarm, and locks the doors. Exam rooms are disinfected daily with a hospital-grade disinfectant.',
+    scopeNote:'A day porter is an additional service and is outside the base price. Paper, towels, soap, and hand sanitizer are supplied by the building owner.',
+    scope:[['Offices, halls, reception, and waiting','Empty waste and recyclables. Disinfect horizontal surfaces. Clean glass, door hardware, and thresholds. Sanitize phones and counters. Vacuum carpet. Sweep and disinfect hard floors.','\u2014','\u2014','Carpet cleaning, and strip, scrub, and wax, are additional services.'],['Exam rooms','Disinfect floors, counters, patient tables, door handles, wall switches, glass, and faucets with a hospital-grade disinfectant. Empty waste and refill dispensers.','\u2014','\u2014','\u2014'],['Restrooms','Scrub and buff sinks. Disinfect toilets inside and out. Refill paper, soap, and sanitizer. Clean mirrors, partitions, and doors. Sweep and disinfect floors.','\u2014','\u2014','\u2014'],['Kitchen and break room','Clean and sanitize surfaces, scrub sinks, clean fixtures, and clean the outside of the microwave and refrigerator. Sweep and disinfect the floor.','\u2014','\u2014','Cleaning inside the refrigerator and microwave is an additional service.']],
+    insurance:['Commercial general liability, $1,000,000 per occurrence and $2,000,000 per location, on an occurrence basis. The owner and the managing agent are additional insureds. Coverage is primary and noncontributory.','Employer\u2019s liability, $500,000. Workers\u2019 compensation is statutory, with a waiver of subrogation.','Commercial automobile liability, $1,000,000 combined single limit for owned, non-owned, and hired vehicles.','Umbrella liability, $2,000,000 above employer\u2019s liability, general liability, and automobile liability.','Insurers must be licensed in the state and rated at least A\u2212 by Best.','No fixed bond. A fidelity bond is required only if the contractor handles the owner\u2019s funds, in an amount the agent requests.'],
+    certs:['Form I-9 verification for every employee on this service','E-Verify for new hires where federal contract rules require it','Equal-opportunity compliance under Executive Order 11246 and the ADA','Hazardous-materials handling compliance'],
+    risks:[['med','The owner or agent may end the agreement on 30 days\u2019 written notice, with no penalty, or immediately on default.'],['med','Carpet cleaning, floor refinishing, a day porter, window washing, and emergency cleaning are outside the base monthly price.'],['low','The first period is a partial year, billed at the opening monthly rate.']],
+    questions:['The term runs to December 31, 2026, and the same clause says the agreement cannot continue more than 30 days past the effective date without a written amendment. Which sentence controls?','Mechanical rooms are priced at 10,000 sq ft per labor hour. Part of that area is visited 12 days a year and part 52 days a year. Is the lower frequency the intended one?'],
+    labor:[['Bid wages','Evening lead $20/hr. Technician, restroom technician, and floor technician $17/hr. No wage determination is in the agreement.'],['Burden','28% of wages, labeled NJ. Year-1 benefits are NJ sick time.'],['Union','Not stated.'],['Market wage','No metro wage is attached to this package. The bid\u2019s own rates are what the model uses.']],
+    comps:[['Ashfen Medical Offices','Medical office','13,120','Priced','3.75'],['Quillwick Medical Offices','Medical office','7,920','Priced','4.43'],['Fennick Medical Offices','Medical office','2,300','Priced','5.77']],
+    curve:{ min:12, max:60, mid:30, veil0:24, veil1:36, width:6, ticks:[12,24,36,48,60] },
+    curveNote:'Win probability falls as the annual price rises. The steep part of the curve is hidden.',
+    crewMail:'This workbook does not name a crew. Day, evening, and overnight each show zero employees.',
+    prompts:{
+      bid:[
+        { id:'drivers', q:'What drives the hours on this bid?', t:'Cost drivers', a:'Restrooms at 500 sq ft per labor hour and stairs at 800, against offices at 3,700 and storage at 5,000. The lead is $20 and the technicians are $17, with 28% burden.' },
+        { id:'cover', q:'What insurance does the agreement require?', t:'Insurance', a:'General liability of $1,000,000 per occurrence and $2,000,000 per location, employer\u2019s liability of $500,000, automobile liability of $1,000,000, and a $2,000,000 umbrella. There is no fixed bond.' },
+        { id:'extras', q:'What is outside the monthly price?', t:'Scope', a:'Carpet cleaning, strip and wax, cleaning inside the refrigerator and microwave, emergency cleaning, a day porter, and window washing.' }
+      ],
+      org:[
+        { id:'crews', q:'What do our other surgery-center crews look like?', t:'Other crews', a:'Two other surgery centers in these files staff crews of 5 and 2, at average wages of $16.48 and $17.26. The files do not state a margin, or why a bid was lost.' }
+      ]
+    }
+  }
+};
+function loadPack(){
+  var day = 1;
+  try { var m = /[?&]day=(\d)/.exec(location.search); if (m && m[1]==='2') day = 2; } catch (e) {}
+  PACK = PACKS['day'+day];
+  var days = document.querySelectorAll('.day-switch [data-day]');
+  for (var d=0; d<days.length; d++) days[d].setAttribute('aria-pressed', days[d].getAttribute('data-day')===String(day) ? 'true' : 'false');
+  BID = PACK.bid; WIN = PACK.win; JAIN_EST = PACK.jainEst; SQFT = PACK.sqft; PROMPTS = PACK.prompts;
+  var live = null;
+  for (var i=0;i<PIPE.length;i++) if (PIPE[i].id==='live') live = PIPE[i];
+  if (live){ live.name = BID.short; live.type = PACK.pipeType; live.loc = BID.loc; live.when = 'Due ' + BID.deadline; }
+  SIZE.live = PACK.sizeLabel;
+}
+loadPack();
 
 function renderPipeline(){
   var q = (state.q||'').trim().toLowerCase();
@@ -1013,9 +1094,9 @@ function renderPipeline(){
     var price = p.mystery ? '<b class="unk">???</b>' : p.draft ? '<span class="muted">Draft</span>' : money(p.price);
     var act = '';
     if (p.mystery) act = '<span class="row-act">Open X-Ray '+ic('arrow')+'</span>';
-    else if (p.status==='won') act = '<span class="row-act">'+(has('won') && state.seen && state.seen[p.id] ? ic('chart')+'Dashboard' : ic('lock')+'Dashboard')+'</span>';
+    else if (p.status==='won') act = '<span class="row-act">'+((state.unlocked || (has('won') && state.seen && state.seen[p.id])) ? ic('chart')+'Dashboard' : ic('lock')+'Dashboard')+'</span>';
     var opp = '<td><div class="pl-opp">'+esc(p.name)+'</div><div class="fac-sub">'+esc(p.type)+'</div></td>';
-    if (p.mystery) opp = '<td class="pl-guess"><div class="pl-guess-in"><div class="pl-opp"><div>'+esc(p.name)+'</div><div class="fac-sub">'+esc(p.type)+'</div></div><span class="guess-pill">Guess this one</span></div></td>';
+    if (p.mystery) opp = '<td class="pl-guess"><div class="pl-guess-in"><div class="pl-opp"><div>'+esc(p.name)+'</div><div class="fac-sub">'+esc(p.type)+'</div></div><span class="guess-pill">'+(state.unlocked?'Unlocked':'Guess this one')+'</span></div></td>';
     return '<tr class="row'+(p.mystery?' mystery':'')+'" tabindex="0" data-row="'+p.id+'">'+
       opp+
       '<td>'+stagePill(p)+'</td><td>'+esc(p.loc)+'</td><td>'+whenCell(p)+'</td><td class="pl-val">'+price+'</td><td>'+(SIZE[p.id]||'—')+'</td><td>'+act+'</td></tr>';
@@ -1032,8 +1113,11 @@ function renderPipeline(){
     dueCls = 'due'+(n<0?' late':'');
   }
   var submitted = state.guess ? money(state.guess) : '—';
+  var sub = state.unlocked
+    ? 'You\u2019re bidding as Summit Building Services. Every card on '+esc(BID.short)+' is open.'
+    : 'You\u2019re bidding as Summit Building Services. Guess the winning annual price for the live bid marked <b>Guess this one</b>, using up to three cards.';
   return '<div class="pl-head"><h1>Bid pipeline</h1><p class="pl-count">'+PIPE.length+' bids in Jain</p>'+
-    '<p class="pl-sub">You\u2019re bidding as Summit Building Services. Guess the winning annual price for the live bid marked <b>Guess this one</b>, using up to three cards.</p></div>'+
+    '<p class="pl-sub">'+sub+'</p></div>'+
     '<div class="pl-stats">'+
       '<div class="pl-stat"><div class="lab">Open opportunities<span class="pl-ico open"><img src="assets/pipeline/stat-open.svg" alt="" width="16" height="16"></span></div><div><b class="open">'+open.length+'</b><span class="note">'+open.length+' still bidding</span></div></div>'+
       '<div class="pl-stat"><div class="lab">Awaiting decision<span class="pl-ico wait"><img src="assets/pipeline/stat-await.svg" alt="" width="16" height="16"></span></div><div><b>'+(state.guess?1:0)+'</b><span class="note">'+(state.guess?'Guess locked in':'Nothing submitted yet')+'</span></div></div>'+
@@ -1044,7 +1128,7 @@ function renderPipeline(){
     '<div class="pl-tools"><label class="pl-q"><img src="assets/pipeline/search-sm.svg" alt="" width="13" height="13"><input id="pipeQ" type="search" placeholder="Search opportunities" aria-label="Search opportunities" value="'+esc(state.q||'')+'" autocomplete="off"></label>'+
     '<div class="pl-filters" role="group" aria-label="Filter bids">'+f('all','All bids')+f('won','Won')+f('lost','Lost')+f('bidding','Bidding')+'</div></div>'+
     '<div class="pl-table"><div class="tbl-wrap"><table><thead><tr><th>Opportunity</th><th>Stage</th><th>Location</th><th>Bid deadline</th><th>Value</th><th>Size</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
-    '<p class="pl-foot">Price, address and status are free on every bid. Margins, wages, payroll and overtime on won bids take the <b>See won &amp; active bid</b> card.</p></div></section>';
+    (state.unlocked ? '' : '<p class="pl-foot">Price, address and status are free on every bid. Margins, wages, payroll and overtime on won bids take the <b>See won &amp; active bid</b> card.</p>')+'</div></section>';
 }
 
 function lockedBlock(id){
@@ -1057,15 +1141,16 @@ function lockedBlock(id){
   return '<div class="locked" id="sec-'+id+'"><span class="ico grey">'+ic(c.icon)+'</span><div class="grow"><h2>'+esc(c.name)+(c.proposed?' <span class="tag proposed">Proposed</span>':'')+'</h2><div class="why">'+why+'</div></div>'+btn+'</div>';
 }
 function secHead(id, title, icon, color, src){
-  return '<div class="sec-h"><span class="ico '+color+'">'+ic(icon)+'</span><h2>'+title+'</h2>'+(card(id)&&card(id).proposed?'<span class="tag proposed">Proposed</span>':'')+(src?'<span class="src">'+src+'</span>':'')+'<button class="ic-btn" type="button" data-openchat aria-label="Ask about this in chat">'+ic('chat')+'</button></div>';
+  var missed = state.unlocked && state.played.length && id && state.played.indexOf(id)===-1 ? '<span class="tag missed">Not played</span>' : '';
+  return '<div class="sec-h"><span class="ico '+color+'">'+ic(icon)+'</span><h2>'+title+'</h2>'+(card(id)&&card(id).proposed?'<span class="tag proposed">Proposed</span>':'')+missed+(src?'<span class="src">'+src+'</span>':'')+'<button class="ic-btn" type="button" data-openchat aria-label="Ask about this in chat">'+ic('chat')+'</button></div>';
 }
 function sec(id, inner){ return '<section class="sec'+(state.lastRevealed===id?' revealed':'')+'" id="sec-'+id+'">'+inner+'</section>'; }
 
+var inBento = false;
 var SECTIONS = {
   xray: function(){
-    return sec('xray', secHead('xray','Opportunity overview','home','teal','Source: RFP pp. 3\u20139')+
-      '<div class="sec-body"><p>Lakemont County is soliciting janitorial services for four county buildings totaling 386,000 cleanable square feet: the Administration Building, the County Courthouse, the Public Health Center and the Main Library. Scope covers nightly cleaning Monday\u2013Friday, three day porters, periodic floor care and all supplies. The initial term is three years with two one-year extensions. Proposals are scored on price (40%), experience with government facilities, staffing plan and transition plan.</p>'+
-      '<div class="hr"></div><p class="small muted" style="margin-bottom:8px">Qualifications</p><div class="chips"><span class="chip">3+ years government facilities</span><span class="chip">Background checks, all staff</span><span class="chip">E-Verify</span><span class="chip">Performance bond</span><span class="chip">County living wage compliance</span></div></div>');
+    return sec('xray', secHead('xray','Opportunity overview','home','teal','Source: the agreement')+
+      '<div class="sec-body"><p>'+esc(PACK.overview)+'</p></div>');
   },
   bsc: function(){
     return sec('bsc', secHead('bsc','BSC Assessment: Summit Building Services','users','purple','Source: your bid history')+
@@ -1074,70 +1159,51 @@ var SECTIONS = {
       '<div><span class="k">Win rate</span><span>31% overall (13 of 42 bids, last 24 months). Public sector: 6 of 19 since 2023.</span></div>'+
       '<div><span class="k">Strongest verticals</span><span>Medical office, corporate campus, government offices</span></div>'+
       '<div><span class="k">States</span><span>Ohio, Indiana, Kentucky</span></div>'+
-      '<div><span class="k">Strategic objectives</span><span>Grow public sector to 25% of revenue (now 14%). Hold gross margin at 14% or better. Land an anchor account in Lakemont County.</span></div>'+
+      '<div><span class="k">Strategic objectives</span><span>Grow public sector to 25% of revenue (now 14%). Hold gross margin at 14% or better. Land an anchor healthcare account.</span></div>'+
       '</div></div>');
   },
   floor: function(){
-    var B = [
-      ['Administration Building','142,000','6 floors',[['Private & open offices','Carpet',90000],['Corridors','VCT',28000],['Conference & break rooms','Carpet / VCT',10000],['Restrooms','Ceramic tile',8000],['Lobby','Terrazzo',6000]]],
-      ['County Courthouse','118,000','5 floors',[['Chambers & offices','Carpet',40000],['Courtrooms','Carpet / wood',30000],['Public corridors','Terrazzo',30000],['Holding & secure areas','Sealed concrete',10000],['Restrooms','Ceramic tile',8000]]],
-      ['Public Health Center','64,000','2 floors',[['Exam & clinical rooms','Sheet vinyl',24000],['Offices','Carpet',20000],['Waiting & corridors','VCT',14000],['Restrooms','Ceramic tile',6000]]],
-      ['Main Library','62,000','3 floors',[['Stacks','Carpet',30000],['Reading & public areas','Carpet',18000],['Offices','Carpet',8000],['Restrooms','Ceramic tile',6000]]]
-    ];
-    var rows = B.map(function(b){
-      return '<tr class="group"><td>'+b[0]+'</td><td class="muted small" style="font-weight:400">'+b[2]+'</td><td class="num">'+b[1]+'</td></tr>'+
-        b[3].map(function(s){ return '<tr><td style="padding-left:24px">'+s[0]+'</td><td>'+s[1]+'</td><td class="num">'+s[2].toLocaleString('en-US')+'</td></tr>'; }).join('');
+    var compact = inBento && !state.floorOpen, nSp = 0;
+    var rows = PACK.buildings.map(function(b){
+      nSp += b.spaces.length;
+      return '<tr class="group"><td>'+esc(b.name)+'</td><td class="muted small" style="font-weight:400">'+(compact ? b.spaces.length+' spaces' : '')+'</td><td class="num">'+b.sqft.toLocaleString('en-US')+'</td></tr>'+
+        (compact ? '' : b.spaces.map(function(s){ return '<tr><td style="padding-left:24px">'+esc(s[0])+'</td><td>'+esc(s[1])+'</td><td class="num">'+s[2].toLocaleString('en-US')+'</td></tr>'; }).join(''));
     }).join('');
-    return sec('floor', secHead('floor','Floor breakdown','layers','blue','Source: RFP Exhibits C\u2013F')+
-      '<div class="sec-body"><p class="lead">386,000 cleanable sq ft across 4 buildings</p><div class="tbl-wrap"><table><thead><tr><th>Building / space</th><th>Floor type</th><th class="num">Sq ft</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>');
+    var tog = inBento ? '<button type="button" class="link sec-more" data-floortoggle>'+(state.floorOpen ? 'Hide spaces' : 'Show all '+nSp+' spaces')+'</button>' : '';
+    return sec('floor', secHead('floor','Floor breakdown','layers','blue','Source: room survey')+
+      '<div class="sec-body"><p class="lead">'+esc(PACK.floorLead)+'</p><div class="tbl-wrap"><table><thead><tr><th>'+(compact?'Building':'Building / space')+'</th><th>'+(compact?'Spaces':'Floor type')+'</th><th class="num">Sq ft</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+tog+'</div>');
   },
   rates: function(){
-    var R = [['Private offices','Carpet','3,800','\u2014',0],['Open office','Carpet','4,200','\u2014',0],['Corridors','VCT','5,000','\u221210% heavy public traffic',1],['Lobbies','Terrazzo','3,000','\u221210% heavy public traffic',1],['Restrooms','Ceramic tile','1,300','\u221210% if more than 6 fixtures',1],['Courtrooms','Carpet / wood','3,000','\u221210% secure-area escort',1],['Holding / secure','Sealed concrete','2,500','\u221210% secure-area escort',1],['Exam / clinical','Sheet vinyl','2,000','\u221215% healthcare disinfection',1],['Library stacks','Carpet','4,500','\u2014',1],['Warehouse floor','Sealed concrete','9,000','\u2014',0]];
-    var rows = R.map(function(r){ return '<tr'+(r[4]?' class="hl"':'')+'><td>'+r[0]+'</td><td>'+r[1]+'</td><td class="num">'+r[2]+'</td><td>'+r[3]+'</td></tr>'; }).join('');
-    return sec('rates', secHead('rates','Production rate table','gauge','amber','Source: Summit standards, rev. 2026')+
-      '<div class="sec-body"><p class="small muted">Square feet cleaned per labor hour. Rows this bid uses are highlighted. Adjustments stack; add \u22125% for the first 90 days of any new account.</p><div class="tbl-wrap"><table><thead><tr><th>Space</th><th>Floor</th><th class="num">Sq ft / hr</th><th>Adjustment</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>');
+    var rows = PACK.rates.map(function(r){ return '<tr class="hl"><td>'+esc(r[0])+'</td><td>'+esc(r[1])+'</td><td class="num">'+r[2]+'</td></tr>'; }).join('');
+    return sec('rates', secHead('rates','Production rate table','gauge','amber','Source: this bid\u2019s room survey')+
+      '<div class="sec-body"><p class="small muted">'+esc(PACK.ratesNote)+'</p><div class="tbl-wrap"><table><thead><tr><th>Space</th><th>Floor</th><th class="num">Sq ft / hr</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>');
   },
   scope: function(){
-    var S = [['Offices','Trash, vacuum traffic lanes','Full vacuum, dust','High dusting','Carpet extraction 2\u00d7/yr'],['Restrooms','Clean, disinfect, restock','Machine scrub floors','Descale fixtures','Grout clean 1\u00d7/yr'],['Corridors & lobbies','Dust mop, damp mop','Burnish','Spot clean walls','Strip & wax 2\u00d7/yr'],['Courtrooms','Full clean','Polish wood','Upholstery vacuum','\u2014'],['Clinical rooms','Disinfect touchpoints, wet mop','Wall spot disinfect','Vent cleaning','Strip & refinish 1\u00d7/yr'],['Library','Trash, vacuum','Dust stack tops','Dust shelving','Carpet extraction 1\u00d7/yr']];
-    var rows = S.map(function(r){ return '<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td>'+r[4]+'</td></tr>'; }).join('');
-    return sec('scope', secHead('scope','Scope & service frequencies','list','teal','Source: RFP Section 4')+
-      '<div class="sec-body"><p class="lead">Nightly cleaning Monday\u2013Friday, plus 3 day porters 7:00 AM\u20133:30 PM</p><div class="tbl-wrap"><table><thead><tr><th>Area</th><th>Nightly</th><th>Weekly</th><th>Monthly</th><th>Periodic</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="small muted" style="margin-top:10px">Day porters cover the Administration Building, Courthouse and Public Health Center; restrooms 3\u00d7 per day.</p></div>');
+    var rows = PACK.scope.map(function(r){ return '<tr><td><b>'+esc(r[0])+'</b></td><td>'+esc(r[1])+'</td><td>'+esc(r[2])+'</td><td>'+esc(r[3])+'</td><td>'+esc(r[4])+'</td></tr>'; }).join('');
+    return sec('scope', secHead('scope','Scope & service frequencies','list','teal','Source: the scope of work')+
+      '<div class="sec-body"><p class="lead">'+esc(PACK.scopeLead)+'</p><div class="tbl-wrap"><table><thead><tr><th>Area</th><th>Nightly</th><th>Weekly</th><th>Monthly</th><th>Periodic</th></tr></thead><tbody>'+rows+'</tbody></table></div><p class="small muted" style="margin-top:10px">'+esc(PACK.scopeNote)+'</p></div>');
   },
   compliance: function(){
-    return sec('compliance', secHead('compliance','Compliance','shield','grey','Source: RFP Section 7')+
-      '<div class="sec-body"><p class="lead">4 insurance and bonding requirements, 5 certifications</p><p class="small muted" style="margin-bottom:4px">Insurance & bonding</p><ul class="plain"><li>General liability, $2M per occurrence</li><li>Umbrella, $5M</li><li>Workers\u2019 compensation, statutory</li><li>Performance bond, 100% of annual contract value</li></ul><div class="hr"></div><p class="small muted" style="margin-bottom:8px">Certifications</p><div class="chips"><span class="chip">E-Verify participation</span><span class="chip">Background checks and courthouse badging</span><span class="chip">Bloodborne pathogens training (Health Center)</span><span class="chip">CIMS preferred</span><span class="chip">MBE/WBE participation goal, 15%</span></div></div>');
+    return sec('compliance', secHead('compliance','Compliance','shield','grey','Source: the agreement')+
+      '<div class="sec-body"><p class="lead">'+PACK.insurance.length+' insurance and bonding lines, '+PACK.certs.length+' qualifications</p><p class="small muted" style="margin-bottom:4px">Insurance & bonding</p><ul class="plain">'+PACK.insurance.map(function(s){ return '<li>'+esc(s)+'</li>'; }).join('')+'</ul><div class="hr"></div><p class="small muted" style="margin-bottom:8px">Qualifications</p><div class="chips">'+PACK.certs.map(function(s){ return '<span class="chip">'+esc(s)+'</span>'; }).join('')+'</div></div>');
   },
   risks: function(){
-    var R = [['high','County living wage of $17.50/hr plus a $1.80/hr health supplement, with an annual CPI escalator'],['high','Contractor supplies all consumables, including public restroom paper, with no cap'],['med','Courthouse badging takes about 10 business days; escorts required in holding areas'],['med','Liquidated damages of $250 per missed service'],['med','Termination for convenience on 30 days\u2019 notice']];
-    var Q = ['Does the library\u2019s Saturday schedule (9 AM\u20135 PM) need weekend cleaning?','Are exam rooms terminal-cleaned nightly, or only on request?','Is there a transition period with the incumbent?','Will the county provide janitor closets and storage at all four sites?'];
-    return sec('risks', secHead('risks','RFP risk review','alert','red','Source: RFP pp. 61\u201388')+
-      '<div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th>Severity</th><th>Risk</th></tr></thead><tbody>'+R.map(function(r){ return '<tr><td><span class="tag '+r[0]+'">'+(r[0]==='high'?'High':'Medium')+'</span></td><td>'+r[1]+'</td></tr>'; }).join('')+'</tbody></table></div>'+
-      '<div class="hr"></div><p class="small muted" style="margin-bottom:6px">Open questions for the county</p><ul class="plain">'+Q.map(function(q){return '<li>'+q+'</li>';}).join('')+'</ul></div>');
+    var label = { high:'High', med:'Medium', low:'Low' };
+    return sec('risks', secHead('risks','RFP risk review','alert','red','Source: the agreement')+
+      '<div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th>Severity</th><th>Risk</th></tr></thead><tbody>'+PACK.risks.map(function(r){ return '<tr><td><span class="tag '+r[0]+'">'+label[r[0]]+'</span></td><td>'+esc(r[1])+'</td></tr>'; }).join('')+'</tbody></table></div>'+
+      '<div class="hr"></div><p class="small muted" style="margin-bottom:6px">Open questions</p><ul class="plain">'+PACK.questions.map(function(q){return '<li>'+esc(q)+'</li>';}).join('')+'</ul></div>');
   },
   labor: function(){
-    return sec('labor', secHead('labor','Local market intelligence','pin','teal','Source: metro wage data, county code')+
+    return sec('labor', secHead('labor','Local market intelligence','pin','teal','Source: this bid\u2019s wage table')+
       '<div class="sec-body"><div class="rows">'+
-      '<div><span class="k">Metro median wage</span><span>$16.40/hr for janitorial work</span></div>'+
-      '<div><span class="k">County living wage</span><span>$17.50/hr plus $1.80/hr health supplement ($19.30 effective)</span></div>'+
-      '<div><span class="k">Burden estimate</span><span>22\u201326% of wages (payroll taxes, workers\u2019 comp, PTO)</span></div>'+
-      '<div><span class="k">Union status</span><span>Non-union; no collective bargaining agreement</span></div>'+
-      '<div><span class="k">Labor market</span><span>The living wage clears the metro median by $2.90/hr, so the ordinance, not the market, sets labor cost on this bid. Expect 3\u20134 weeks to staff a night crew.</span></div>'+
-      '</div></div>');
-  },
-  incumbent: function(){
-    return sec('incumbent', secHead('incumbent','Incumbent & rebid intel','brief','grey','Source: public award records')+
-      '<div class="sec-body"><div class="rows">'+
-      '<div><span class="k">Incumbent</span><span>ClearPoint Services, since 2022</span></div>'+
-      '<div><span class="k">Prior contract value</span><span>$1.0M\u2013$1.1M per year (range)</span></div>'+
-      '<div><span class="k">Why it\u2019s rebid</span><span>Contract expires January 2027. Two cure notices in 2025 for missed restroom service.</span></div>'+
-      '<div><span class="k">What changed</span><span>The prior award predates the county living wage ordinance and a 2024 scope expansion at the Public Health Center.</span></div>'+
+      PACK.labor.map(function(r){ return '<div><span class="k">'+esc(r[0])+'</span><span>'+esc(r[1])+'</span></div>'; }).join('')+
       '</div></div>');
   },
   comps: function(){
-    var C = [['Westbrook County Annex (2024)','Government offices','120,000','Won','3.22'],['Metro Transit Headquarters (2025)','Government offices','210,000','Won','2.88'],['Riverside Medical Pavilion','Medical office','298,000','Won','3.48'],['Northgate Office Park','Corporate campus','265,000','Won','2.80'],['Franklin Park Charter Schools','Education','340,000','Lost (award at $2.41)','2.62']];
-    return sec('comps', secHead('comps','Comparable bids','compare','blue','Source: your bid history')+
+    var C = PACK.comps || [];
+    return sec('comps', secHead('comps','Comparable bids','compare','blue','Source: other files in this set')+
       '<div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th>Facility</th><th>Type</th><th class="num">Sq ft</th><th>Outcome</th><th class="num">$ / sq ft / yr</th></tr></thead><tbody>'+
-      C.map(function(c){ return '<tr><td>'+c[0]+'</td><td>'+c[1]+'</td><td class="num">'+c[2]+'</td><td>'+c[3]+'</td><td class="num">$'+c[4]+'</td></tr>'; }).join('')+
+      C.map(function(c){ return '<tr><td>'+esc(c[0])+'</td><td>'+esc(c[1])+'</td><td class="num">'+c[2]+'</td><td>'+esc(c[3])+'</td><td class="num">$'+c[4]+'</td></tr>'; }).join('')+
       '</tbody></table></div></div>');
   },
   margin: function(){
@@ -1147,24 +1213,60 @@ var SECTIONS = {
       '<div><label class="small muted" for="simM">Target gross margin: <b id="simMv">12%</b></label><input class="slider" type="range" id="simM" min="4" max="20" value="12"></div></div>'+
       '<div class="hr"></div><div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap"><div><div class="small muted">Implied annual price</div><div class="out-price" id="simOut">\u2014</div><div class="small muted" id="simSf"></div></div><button class="btn" type="button" id="simUse" style="margin-left:auto">Use as my guess</button></div></div>');
   },
+  staffing: function(){
+    var SHIFT = 8;
+    function rateFor(name){
+      var n = String(name).toLowerCase(), best = null, score = -1;
+      PACK.rates.forEach(function(r){
+        var label = r[0].toLowerCase(), parts = label.split(/\s+and\s+/), s = 0;
+        if (label === n) s = 3;
+        else if (parts.indexOf(n) > -1) s = 2;
+        else if (label.indexOf(n) > -1) s = 1;
+        if (s > score){ score = s; best = parseInt(String(r[2]).replace(/[^0-9]/g,''), 10); }
+      });
+      return best;
+    }
+    var tH=0, tSf=0, tC=0, tP=0;
+    var rows = PACK.buildings.map(function(b){
+      var sf=0, h=0;
+      b.spaces.forEach(function(sp){
+        var rate = rateFor(sp[0]);
+        sf += sp[2];
+        if (rate) h += sp[2] / rate;
+      });
+      var crew = Math.ceil(h / SHIFT), porters = b.porters || 0;
+      tH += h; tSf += sf; tC += crew; tP += porters;
+      return '<tr><td>'+esc(b.name)+'</td><td class="num">'+sf.toLocaleString('en-US')+'</td><td class="num">'+h.toFixed(1)+'</td><td class="num">'+crew+'</td><td class="num">'+porters+'</td></tr>';
+    }).join('');
+    rows += '<tr class="group"><td>Total</td><td class="num">'+tSf.toLocaleString('en-US')+'</td><td class="num">'+tH.toFixed(1)+'</td><td class="num">'+tC+'</td><td class="num">'+tP+'</td></tr>';
+    var when = PACK.staffWhen || 'Monday\u2013Friday';
+    return sec('staffing', secHead('staffing','Staffing plan','crew','green','Floor breakdown \u00d7 Production rates')+
+      '<div class="sec-body"><p class="lead">'+tC+' night cleaner'+(tC===1?'':'s')+' and '+tP+' day porter'+(tP===1?'':'s')+', '+esc(when)+'</p><div class="tbl-wrap"><table><thead><tr><th>Building</th><th class="num">Sq ft</th><th class="num">Nightly hours<span class="derived">\u03a3</span></th><th class="num">Night cleaners<span class="assumed">\u2248</span></th><th class="num">Day porters</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+      '<p class="staff-note"><span class="derived">\u03a3</span> Sq ft \u00f7 production rate, per space. <span class="assumed">\u2248</span> Assumes an '+SHIFT+'-hour night shift. Day porters from the agreement.</p></div>');
+  },
   ptw: function(){
-    var xs=[], d='', W=640, H=220, x0=48, x1=620, y0=18, y1=190;
-    function X(p){ return x0 + (p-0.95)/(1.45-0.95)*(x1-x0); }
+    var c = PACK.curve, d='', W=640, H=220, x0=48, x1=620, y0=18, y1=190;
+    function X(p){ return x0 + (p-c.min)/(c.max-c.min)*(x1-x0); }
     function Y(v){ return y1 - v*(y1-y0); }
-    for (var p=0.95; p<=1.4501; p+=0.01){ var v = 0.92/(1+Math.exp((p-1.215)/0.055)); d += (d?'L':'M') + X(p).toFixed(1)+' '+Y(v).toFixed(1); }
+    for (var p=c.min; p<=c.max+0.001; p+=(c.max-c.min)/80){ var v = 0.92/(1+Math.exp((p-c.mid)/c.width)); d += (d?'L':'M') + X(p).toFixed(1)+' '+Y(v).toFixed(1); }
     var grid='', labels='';
     [0,0.25,0.5,0.75,1].forEach(function(v){ grid += '<line x1="'+x0+'" x2="'+x1+'" y1="'+Y(v)+'" y2="'+Y(v)+'" style="stroke:var(--border)"/>'; });
-    [0.95,1.05,1.15,1.25,1.35,1.45].forEach(function(p){ labels += '<span style="position:absolute; left:'+(X(p)/W*100)+'%; bottom:0; transform:translateX(-50%); font-size:11.5px; color:var(--muted)">$'+p.toFixed(2)+'M</span>'; });
-    var vl = X(1.14)/W*100, vr = X(1.28)/W*100;
-    return sec('ptw', secHead('ptw','Price-to-win curve','trend','purple','Source: 118 similar awards')+
-      '<div class="sec-body"><p class="small muted">Probability of winning at each annual price, modeled on similar public-sector awards.</p>'+
-      '<div class="ptw" style="padding-bottom:26px"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Win probability falls as price rises; the steepest part of the curve is hidden">'+grid+
+    c.ticks.forEach(function(p){ labels += '<span style="position:absolute; left:'+(X(p)/W*100)+'%; bottom:0; transform:translateX(-50%); font-size:11.5px; color:var(--muted)">$'+p+'k</span>'; });
+    var vl = X(c.veil0)/W*100, vr = X(c.veil1)/W*100;
+    var winX = X(WIN/1000)/W*100;
+    return sec('ptw', secHead('ptw','Price-to-win curve','trend','purple','Source: similar prices on file')+
+      '<div class="sec-body"><p class="small muted">'+esc(PACK.curveNote)+'</p>'+
+      '<div class="ptw" style="padding-bottom:26px"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+(state.results?'Win probability falls as price rises. The winning bid is marked.':'Win probability falls as price rises; the steepest part of the curve is hidden')+'">'+grid+
       '<path d="'+d+'" style="fill:none; stroke:var(--teal); stroke-width:3"/>'+
       '<text x="4" y="'+(Y(1)+4)+'" style="font-size:11px; fill:var(--muted)">100%</text><text x="10" y="'+(Y(0.5)+4)+'" style="font-size:11px; fill:var(--muted)">50%</text><text x="18" y="'+(Y(0)+4)+'" style="font-size:11px; fill:var(--muted)">0%</text></svg>'+
-      '<div class="veil" style="left:'+vl+'%; width:'+(vr-vl)+'%">Sweet spot<br>hidden</div>'+labels+'</div></div>');
+      (state.results
+        ? '<span class="winline" style="left:'+winX+'%"></span><span class="winlab" style="left:'+winX+'%">Winning bid '+money(WIN)+'</span>'
+        : '<div class="veil" style="left:'+vl+'%; width:'+(vr-vl)+'%">Sweet spot<br>hidden</div>')+labels+'</div></div>');
   }
 };
-var ORDER = ['xray','bsc','floor','rates','scope','compliance','risks','labor','incumbent','comps','margin','ptw','staffing'];
+var ORDER = ['xray','bsc','floor','rates','scope','compliance','risks','labor','comps','margin','ptw','staffing'].filter(function(id){
+  return id!=='comps' || PACK.comps;
+});
 
 var XR_TABS = [
   { id:'exec', label:'Executive Summary', ids: ORDER.slice() },
@@ -1172,6 +1274,30 @@ var XR_TABS = [
   { id:'risks', label:'RFP Risk Review & Open Questions', ids:['risks'] }
 ];
 function xrTabOf(id){ var t = XR_TABS.filter(function(tab){ return tab.ids.indexOf(id)>-1; })[0]; return t ? t.id : 'exec'; }
+function bentoBands(){
+  var pricing = PACK.comps
+    ? [['bsc',5],['comps',7],['ptw',7],['margin',5]]
+    : [['bsc',5],['ptw',7],['margin',12]];
+  return [
+    ['The opportunity', [['xray',12],['scope',7],['compliance',5],['risks',12]]],
+    ['Labor math', [['floor',7],['rates',5,2],['staffing',7],['labor',12]]],
+    ['Pricing', pricing]
+  ];
+}
+function bentoHtml(){
+  inBento = true;
+  var h = '';
+  try {
+    h = bentoBands().map(function(band){
+      return '<h3 class="b-band">'+band[0]+'</h3>'+band[1].map(function(it){
+        if (!SECTIONS[it[0]]) return '';
+        var html = SECTIONS[it[0]]();
+        return html.replace('class="sec', 'style="--span:'+it[1]+(it[2]?'; grid-row:span '+it[2]:'')+'" class="b c'+it[1]+' sec');
+      }).join('');
+    }).join('');
+  } finally { inBento = false; }
+  return h;
+}
 function renderBid(){
   var x = has('xray');
   if (state.lastRevealed){
@@ -1194,26 +1320,28 @@ function renderBid(){
     (shown ? playedHtml : lockedHtml).push(html);
   });
   var blocks = playedHtml.join('');
-  if (lockedHtml.length) blocks += '<p class="small muted xr-hidden">'+(playedHtml.length?'Still hidden':'Everything in this tab is hidden until you play its card')+'</p>'+lockedHtml.join('');
+  if (state.unlocked && tab==='exec') blocks = bentoHtml();
+  else if (lockedHtml.length) blocks += '<p class="small muted xr-hidden">'+(playedHtml.length?'Still hidden':'Everything in this tab is hidden until you play its card')+'</p>'+lockedHtml.join('');
   var tabs = XR_TABS.map(function(t){
     return '<button type="button" role="tab" data-xrtab="'+t.id+'" aria-selected="'+(t.id===cur.id)+'">'+t.label+'</button>';
   }).join('');
   return '<div class="xr-backbar"><button class="xr-back" type="button" data-go="pipeline"><img src="assets/xray/back.svg" alt="" width="16" height="16">Back to pipeline</button></div>'+
-    '<section class="xr-hero"><div><div class="xr-kicker"><span class="eye">Bid X-Ray</span><span class="ver">v.1</span></div>'+
+    '<section class="xr-hero"><div><div class="xr-kicker"><span class="eye">Bid X-Ray</span><span class="ver">v.1</span>'+(state.unlocked?'<span class="ul-tag">'+ic('check')+' All cards open</span>':'')+'</div>'+
     '<h1>'+esc(BID.name)+'</h1>'+
-    '<dl class="meta"><div><dt>Address</dt><dd>'+BID.addr+'</dd></div><div><dt>Facility type</dt><dd>'+(x?'Government offices, courthouse, clinic, library':'<span class="muted">Play X-Ray</span>')+'</dd></div><div><dt>Submission deadline</dt><dd>'+BID.deadline+'</dd></div></dl></div>'+
+    '<dl class="meta"><div><dt>Address</dt><dd>'+esc(BID.addr)+'</dd></div><div><dt>Facility type</dt><dd>'+(x?esc(BID.facilityType):'<span class="muted">Play X-Ray</span>')+'</dd></div><div><dt>Submission deadline</dt><dd>'+esc(BID.deadline)+'</dd></div></dl></div>'+
     '<div class="xr-actions"><button class="btn primary" type="button" data-inert><img src="assets/xray/upload.svg" alt="" width="16" height="16">Upload Document</button>'+
     '<button class="btn" type="button" data-inert><img src="assets/xray/download.svg" alt="" width="16" height="16">Create Powerpoint</button>'+
     '<button class="btn" type="button" data-inert><img src="assets/xray/download.svg" alt="" width="16" height="16">Export PDF</button>'+
     '<button class="btn" type="button" data-inert><img src="assets/xray/download.svg" alt="" width="16" height="16">Download RFP(s)</button></div></section>'+
+    (state.unlocked ? unlockedPanel() : '')+
     '<div class="stats">'+
-      stat(ico('stat-sqft','sqft'),'Total square footage','386,000 <small>sf</small>','Across 4 buildings')+
-      stat(ico('stat-term','term'),'Contract term','3 <small>years</small>','3 yr + 2\u00d71')+
-      stat(ico('stat-pay','pay'),'Payment terms','Net 30','',true,true)+
-      stat(ico('stat-termn','termn'),'Termination','30 <small>days</small>','',true)+
+      stat(ico('stat-sqft','sqft'),'Total square footage',PACK.hero.sqft,PACK.hero.sqftNote)+
+      stat(ico('stat-term','term'),'Contract term',PACK.hero.term,PACK.hero.termNote)+
+      stat(ico('stat-pay','pay'),'Payment terms',PACK.hero.pay,PACK.hero.payNote,true,true)+
+      stat(ico('stat-termn','termn'),'Termination',PACK.hero.termn,PACK.hero.termnNote,true)+
     '</div>'+
     '<div class="xr-tabs" role="tablist" aria-label="Bid X-Ray sections">'+tabs+'</div>'+
-    '<div class="xr-sections'+(tab==='exec'?' pair':'')+'">'+blocks+'</div>';
+    '<div class="xr-sections'+(state.unlocked && tab==='exec' ? ' bento' : tab==='exec' ? ' pair' : '')+'">'+blocks+'</div>';
 }
 
 function renderWon(){
@@ -1246,12 +1374,11 @@ function render(){
   renderCrumbs();
   document.body.classList.toggle('on-pipe', state.view==='pipeline');
   document.body.classList.toggle('on-bid', state.view==='bid');
+  document.body.classList.toggle('unlocked', !!state.unlocked);
   var app = $('#app');
   app.classList.toggle('pipe-page', state.view==='pipeline');
   app.classList.toggle('xr-page', state.view==='bid');
   app.innerHTML = state.view==='pipeline' ? renderPipeline() : state.view==='bid' ? renderBid() : renderWon();
-  var ns = $('#navSearch');
-  if (ns && document.activeElement!==ns && ns.value!==(state.q||'')) ns.value = state.q||'';
   renderTray(); renderChat(); wireSim();
   if (state.holdScroll){ state.holdScroll = false; state.lastRevealed = null; return; }
   if (state.lastRevealed){
@@ -1337,14 +1464,20 @@ function wireTray(){
   });
 }
 function renderTray(){
+  if (state.unlocked){
+    var tray = $('#tray');
+    if (tray) tray.innerHTML = '';
+    document.body.classList.remove('tray-open');
+    return;
+  }
   var pips = ''; for (var i=0;i<3;i++) pips += '<span class="pip'+(i<spent()?' used':'')+'"></span>';
   if (state.guess){
-    trayFrame('Guess locked', '<div class="tray-in"><div class="hand"><span class="t">Guess locked</span><div class="pips">'+pips+'</div></div><div class="done-bar"><span class="big">'+money(state.guess)+' / yr</span><span class="muted">Results arrive by email after ISSA: how close you were, plus the top 3.</span></div><div class="tray-r"><button class="btn primary" type="button" id="previewMail">Preview results email</button><button class="btn" type="button" data-newplayer>New player</button></div></div>');
+    trayFrame('Guess locked', '<div class="tray-in"><div class="hand"><span class="t">Guess locked</span><div class="pips">'+pips+'</div></div><div class="done-bar"><span class="big">'+money(state.guess)+' / yr</span><span class="muted">Results arrive by email after ISSA: how close you were, plus the top 3.</span></div><div class="tray-r"><button class="btn primary" type="button" data-unlock="all">Unlock Jain</button><button class="btn" type="button" data-newplayer>New player</button></div></div>');
     return;
   }
   var DECO = '<svg class="deco" viewBox="0 0 161 186" fill="none" aria-hidden="true"><path d="M12.7959 180.092C12.7959 180.092 11.3368 176.495 9.71692 174.875C8.09703 173.255 4.49994 171.796 4.49994 171.796C4.49994 171.796 8.09703 170.337 9.71692 168.717C11.3368 167.097 12.7959 163.5 12.7959 163.5C12.7959 163.5 14.255 167.097 15.8749 168.717C17.4948 170.337 21.0919 171.796 21.0919 171.796C21.0919 171.796 17.4948 173.255 15.8749 174.875C14.255 176.495 12.7959 180.092 12.7959 180.092Z" fill="currentColor"/><line x1="12.6894" y1="-4.5" x2="12.6894" y2="210.375" stroke="currentColor" stroke-width="0.972285"/><line x1="170.812" y1="171.742" x2="-93" y2="171.742" stroke="currentColor" stroke-width="0.972285"/></svg>';
   var LOCK = '<svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M8.5 5V4C8.5 2.61929 7.38071 1.5 6 1.5C4.61929 1.5 3.5 2.61929 3.5 4V5M6 7.25V8.25M4.4 10.5H7.6C8.44008 10.5 8.86012 10.5 9.18099 10.3365C9.46323 10.1927 9.6927 9.96323 9.83651 9.68099C10 9.36012 10 8.94008 10 8.1V7.4C10 6.55992 10 6.13988 9.83651 5.81901C9.6927 5.53677 9.46323 5.3073 9.18099 5.16349C8.86012 5 8.44008 5 7.6 5H4.4C3.55992 5 3.13988 5 2.81901 5.16349C2.53677 5.3073 2.3073 5.53677 2.16349 5.81901C2 6.13988 2 6.55992 2 7.4V8.1C2 8.94008 2 9.36012 2.16349 9.68099C2.3073 9.96323 2.53677 10.1927 2.81901 10.3365C3.13988 10.5 3.55992 10.5 4.4 10.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  var cards = CARDS.map(function(c){
+  var cards = CARDS.filter(function(c){ return c.id!=='comps' || PACK.comps; }).map(function(c){
     var s = cardState(c), cnt = state.played.filter(function(x){return x===c.id;}).length;
     var cost = s==='played' ? ic('check')+' Played' : c.repeat && cnt ? 'Played \u00d7'+cnt : (c.cost||1)+' card'+((c.cost||1)>1?'s':'');
     var cls = s==='played' ? ' played' : s==='locked' ? ' locked-c' : s==='out' ? ' out' : '';
@@ -1361,6 +1494,7 @@ function renderTray(){
 
 /* ---------- playing cards ---------- */
 function tryCard(id, src){
+  if (state.unlocked) return;
   if (state.guess) return;
   var c = card(id), s = cardState(c);
   if (id==='chat'){ openChat(true); return; }
@@ -1448,7 +1582,7 @@ function revealFly(id, src){
 
 /* ---------- won dashboards ---------- */
 function openWon(id){
-  if (state.seen[id]){ state.wonId=id; go('won'); return; }
+  if (state.seen[id] || state.unlocked){ state.wonId=id; go('won'); return; }
   if (state.guess){ toast('Your guess is locked.'); return; }
   if (left()<1){ toast('No cards left. Lock in your guess.'); return; }
   var p = PIPE.filter(function(r){return r.id===id;})[0];
@@ -1458,20 +1592,10 @@ function openWon(id){
 }
 
 /* ---------- chat ---------- */
-var PROMPTS = {
-  bid:[
-    { id:'drivers', q:'What drives cost most on this bid?', t:'Cost drivers', a:'Labor. With the county living wage at $17.50/hr plus a $1.80/hr health supplement, labor is roughly 80% of cost. The Courthouse is the most expensive building per square foot because of escorted access to secure areas. Supplies are contractor-furnished, including public restroom paper.' },
-    { id:'unusual', q:'What\u2019s unusual about the scope?', t:'Scope', a:'Two things. Every cleaner needs courthouse badging (about 10 business days), and holding areas need escorts, which slows production. The Public Health Center also requires nightly disinfection of exam rooms to healthcare standards, not office standards.' },
-    { id:'porters', q:'How many day porters does the RFP require?', t:'Day porters', a:'Three: one each at the Administration Building, Courthouse and Public Health Center, Monday\u2013Friday, 7:00 AM\u20133:30 PM. The library has no day porter requirement.' }
-  ],
-  org:[
-    { id:'avg', q:'What\u2019s our average $/sq ft on won public-sector bids?', t:'Public-sector pricing', a:'Across 6 won public-sector bids since 2023: $2.95 per sq ft per year on average, ranging from $2.60 to $3.40. Your two public-sector losses were both priced above $3.30.' },
-    { id:'franklin', q:'Why did we lose Franklin Park Charter Schools?', t:'Franklin Park', a:'You bid $2.62/sq ft; the award went to $2.41/sq ft. Your staffing plan carried about 12% more night hours than the RFP\u2019s frequencies required.' }
-  ]
-};
 function renderChat(){
   var b = $('#chatBody');
-  var msgs = '<div class="msg"><div class="who2">Jain</div><div class="ttl">Ask Jain</div><div class="tx">Each question costs one card. Pick one below, about this bid or across your organization.</div></div>';
+  var intro = state.unlocked ? 'Pick a question below, about this bid or across your organization.' : 'Each question costs one card. Pick one below, about this bid or across your organization.';
+  var msgs = '<div class="msg"><div class="who2">Jain</div><div class="ttl">Ask Jain</div><div class="tx">'+intro+'</div></div>';
   state.chat.forEach(function(m){
     if (m.role==='you') msgs += '<div class="msg you"><div class="who2">You</div><div class="tx">'+esc(m.text)+'</div></div>';
     else if (m.typing) msgs += '<div class="msg"><div class="who2">Jain</div><div class="typing" aria-label="Jain is typing"><span></span><span></span><span></span></div></div>';
@@ -1480,20 +1604,28 @@ function renderChat(){
   b.innerHTML = msgs; b.scrollTop = b.scrollHeight;
   $('#chatScope').innerHTML = '<button type="button" data-scope="bid" aria-pressed="'+(state.scope==='bid')+'">Just to this bid</button><button type="button" data-scope="org" aria-pressed="'+(state.scope==='org')+'">Across your organization</button>';
   $('#prompts').innerHTML = PROMPTS[state.scope].map(function(p){
-    var asked = state.asked.indexOf(p.id)>-1, dis = asked || state.guess || left()<1;
-    return '<button type="button" class="prompt" data-ask="'+p.id+'"'+(dis?' disabled':'')+'><span>'+esc(p.q)+'</span><span class="c">'+(asked?'Asked':'1 card')+'</span></button>';
+    var asked = state.asked.indexOf(p.id)>-1, dis = asked || (!state.unlocked && (state.guess || left()<1));
+    return '<button type="button" class="prompt" data-ask="'+p.id+'"'+(dis?' disabled':'')+'><span>'+esc(p.q)+'</span><span class="c">'+(asked?'Asked':(state.unlocked?'Ask':'1 card'))+'</span></button>';
   }).join('');
   document.body.classList.toggle('chat-open', state.chatOpen);
 }
 function openChat(open){ state.chatOpen = open; if (open && state.view==='bid') state.scope='bid'; renderChat(); }
 function ask(pid){
-  if (state.guess) return;
-  if (left()<1){ toast('No cards left. Lock in your guess.'); return; }
   var p = PROMPTS.bid.concat(PROMPTS.org).filter(function(x){return x.id===pid;})[0];
-  state.played.push('chat'); state.asked.push(pid);
+  if (!p || state.asked.indexOf(pid)>-1) return;
+  if (!state.unlocked){
+    if (state.guess) return;
+    if (left()<1){ toast('No cards left. Lock in your guess.'); return; }
+    state.played.push('chat');
+  }
+  state.asked.push(pid);
   state.chat.push({role:'you', text:p.q}); var typing = {role:'jain', typing:true}; state.chat.push(typing);
-  renderChat(); renderTray();
-  setTimeout(function(){ typing.typing=false; typing.title=p.t; typing.text=p.a; renderChat(); toast('Chat card played. '+left()+' card'+(left()===1?'':'s')+' left.'); }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 50 : 900);
+  renderChat();
+  if (!state.unlocked) renderTray();
+  setTimeout(function(){
+    typing.typing=false; typing.title=p.t; typing.text=p.a; renderChat();
+    if (!state.unlocked) toast('Chat card played. '+left()+' card'+(left()===1?'':'s')+' left.');
+  }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 50 : 900);
 }
 
 /* ---------- margin sim ---------- */
@@ -1513,6 +1645,7 @@ function wireSim(){
   }
   c.oninput = function(){ var n = parseMoney(c.value); c.value = n ? money(n) : ''; upd(); };
   m.oninput = upd; upd();
+  if (state.guess || state.unlocked) $('#simUse').style.display = 'none';
   $('#simUse').onclick = function(){ if (state.simPrice) openGuess(Math.round(state.simPrice)); else toast('Enter an estimated annual cost first.'); };
 }
 
@@ -1525,8 +1658,20 @@ function modal(inner, wide){
 }
 function closeModal(){ if (typeof htpStop==='function') htpStop(); if (typeof GuessLocked!=='undefined') GuessLocked.stop(); $('#modal').innerHTML=''; if (lastFocus && lastFocus.focus) lastFocus.focus(); }
 
+function daySwitchHtml(){
+  return '<div class="ci-days" role="group" aria-label="Which bid to review">'+
+    '<button type="button" data-day="1"'+(PACK.day===1?' aria-pressed="true"':'')+'>Day 1 · Bayhaven</button>'+
+    '<button type="button" data-day="2"'+(PACK.day===2?' aria-pressed="true"':'')+'>Day 2 · Northwick</button></div>';
+}
+function goDay(day){
+  if (String(day)===String(PACK.day)) return;
+  var url = new URL(location.href);
+  if (String(day)==='2') url.searchParams.set('day','2');
+  else url.searchParams.delete('day');
+  location.assign(url.pathname + url.search);
+}
 function openCheckin(){
-  modal('<h3 class="ci-sr" id="pt">The Price Is Right, Jain edition</h3>'+
+  modal(daySwitchHtml()+'<h3 class="ci-sr" id="pt">The Price Is Right, Jain edition</h3>'+
     '<div class="ci-issa"><img src="assets/checkin/issa-show.png" alt="ISSA Show"></div>'+
     '<div class="ci-col">'+
       '<div class="ci-hero"><div class="ci-logo"><img src="assets/checkin/price-is-right.png" alt="The Price Is Right"></div>'+
@@ -1563,7 +1708,7 @@ function openGuess(prefill){
   g.addEventListener('keydown', function(ev){ if (ev.key==='Enter') $('#gGo').click(); });
   $('#gGo').onclick = function(){
     var n = parseMoney(g.value);
-    if (n < 10000){ $('#gErr').textContent = 'Enter an annual price, like 1,250,000.'; g.focus(); return; }
+    if (n < 10000){ $('#gErr').textContent = 'Enter an annual price, like '+PACK.guessExample+'.'; g.focus(); return; }
     state.guess = n; openChat(false); closeModal(); render(); openLocked(); submitPlayer();
   };
 }
@@ -1574,7 +1719,8 @@ function submitPlayer(){
     company: state.player && state.player.company ? state.player.company : '',
     email: state.player && state.player.email ? state.player.email : '',
     cards: state.played.map(function(id){ return card(id).name; }).join(', '),
-    guess: state.guess
+    guess: state.guess,
+    day: PACK.day
   };
   fetch(SHEET_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload) }).catch(function(){});
 }
@@ -1582,16 +1728,16 @@ function openLocked(){
   modal('<div class="gl-body"><div class="gl-marquee" id="glMarquee"><div class="gl-stage"><span class="gl-label">Your price</span>'+
     '<div class="gl-reels" id="glReels"></div><div class="gl-status" id="glStatus"><span class="gl-dots">Locking it in</span></div></div></div>'+
     '<p class="gl-sub" id="glSub">Nobody sees the winning price until ISSA ends. We\u2019ll email you how close you were, plus the top 3.</p></div>'+
-    '<div class="gl-foot"><button class="gl-btn" type="button" data-newplayer>New player</button><button class="gl-btn gl-primary" type="button" id="lkMail">Preview results email</button></div>');
+    '<div class="gl-foot"><button class="gl-btn" type="button" data-newplayer>New player</button><button class="gl-btn gl-primary" type="button" id="lkNext">Next</button></div>');
   var dlg=$('#modal .dlg'); dlg.id='glRoot'; dlg.classList.add('gl-root','gl-dlg'); dlg.setAttribute('aria-labelledby','glStatus');
-  $('#lkMail').onclick = openMail;
+  $('#lkNext').onclick = openThanks;
   GuessLocked.play(state.guess);
 }
 /* GuessLocked.play(amount) runs the sequence. Call it again to replay. */
 var GuessLocked = (function(){
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function reduce(){ return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
   var timers = [], lightTimer = null, bulbs = [], parts = [], raf = null, cv, cx;
-  function later(fn, ms){ timers.push(setTimeout(fn, reduce ? 0 : ms)); }
+  function later(fn, ms){ timers.push(setTimeout(fn, reduce() ? 0 : ms)); }
   function money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
 
   /* confetti */
@@ -1603,7 +1749,7 @@ var GuessLocked = (function(){
   function size(){ var d = window.devicePixelRatio || 1; cv.width = innerWidth * d; cv.height = innerHeight * d; cx.setTransform(d,0,0,d,0,0); }
   function palette(){ var s = getComputedStyle(document.getElementById('glRoot')); return ['--gl-gold','--gl-gold-hi','--gl-stage-hi','--gl-bulb-glow'].map(function(v){ return s.getPropertyValue(v).trim(); }).concat(['#447c86','#7664a3','#2f7d47','#d42020']); }
   function burst(x, y, angle, spread, count, power){
-    if (reduce) return;
+    if (reduce()) return;
     var cols = palette();
     for (var i = 0; i < count; i++){
       var a = (angle + (Math.random() - .5) * spread) * Math.PI / 180, v = power * (.55 + Math.random() * .6);
@@ -1644,7 +1790,7 @@ var GuessLocked = (function(){
     var step = 0, fn = mode === 'chase'
       ? function(){ bulbs.forEach(function(b, i){ b.classList.toggle('gl-on', (i + step) % 3 === 0); }); }
       : function(){ bulbs.forEach(function(b, i){ b.classList.toggle('gl-on', (i + step) % 2 === 0); }); };
-    fn(); if (reduce) return;
+    fn(); if (reduce()) return;
     lightTimer = setInterval(function(){ step++; fn(); }, mode === 'chase' ? 110 : 160);
   }
 
@@ -1670,7 +1816,7 @@ var GuessLocked = (function(){
     placeBulbs(mq); lights('chase');
     var strips = reels.querySelectorAll('.gl-strip'), last = 0;
     strips.forEach(function(st, idx){
-      var dur = reduce ? 0 : 1200 + idx * 260; last = Math.max(last, dur);
+      var dur = reduce() ? 0 : 1200 + idx * 260; last = Math.max(last, dur);
       st.style.transition = 'none'; st.style.transform = 'translateY(0)'; void st.offsetWidth;
       st.style.transition = 'transform ' + dur + 'ms cubic-bezier(.15,.7,.25,1.08)';
       later(function(){ st.style.transform = 'translateY(-30em)'; }, 400);
@@ -1688,56 +1834,60 @@ var GuessLocked = (function(){
   return { play: play, stop: stop };
 })();
 
-function openMail(){
-  var off = (state.guess - WIN)/WIN*100, over = state.guess > WIN;
-  var pct = Math.abs(off).toFixed(1);
-  var jainPct = ((JAIN_EST-WIN)/WIN*100).toFixed(1);
-  var to = state.player && state.player.email ? esc(state.player.email) : 'player@company.com';
-  var vals = [state.guess, WIN], loV = Math.min.apply(null, vals), hiV = Math.max.apply(null, vals);
-  var span = Math.max(hiV-loV, 1), pad = span*0.22, lo = loV-pad, hi = hiV+pad;
-  function at(v){ return ((v-lo)/(hi-lo)*100).toFixed(2); }
-  var g = at(state.guess), w = at(WIN);
-  var bulbs = '';
-  for (var i=0;i<32;i++) bulbs += '<img src="assets/mail/bulb.svg" alt="" width="11" height="11">';
-  var rank = over
-    ? '<p class="ml-rank"><b>Over</b><span>not ranked</span></p>'
-    : '<p class="ml-rank"><b>#14</b><span>of 212 players</span></p>';
-  modal('<div class="dlg-b"><div class="ml-meta"><img src="assets/mail/avatar.svg" alt="" width="29.9821" height="30">'+
-    '<div><p class="ml-from">Jain <span>to '+to+'</span></p><p class="ml-sub">Your Price Is Right results are in</p></div></div>'+
-    '<div class="ml"><div class="ml-card">'+
-      '<div class="ml-bulbs">'+bulbs+'</div>'+
-      '<div class="ml-hero">'+
-        '<div class="ml-brand"><img src="assets/mail/mark.svg" alt="" width="19.4068" height="19.4184"><span>Jain</span></div>'+
-        '<p class="ml-kicker">The winning bid was</p>'+
-        '<p class="ml-win"><b>'+money(WIN)+'</b><span>/ yr</span></p>'+
-        '<p class="ml-bid">'+esc(BID.name)+'</p>'+
-        '<div class="ml-line">'+
-          '<div class="ml-track"></div>'+
-          '<div class="ml-gap" style="left:'+Math.min(g,w)+'%;width:'+Math.abs(w-g).toFixed(2)+'%"><img src="assets/mail/gap.svg" alt="" width="325.95" height="6"><img src="assets/mail/gap.svg" alt="" width="325.95" height="6"></div>'+
-          '<img class="ml-halo" style="left:'+w+'%" src="assets/mail/halo.svg" alt="" width="28" height="28">'+
-          '<img class="ml-mk" style="left:'+g+'%" src="assets/mail/dot-guess.svg" alt="" width="14" height="14">'+
-          '<img class="ml-mk" style="left:'+w+'%" src="assets/mail/dot-win.svg" alt="" width="18" height="18">'+
-          '<div class="ml-tag up" style="left:'+g+'%"><b>'+money(state.guess)+'</b><span>Your guess</span></div>'+
-          '<div class="ml-tag mid" style="left:'+w+'%">Winning bid</div>'+
-        '</div>'+
-      '</div>'+
-      '<div class="ml-how"><div><p class="lbl">How you did</p>'+rank+'</div>'+
-        '<p class="ml-aside">Your guess came in <b>'+pct+'% '+(over?'over':'under')+'</b> the winning bid.</p></div>'+
-      '<div class="ml-pod"><h4>Closest guesses</h4>'+
-        '<div class="ml-row"><span class="ml-badge g1">1</span>[Winner name]<span class="pct">0.3% under</span></div>'+
-        '<div class="ml-row"><span class="ml-badge g2">2</span>[Winner name]<span class="pct">0.9% under</span></div>'+
-        '<div class="ml-row"><span class="ml-badge g3">3</span>[Winner name]<span class="pct">1.6% under</span></div></div>'+
-      '<div class="ml-pitch"><h4>Jain landed '+jainPct+'% from the winning bid</h4>'+
-        '<p>See the scope, production rates and labor math behind its '+money(JAIN_EST)+' estimate.</p>'+
-        '<button type="button" data-inert>See how Jain priced it</button></div>'+
-      '<p class="ml-legal">Sent because you played at the Jain booth at ISSA.</p>'+
-      '<div class="ml-bulbs">'+bulbs+'</div>'+
-    '</div></div></div>'+
-    '<div class="dlg-f"><p class="ml-note">Preview with sample results. Rank and names are placeholders.</p><button class="btn ml-close" type="button" data-close>Close</button></div>', true);
+function videoHtml(auto){
+  var v = PRICING_LAB_VIDEO;
+  if (!v) return '<div class="vid ph" role="img" aria-label="Video placeholder"><div class="pl"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></span><b>Pricing Lab walkthrough</b>Placeholder: set PRICING_LAB_VIDEO</div></div>';
+  if (/\.(mp4|webm|mov)(\?|$)/i.test(v)) return '<div class="vid"><video src="'+esc(v)+'" controls playsinline preload="metadata"'+(auto?' autoplay muted':'')+'></video></div>';
+  return '<div class="vid"><iframe src="'+esc(v)+'" title="Pricing Lab walkthrough" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>';
+}
+function unlockedPanel(){
+  if (!state.results){
+    return '<section class="ul-strip" aria-label="Your round">'+
+      (state.guess ? '<span><span class="muted">Your guess</span> <b>'+money(state.guess)+' / yr</b></span><span class="muted">Results by email after ISSA</span>' : '<span class="muted">Results are announced after ISSA</span>')+
+      '<button type="button" class="link" data-video>'+ic('arrow')+'Watch the Pricing Lab walkthrough</button></section>';
+  }
+  var pct = function(v){ var d = (v-WIN)/WIN*100; return Math.abs(d).toFixed(1)+'% '+(d>0?'over':'under'); };
+  return '<section class="ul" aria-label="Results">'+
+    '<div><h2>How it played out</h2><dl class="ul-res">'+
+      '<div class="win"><dt>Winning bid</dt><dd>'+money(WIN)+'</dd></div>'+
+      '<div><dt>Jain\u2019s estimate</dt><dd>'+money(JAIN_EST)+'</dd><span class="d">'+pct(JAIN_EST)+'</span></div>'+
+      (state.guess ? '<div><dt>Your guess</dt><dd>'+money(state.guess)+'</dd><span class="d">'+pct(state.guess)+'</span></div>' : '')+
+    '</dl></div>'+
+    '<div class="ul-vid" id="ul-video"><h2>See Jain in action<span>How Pricing Lab gets from this RFP to a price</span></h2>'+videoHtml()+'</div>'+
+  '</section>';
+}
+function openVideo(){
+  modal('<div class="dlg-b ty"><h3 id="tyT">Pricing Lab walkthrough</h3>'+videoHtml(true)+'</div><div class="dlg-f"><button class="btn" type="button" data-close>Close</button></div>', true);
+  var d = $('#modal .dlg'); d.classList.add('ty-dlg'); d.setAttribute('aria-labelledby','tyT');
+}
+function missedCount(){ return ORDER.filter(function(id){ return state.played.indexOf(id)===-1; }).length; }
+function openThanks(){
+  GuessLocked.stop();
+  var first = state.player && state.player.name && state.player.name!=='Guest player' ? state.player.name.split(/\s+/)[0] : '';
+  modal('<div class="dlg-b ty"><h3 id="tyT">Thanks for playing'+(first?', '+esc(first):'')+'</h3>'+
+    '<p class="muted">Here\u2019s how Jain prices a bid like this one.</p>'+videoHtml(true)+'</div>'+
+    '<div class="dlg-f"><button class="btn" type="button" data-newplayer>New player</button><span class="ty-miss">See the '+missedCount()+' cards you didn\u2019t play</span><button class="btn primary" type="button" data-unlock="all">Unlock Jain</button></div>', true);
+  var d = $('#modal .dlg'); d.classList.add('ty-dlg'); d.setAttribute('aria-labelledby','tyT');
+}
+function enterUnlocked(toVideo){
+  closeModal(); openChat(false);
+  state.unlocked = true; state.view = 'bid'; state.xrtab = 'exec'; state.lastRevealed = null;
+  window.scrollTo(0,0); render();
+  if (toVideo){ var v = document.getElementById('ul-video'); if (v) v.scrollIntoView({behavior:'smooth', block:'start'}); }
+}
+function bootFromLink(){
+  var q; try { q = new URLSearchParams(location.search); } catch (err) { return false; }
+  if (!q.has('unlock')) return false;
+  var g = parseMoney(q.get('g')||'');
+  state.player = { name: q.get('name') || 'Guest player', company:'', email:'' };
+  if (g >= 10000) state.guess = g;
+  state.results = q.has('results');
+  enterUnlocked(location.hash==='#video');
+  return true;
 }
 
 /* ---------- how-to-play (animated) ---------- */
-var HTP_REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function HTP_REDUCE(){ return matchMedia('(prefers-reduced-motion: reduce)').matches; }
 var HTP_SPRING = 'cubic-bezier(.34,1.56,.64,1)', HTP_OUT = 'cubic-bezier(.2,.8,.2,1)';
 var htpTimers = [], htpStep = 0, htpFlipped = false;
 function htpAt(ms, fn){ htpTimers.push(setTimeout(fn, ms)); }
@@ -1778,10 +1928,10 @@ function htpMiniPips(id){ return '<div class="mpips" id="'+id+'"><span class="pi
 
 var HTP = [
   { t:'Guess the winning bid', p:'One live RFP is the mystery bid. Guess the annual price that wins it.', aside:'You\u2019re bidding as Summit Building Services, a sample BSC.',
-    art:function(){ return '<div id="h1card"><div class="f3" id="h1flip"><div class="fc cback"></div><div class="fc fr" style="transform:rotateY(180deg)"><b>'+esc(BID.short)+'</b><span class="h1meta">Government, 4 buildings</span><div class="h1row"><span class="guess-me" id="h1tag" style="margin-left:0">Guess this one</span><span class="q" id="h1q">???</span></div></div></div></div>'; },
+    art:function(){ return '<div id="h1card"><div class="f3" id="h1flip"><div class="fc cback"></div><div class="fc fr" style="transform:rotateY(180deg)"><b>'+esc(BID.short)+'</b><span class="h1meta">'+esc(PACK.pipeType)+'</span><div class="h1row"><span class="guess-me" id="h1tag" style="margin-left:0">Guess this one</span><span class="q" id="h1q">???</span></div></div></div></div>'; },
     run:function run(){
       var f=htpEl('h1flip'), q=htpEl('h1q'), tag=htpEl('h1tag'); if(!f) return; q.textContent='???'; tag.style.opacity=0;
-      if (HTP_REDUCE){ f.style.transform='rotateY(180deg)'; tag.style.opacity=1; return; }
+      if (HTP_REDUCE()){ f.style.transform='rotateY(180deg)'; tag.style.opacity=1; return; }
       htpA(f,[{transform:'translateY(-120px) rotateY(0) rotateZ(-14deg)'},{transform:'translateY(0) rotateY(0) rotateZ(-4deg)',offset:.45},{transform:'rotateY(180deg) rotateZ(0)'}],{duration:1100,easing:HTP_SPRING});
       htpAt(1100,function(){ var n=0; var iv=setInterval(function(){ if(!htpEl('h1q')){clearInterval(iv);return;} q.textContent=money(400000+Math.random()*1600000); if(++n>14){ clearInterval(iv); q.textContent='???'; htpA(q,[{transform:'scale(1.6)',color:'var(--teal)'},{transform:'scale(1)'}],{duration:500,easing:HTP_SPRING,fill:'none'}); } },70); htpTimers.push(setTimeout(function(){clearInterval(iv);},2000)); });
       htpAt(2400,function(){ htpA(tag,[{transform:'scale(2.4) rotate(-12deg)',opacity:0},{transform:'scale(1) rotate(0)',opacity:1}],{duration:380,easing:'cubic-bezier(.5,0,.75,0)'}); htpAt(380,function(){ htpA(htpEl('h1card'),[{transform:'translateY(3px)'},{transform:'none'}],{duration:200,fill:'none'}); }); });
@@ -1792,7 +1942,7 @@ var HTP = [
     run:function run(){
       var ds=[htpEl('d0'),htpEl('d1'),htpEl('d2')], arrow=htpEl('h2arrow'); if(!arrow) return; setTray(true); $('#tray').classList.add('spot');
       var pos=function(i,dy,rot){ return 'translate('+((i-1)*70)+'px,'+(Math.abs(i-1)*8+(dy||0))+'px) rotate('+((i-1)*(rot||10))+'deg)'; };
-      if (HTP_REDUCE){ ds.forEach(function(d,i){ d.style.opacity=1; d.style.transform=pos(i); }); arrow.style.opacity=1; return; }
+      if (HTP_REDUCE()){ ds.forEach(function(d,i){ d.style.opacity=1; d.style.transform=pos(i); }); arrow.style.opacity=1; return; }
       ds.forEach(function(d,i){ htpA(d,[{transform:'translate(220px,-260px) rotate(60deg)',opacity:0},{transform:pos(i),opacity:1}],{duration:700,delay:200+i*180,easing:HTP_SPRING}); });
       htpAt(1300,function(){ ds.forEach(function(d,i){ htpA(d,[{transform:pos(i)},{transform:pos(i,-14,14)}],{duration:300,direction:'alternate',iterations:2,easing:'ease-in-out'}); }); });
       htpAt(2300,function(){
@@ -1817,7 +1967,7 @@ var HTP = [
       var fill=function(n){ slots[n].className='f'; htpA(slots[n],[{transform:'scale(1.5)'},{transform:'scale(1)'}],{duration:380,easing:HTP_SPRING,fill:'none'}); };
       var unlock=function(src,wire,dst){ htpPlay(src); htpAt(250,function(){ src.classList.add('spent'); }); htpA(wire,[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],{duration:350,delay:300});
         htpAt(650,function(){ dst.className='mc lit'; htpBurst(dst); htpA(dst,[{transform:'scale(.9)'},{transform:'scale(1)'}],{duration:450,easing:HTP_SPRING,fill:'none'}); }); };
-      if (HTP_REDUCE){ a1.className=b1.className=a2.className='mc spent'; b2.className='mc lit'; htpEl('w1').style.transform=htpEl('w2').style.transform='scaleX(1)'; htpPips('p3',0); [0,1,2].forEach(function(i){slots[i].className='f';}); slots[3].className='miss'; gl.textContent='3 of 4. Out of cards'; gl.style.color='var(--red)'; return; }
+      if (HTP_REDUCE()){ a1.className=b1.className=a2.className='mc spent'; b2.className='mc lit'; htpEl('w1').style.transform=htpEl('w2').style.transform='scaleX(1)'; htpPips('p3',0); [0,1,2].forEach(function(i){slots[i].className='f';}); slots[3].className='miss'; gl.textContent='3 of 4. Out of cards'; gl.style.color='var(--red)'; return; }
       htpAt(600,function(){ htpPips('p3',2); unlock(a1,htpEl('w1'),a2); htpAt(300,function(){fill(0);}); });
       htpAt(2000,function(){ htpPips('p3',1); unlock(b1,htpEl('w2'),b2); htpAt(300,function(){fill(1);}); });
       htpAt(3400,function(){ htpPlay(a2); htpPips('p3',0); htpAt(250,function(){ a2.className='mc spent'; }); htpAt(300,function(){ fill(2); gl.textContent='3 of 4'; }); });
@@ -1832,7 +1982,7 @@ var HTP = [
       '<div class="minichart" id="ch" style="left:226px;top:72px"><i style="height:10px"></i><i style="height:18px"></i><i style="height:14px"></i><i style="height:24px"></i><i style="height:20px"></i></div>'; },
     run:function run(){
       var chat=htpEl('h4chat'),dash=htpEl('h4dash'),bc=htpEl('bc'),bd=htpEl('bd'); if(!chat) return; htpPips('p4',3); bc.style.opacity=bd.style.opacity=0;
-      if (HTP_REDUCE){ bc.textContent='\u00d72'; bc.style.opacity=bd.style.opacity=1; htpPips('p4',0); return; }
+      if (HTP_REDUCE()){ bc.textContent='\u00d72'; bc.style.opacity=bd.style.opacity=1; htpPips('p4',0); return; }
       var pop=function(el,t){ el.textContent=t; htpA(el,[{transform:'scale(0)',opacity:0},{transform:'scale(1)',opacity:1}],{duration:400,easing:HTP_SPRING}); };
       var rise=function(el){ htpA(el,[{opacity:0,transform:'translateY(14px) scale(.6)'},{opacity:1,transform:'translateY(0) scale(1)',offset:.3},{opacity:1,transform:'translateY(-6px)',offset:.8},{opacity:0,transform:'translateY(-20px)'}],{duration:1500}); };
       htpAt(500,function(){ htpPlay(chat); rise(htpEl('q1')); htpPips('p4',2); htpAt(350,function(){ pop(bc,'\u00d71'); }); });
@@ -1896,7 +2046,7 @@ var HTP = [
         var front=htpEl('h5front'); if(front) front.classList.remove('pulse');
         w.classList.remove('invite'); if(tap) tap.style.opacity='0';
         var backHome=marker.getBoundingClientRect();
-        if(HTP_REDUCE){ restore(); playFlip(); return; }
+        if(HTP_REDUCE()){ restore(); playFlip(); return; }
         var landed=false;
         function finish(ev){
           if(ev && ev.propertyName!=='transform') return;
@@ -1908,7 +2058,7 @@ var HTP = [
         glide(backHome.left, backHome.top, fit, 460, HTP_OUT);
         htpAt(560, function(){ finish(); });
       };
-      if(HTP_REDUCE){ w.style.left=box.left+'px'; w.style.top=box.top+'px'; w.style.transform='scale('+big+')'; placeTap(box); return; }
+      if(HTP_REDUCE()){ w.style.left=box.left+'px'; w.style.top=box.top+'px'; w.style.transform='scale('+big+')'; placeTap(box); return; }
       htpAt(40, function(){ if(htpEl('h5wrap')===w && !htpFlipped) glide(box.left, box.top, big, 520, HTP_SPRING); });
       htpAt(560,function(){ if(!htpFlipped) placeTap(box); });
       var hint=function(){
@@ -1921,16 +2071,16 @@ var HTP = [
       };
       htpAt(1100,hint);
     } },
-  { t:'Lock in your guess', p:'Closest without going over wins. Results arrive by email after ISSA.', aside:'The top 3 are announced, along with Jain\u2019s own estimate.',
+  { t:'Lock in your guess', p:'Closest without going over wins. Results arrive by email after ISSA.', aside:'The top 3 are announced after the show.',
     art:function(){ return '<div id="h6input"><span class="d">$</span><span class="odo" id="odo"></span><span class="yr">/ yr</span></div><div id="h6stamp">LOCKED IN</div>'+
       '<span id="h6env">'+ic('mail')+'</span><div id="h6mail">'+ic('mail')+'Results by email after ISSA</div>'; },
     run:function run(){
-      var o=htpEl('odo'); if(!o) return; var G='1,250,000'; o.innerHTML='';
+      var o=htpEl('odo'); if(!o) return; var G=PACK.guessExample; o.innerHTML='';
       G.split('').forEach(function(ch){ if(ch===','){ var s=document.createElement('span'); s.className='sep'; s.textContent=','; o.appendChild(s); return; }
         var c=document.createElement('span'); c.className='col'; c.dataset.t=ch; for(var r=0;r<3;r++) for(var d=0;d<10;d++){ var x=document.createElement('span'); x.textContent=d; c.appendChild(x); } o.appendChild(c); });
       var cols=[].slice.call(o.querySelectorAll('.col')), st=htpEl('h6stamp'), mail=htpEl('h6mail'), env=htpEl('h6env'); st.style.opacity=0; mail.style.opacity=0;
       var y=function(c){ return 'translateY(-'+((20+ +c.dataset.t)*40)+'px)'; };
-      if (HTP_REDUCE){ cols.forEach(function(c){ c.style.transform=y(c); }); st.style.opacity=1; mail.style.opacity=1; return; }
+      if (HTP_REDUCE()){ cols.forEach(function(c){ c.style.transform=y(c); }); st.style.opacity=1; mail.style.opacity=1; return; }
       cols.forEach(function(c,i){ htpA(c,[{transform:'translateY(0)'},{transform:y(c)}],{duration:1100+i*160,delay:300,easing:'cubic-bezier(.2,.9,.25,1.05)'}); });
       htpAt(2500,function(){ htpA(st,[{transform:'scale(3) rotate(-25deg)',opacity:0},{transform:'scale(1) rotate(-10deg)',opacity:1}],{duration:280,easing:'cubic-bezier(.6,0,.9,.4)'});
         htpAt(280,function(){ var dlg=$('#modal .dlg'); if(dlg) htpA(dlg,[{transform:'translate(0,0)'},{transform:'translate(-3px,2px)'},{transform:'translate(3px,-2px)'},{transform:'none'}],{duration:220,fill:'none'}); htpBurst(st,'var(--green)'); }); });
@@ -1942,7 +2092,7 @@ var HTP = [
 function htpTrace(){
   var rfp=htpEl('h5rfp'), path=htpEl('h5path'), src=htpEl('h5src'), hl=htpEl('h5hl');
   var lab=htpEl('h5lab'), jain=htpEl('h5jain'), path2=htpEl('h5path2'), src2=htpEl('h5src2');
-  if (HTP_REDUCE){ rfp.style.opacity=1; path.style.opacity=1; lab.style.opacity=1; jain.style.opacity=1; jain.classList.add('done'); path2.style.opacity=1; return; }
+  if (HTP_REDUCE()){ rfp.style.opacity=1; path.style.opacity=1; lab.style.opacity=1; jain.style.opacity=1; jain.classList.add('done'); path2.style.opacity=1; return; }
   htpAt(2300,function(){ lab.style.opacity=1; htpA(lab,[{opacity:0,transform:'translateY(40px) rotate(-4deg)'},{opacity:1,transform:'none'}],{duration:650,easing:HTP_SPRING}); });
   htpAt(3000,function(){ htpA(src2,[{transform:'scale(1)'},{transform:'scale(1.2)'},{transform:'scale(1)'}],{duration:450,easing:HTP_SPRING,fill:'none'}); });
   htpAt(3300,function(){ path2.style.opacity=1; var L=path2.getTotalLength(); htpA(path2,[{strokeDashoffset:L,strokeDasharray:''+L},{strokeDashoffset:0,strokeDasharray:''+L}],{duration:450,easing:'ease-in-out'});
@@ -1964,7 +2114,7 @@ function htpDeal(from, done){
   var pending=pips.length;
   pips.forEach(function(p){ p.classList.add('used'); });
   pips.forEach(function(p,i){
-    if (HTP_REDUCE){ p.classList.remove('used'); if (--pending===0) finish(); return; }
+    if (HTP_REDUCE()){ p.classList.remove('used'); if (--pending===0) finish(); return; }
     var to=p.getBoundingClientRect(), sx=from.left+from.width/2-11, sy=from.top+from.height/2-15;
     var g=document.createElement('div'); g.className='ghostcard'; g.style.left=sx+'px'; g.style.top=sy+'px'; document.body.appendChild(g);
     g.animate([{transform:'rotate(-30deg) scale(2.2)',opacity:0},{opacity:1,offset:.15},{transform:'translate('+(to.left-sx)+'px,'+(to.top-sy)+'px) rotate(0) scale(1)',opacity:1}],{duration:700,delay:200+i*150,easing:'cubic-bezier(.3,.7,.2,1)',fill:'forwards'})
@@ -1974,8 +2124,19 @@ function htpDeal(from, done){
 function htpClose(afterDeal){
   if (typeof afterDeal !== 'function') afterDeal = null;
   var d=$('#modal .dlg'), from = d ? d.getBoundingClientRect() : null;
-  htpStop(); closeModal(); if (left()>0) setTray(false);
-  if (from) htpDeal(from, afterDeal); else if (afterDeal) afterDeal();
+  htpStop(); closeModal();
+  var tray = $('#tray');
+  if (!(from && tray && left()>0)){ if (left()>0) setTray(false); if (afterDeal) afterDeal(); return; }
+  /* Measure the hand while it is open. A closing drawer slides the pips off screen, and the cards would fly to empty space. */
+  tray.style.transition = 'none';
+  setTray(true);
+  requestAnimationFrame(function(){
+    htpDeal(from, function(){
+      tray.style.transition = '';
+      setTray(false);
+      if (afterDeal) afterDeal();
+    });
+  });
 }
 function openWizard(i){
   i = i||0; if (i===0) htpFlipped=false;
@@ -2001,9 +2162,13 @@ document.addEventListener('click', function(e){
   var t = e.target.closest('button, tr.row, [data-scrim]');
   if (!t) return;
   if (t.hasAttribute('data-scrim')){ if (e.target===t && state.player) closeModal(); return; }
+  if (t.dataset.day){ goDay(t.dataset.day); return; }
   if (t.dataset.go){ go(t.dataset.go); return; }
   if (t.dataset.filter){ state.filter = t.dataset.filter; render(); return; }
   if (t.dataset.xrtab){ state.xrtab = t.dataset.xrtab; render(); return; }
+  if (t.hasAttribute('data-floortoggle')){ state.floorOpen = !state.floorOpen; state.holdScroll = true; render(); return; }
+  if (t.hasAttribute('data-video')){ openVideo(); return; }
+  if (t.hasAttribute('data-unlock')){ enterUnlocked(t.getAttribute('data-unlock')==='video'); return; }
   if (t.dataset.row){ rowClick(t.dataset.row); return; }
   if (t.dataset.card){ tryCard(t.dataset.card, t); return; }
   if (t.dataset.play){ tryCard(t.dataset.play, t.closest('.locked')); return; }
@@ -2014,24 +2179,20 @@ document.addEventListener('click', function(e){
   if (t.hasAttribute('data-inert')){ toast('Not part of the game in this demo.'); return; }
   if (t.hasAttribute('data-newplayer')){ reset(); return; }
   if (t.id==='lockIn'){ openGuess(); return; }
-  if (t.id==='previewMail'){ openMail(); return; }
   if (t.id==='chatClose'){ openChat(false); return; }
   if (t.id==='howTo'){ if (state.player) openWizard(0); return; }
   if (t.id==='newPlayer'){ if (state.played.length && !state.guess){ modal('<div class="dlg-b"><h3>Start a new player?</h3><p class="muted" style="margin:0">This round\u2019s cards and guess will be cleared.</p></div><div class="dlg-f"><button class="btn" type="button" data-close>Cancel</button><button class="btn primary" type="button" data-newplayer>New player</button></div>'); } else reset(); return; }
 });
 document.addEventListener('input', function(e){
-  if (e.target.id!=='pipeQ' && e.target.id!=='navSearch') return;
+  if (e.target.id!=='pipeQ') return;
   state.q = e.target.value;
   if (state.view!=='pipeline') return;
-  if (e.target.id==='pipeQ'){
-    var pos = e.target.selectionStart;
-    render();
-    var el = $('#pipeQ');
-    if (el){ el.focus(); try { el.setSelectionRange(pos, pos); } catch (err) {} }
-  } else render();
+  var pos = e.target.selectionStart;
+  render();
+  var el = $('#pipeQ');
+  if (el){ el.focus(); try { el.setSelectionRange(pos, pos); } catch (err) {} }
 });
 document.addEventListener('keydown', function(e){
-  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase()==='k'){ e.preventDefault(); var s=$('#navSearch'); if (s) s.focus(); return; }
   if (e.key==='Escape'){ if ($('#modal').innerHTML && state.player && !document.querySelector('#pt')) closeModal(); else if (state.chatOpen) openChat(false); }
   if ((e.key==='Enter' || e.key===' ') && e.target.matches && e.target.matches('tr.row')){ e.preventDefault(); rowClick(e.target.dataset.row); }
 });
@@ -2041,14 +2202,26 @@ function rowClick(id){
   if (p.status==='won'){ openWon(id); return; }
   toast(p.status==='lost' ? 'Lost bids show price and status only. Ask about them in chat.' : 'This draft isn\u2019t part of the game.');
 }
-function reset(){ state = fresh(); closeModal(); render(); openCheckin(); }
+function reset(){
+  state = fresh();
+  try {
+    var url = new URL(location.href);
+    var day = url.searchParams.get('day');
+    url.search = '';
+    url.hash = '';
+    if (day === '2') url.searchParams.set('day', '2');
+    history.replaceState(null, '', url.pathname + url.search);
+  } catch (err) {}
+  closeModal();
+  render();
+  openCheckin();
+}
 
 wireTray();
 $('#chatClose').innerHTML = ic('x');
 $('#upIc').innerHTML = ic('upload');
 $('#sendIc').innerHTML = ic('arrow');
-render();
-openCheckin();
+if (!bootFromLink()){ render(); openCheckin(); }
 })();
 </script>
 </body>
