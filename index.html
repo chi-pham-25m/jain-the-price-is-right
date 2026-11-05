@@ -3,7 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#233038">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Price Is Right">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <title>Jain · The Price Is Right (demo)</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Archivo:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -62,6 +70,19 @@ body.on-pipe .crumbs, body.on-bid .crumbs{display:none}
 .nav-r{display:flex; align-items:center; gap:8px}
 .nav-btn{border:0; background:transparent; color:#fafafa; border-radius:8px; padding:8px 10px; font:600 13px/20px Archivo,sans-serif; cursor:pointer; white-space:nowrap}
 .nav-btn:hover{background:rgba(255,255,255,.1)}
+.sync{display:none; align-items:center; gap:6px; height:28px; padding:0 10px; border-radius:999px; background:rgba(255,255,255,.12); color:#fafafa; font:600 12px/1 Archivo,sans-serif; white-space:nowrap}
+.sync.on{display:inline-flex}
+.sync .dot{width:6px; height:6px; border-radius:50%; background:#e3b35a; flex:none}
+.sync.sending .dot{background:#c0e0d1}
+.sync .tx-s{display:none}
+@media (max-width:720px){
+  .nav-r:has(.sync.on){gap:4px}
+  .nav-r:has(.sync.on) .nav-ico,
+  .nav-r:has(.sync.on) .who{display:none}
+  .sync.on{padding:0 8px}
+  .sync .tx{display:none}
+  .sync .tx-s{display:inline}
+}
 .nav-ico{width:36px; height:36px; border:0; border-radius:999px; background:rgba(255,255,255,.1); display:grid; place-items:center; cursor:pointer; padding:0}
 .nav-ico img{display:block}
 .who{display:flex; align-items:center; gap:8px; background:#233f44; border:1px solid #2e535a; border-radius:999px; padding:4px 8px; color:#fafafa; font:600 14px/20px Archivo,sans-serif; letter-spacing:.35px}
@@ -481,7 +502,7 @@ body.chat-open .chat{transform:none}
 .ci-start:hover{background:#366670}
 .ci-skip{border:0; background:transparent; padding:8px 12px; min-height:44px; color:#396770; font:600 14px/20px Archivo,sans-serif; cursor:pointer}
 .ci-skip:hover{color:#2d5560}
-.ci-legal{margin:0; width:max-content; max-width:100%; font:400 12px/16px Archivo,sans-serif; color:#787470; text-align:center; white-space:nowrap}
+.ci-legal{margin:0 0 8px; width:max-content; max-width:100%; font:400 12px/16px Archivo,sans-serif; color:#787470; text-align:center; white-space:nowrap}
 .ci-legal a{color:#396770; font-weight:600; text-decoration:underline; text-underline-offset:2px}
 @media (max-height:760px){
   .ci-col{margin:16px auto; gap:14px}
@@ -762,7 +783,7 @@ body:has(#tray.spot) .scrim{padding-bottom:calc(272px + env(safe-area-inset-bott
 .gl-btn.gl-primary{background:var(--teal,#447c86); border-color:var(--teal,#447c86); color:var(--on-teal,#fff)}
 .gl-btn.gl-primary:hover{background:var(--teal-strong,#366670)}
 .gl-btn:focus-visible{outline:2px solid var(--teal,#447c86); outline-offset:2px}
-.gl-sub{color:var(--muted,#6b6b68); margin:16px auto 0; max-width:38ch; opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .35s ease}
+.gl-sub{color:var(--muted,#6b6b68); margin:16px auto 0; max-width:46ch; opacity:0; transform:translateY(6px); transition:opacity .35s ease, transform .35s ease}
 .gl-sub.gl-in{opacity:1; transform:none}
 
 .gl-marquee{position:relative; padding:24px; border-radius:22px;
@@ -823,6 +844,7 @@ body:has(#tray.spot) .scrim{padding-bottom:calc(272px + env(safe-area-inset-bott
   <div class="nav-r">
     <button class="nav-btn" id="howTo" type="button">How to play</button>
     <button class="nav-btn" id="newPlayer" type="button">New player</button>
+    <span class="sync" id="sync" role="status" hidden><span class="dot" aria-hidden="true"></span><span class="tx" id="syncTx"></span><span class="tx-s" id="syncTxS"></span></span>
     <button class="nav-ico" type="button" data-inert aria-label="Notifications"><img src="assets/pipeline/bell.svg" alt="" width="17" height="17"></button>
     <button class="nav-ico" type="button" data-inert aria-label="Admin tools"><img src="assets/pipeline/settings.svg" alt="" width="18" height="18"></button>
     <div class="who"><span class="avatar" id="avatar">JD</span><span class="nm" id="whoName">Jane Doe</span><img src="assets/pipeline/chevron.svg" alt="" width="18" height="18"></div>
@@ -889,6 +911,8 @@ var BID = { id:'lakemont', name:'Lakemont County Facilities Janitorial Services'
 var WIN = 1184600, JAIN_EST = 1201300, SQFT = 386000;
 /* Paste the Apps Script web app URL ending in /exec. Leave blank until that deployment exists. */
 var SHEET_URL = 'https://script.google.com/macros/s/AKfycbw-q2MXhZYhYbdvXtYBYrsGWXrNnRHmAwyH9CmwOw63s2zty_kSRLTolPIJzeUpwau5/exec';
+/* Guesses wait here until a connection can deliver them. One row per locked guess. */
+var OUTBOX_KEY = 'jain-pir-outbox';
 
 var PIPE = [
   { id:'riverside', name:'Riverside Medical Pavilion', type:'Medical office', loc:'Columbus, OH', status:'won', price:1036000, when:'Active since Mar 2024' },
@@ -1339,7 +1363,7 @@ function wireTray(){
 function renderTray(){
   var pips = ''; for (var i=0;i<3;i++) pips += '<span class="pip'+(i<spent()?' used':'')+'"></span>';
   if (state.guess){
-    trayFrame('Guess locked', '<div class="tray-in"><div class="hand"><span class="t">Guess locked</span><div class="pips">'+pips+'</div></div><div class="done-bar"><span class="big">'+money(state.guess)+' / yr</span><span class="muted">Results arrive by email after ISSA: how close you were, plus the top 3.</span></div><div class="tray-r"><button class="btn primary" type="button" id="previewMail">Preview results email</button><button class="btn" type="button" data-newplayer>New player</button></div></div>');
+    trayFrame('Guess locked', '<div class="tray-in"><div class="hand"><span class="t">Guess locked</span><div class="pips">'+pips+'</div></div><div class="done-bar"><span class="big">'+money(state.guess)+' / yr</span><span class="muted" id="syncNote">'+esc(guessSyncNote())+'</span></div><div class="tray-r"><button class="btn primary" type="button" id="previewMail">Preview results email</button><button class="btn" type="button" data-newplayer>New player</button></div></div>');
     return;
   }
   var DECO = '<svg class="deco" viewBox="0 0 161 186" fill="none" aria-hidden="true"><path d="M12.7959 180.092C12.7959 180.092 11.3368 176.495 9.71692 174.875C8.09703 173.255 4.49994 171.796 4.49994 171.796C4.49994 171.796 8.09703 170.337 9.71692 168.717C11.3368 167.097 12.7959 163.5 12.7959 163.5C12.7959 163.5 14.255 167.097 15.8749 168.717C17.4948 170.337 21.0919 171.796 21.0919 171.796C21.0919 171.796 17.4948 173.255 15.8749 174.875C14.255 176.495 12.7959 180.092 12.7959 180.092Z" fill="currentColor"/><line x1="12.6894" y1="-4.5" x2="12.6894" y2="210.375" stroke="currentColor" stroke-width="0.972285"/><line x1="170.812" y1="171.742" x2="-93" y2="171.742" stroke="currentColor" stroke-width="0.972285"/></svg>';
@@ -1536,7 +1560,7 @@ function openCheckin(){
         '<label class="ci-field"><span>Company</span><input type="text" id="ciCo" autocomplete="organization" placeholder="e.g Smith"></label>'+
         '<label class="ci-field"><span>Work Email</span><input type="email" id="ciEmail" autocomplete="email" placeholder="e.g smith@company.com"></label>'+
       '</div>'+
-      '<div class="ci-actions"><div class="err" id="ciErr"></div><button class="ci-start" type="button" id="ciGo">Start Playing</button><p class="ci-legal">By clicking Start Playing, you agree to the <a href="https://getjain.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</p><button class="ci-skip" type="button" id="ciSkip">Skip for demo</button></div>'+
+      '<div class="ci-actions"><div class="err" id="ciErr"></div><p class="ci-legal">By clicking Start Playing, you agree to the <a href="https://getjain.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</p><button class="ci-start" type="button" id="ciGo">Start Playing</button><button class="ci-skip" type="button" id="ciSkip">Skip for demo</button></div>'+
     '</div>');
   $('#modal .dlg').classList.add('checkin');
   $('#modal .dlg').setAttribute('aria-labelledby','pt');
@@ -1564,24 +1588,120 @@ function openGuess(prefill){
   $('#gGo').onclick = function(){
     var n = parseMoney(g.value);
     if (n < 10000){ $('#gErr').textContent = 'Enter an annual price, like 1,250,000.'; g.focus(); return; }
-    state.guess = n; openChat(false); closeModal(); render(); openLocked(); submitPlayer();
+    state.guess = n; openChat(false); closeModal(); submitPlayer(); render(); openLocked();
   };
 }
+function readOutbox(){
+  try { var items = JSON.parse(localStorage.getItem(OUTBOX_KEY) || '[]'); return Array.isArray(items) ? items : []; }
+  catch (err) { return []; }
+}
+function writeOutbox(items){ localStorage.setItem(OUTBOX_KEY, JSON.stringify(items)); }
+function submissionPending(id){
+  if (!id) return false;
+  return readOutbox().some(function(item){ return item.id === id; });
+}
+function syncLabel(short){
+  var n = readOutbox().length;
+  if (!n) return '';
+  if (!navigator.onLine) return short ? (n === 1 ? 'Saved' : n + ' saved') : (n === 1 ? 'Saved offline' : n + ' saved offline');
+  if (flushing) return short ? 'Sending' : 'Sending\u2026';
+  return short ? (n === 1 ? 'Waiting' : n + ' to send') : (n === 1 ? 'Waiting to send' : n + ' waiting to send');
+}
+function guessSyncNote(){
+  if (!state.submissionId || !submissionPending(state.submissionId)) return 'Results arrive by email after ISSA: how close you were, plus the top 3.';
+  if (!navigator.onLine) return 'Saved on this device. Sends to the results sheet when you\u2019re back online.';
+  return 'Sending this guess to the results sheet.';
+}
+function lockedSyncSentence(){
+  var tail = 'We\u2019ll email you how close you were, plus the top 3.';
+  if (!state.submissionId || !submissionPending(state.submissionId)) return 'Nobody sees the winning price until ISSA ends. ' + tail;
+  if (!navigator.onLine) return 'Saved on this device. It will go to the results sheet as soon as you\u2019re back online. ' + tail;
+  return 'Sending your guess to the results sheet. ' + tail;
+}
+function paintSync(){
+  var label = syncLabel(false);
+  var shortLabel = syncLabel(true);
+  var el = document.getElementById('sync');
+  var tx = document.getElementById('syncTx');
+  var txS = document.getElementById('syncTxS');
+  if (el && tx){
+    if (tx.textContent !== label) tx.textContent = label;
+    if (txS && txS.textContent !== shortLabel) txS.textContent = shortLabel;
+    if (el.getAttribute('aria-label') !== (label || null)) el.setAttribute('aria-label', label);
+    el.classList.toggle('on', !!label);
+    el.classList.toggle('sending', !!(label && flushing && navigator.onLine));
+    el.hidden = !label;
+  }
+  var note = document.getElementById('syncNote');
+  if (note){
+    var sentence = guessSyncNote();
+    if (note.textContent !== sentence) note.textContent = sentence;
+  }
+  var sub = document.getElementById('glSub');
+  if (sub && state.submissionId){
+    var full = lockedSyncSentence();
+    if (sub.textContent !== full) sub.textContent = full;
+  }
+}
+var flushing = false;
+function flushOutbox(){
+  paintSync();
+  if (flushing || !navigator.onLine) return;
+  if (!SHEET_URL || SHEET_URL.indexOf('\u2026')!==-1) return;
+  var items = readOutbox();
+  if (!items.length) return;
+  flushing = true;
+  paintSync();
+  sendHead();
+}
+function sendHead(){
+  var items = readOutbox();
+  var item = items[0];
+  if (!item || !navigator.onLine){ flushing = false; paintSync(); return; }
+  var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+  var timer = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 20000);
+  var opts = { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(item.payload) };
+  if (ctrl) opts.signal = ctrl.signal;
+  fetch(SHEET_URL, opts).then(function(){
+    clearTimeout(timer);
+    writeOutbox(readOutbox().filter(function(row){ return row.id !== item.id; }));
+    if (readOutbox().length && navigator.onLine) sendHead();
+    else { flushing = false; paintSync(); }
+  }).catch(function(){
+    clearTimeout(timer);
+    flushing = false;
+    paintSync();
+  });
+}
 function submitPlayer(){
-  if (!SHEET_URL || SHEET_URL.indexOf('…')!==-1) return;
+  if (!SHEET_URL || SHEET_URL.indexOf('\u2026')!==-1) return;
+  var id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  state.submissionId = id;
   var payload = {
+    id: id,
+    playedAt: new Date().toISOString(),
     name: state.player && state.player.name ? state.player.name : '',
     company: state.player && state.player.company ? state.player.company : '',
     email: state.player && state.player.email ? state.player.email : '',
-    cards: state.played.map(function(id){ return card(id).name; }).join(', '),
+    cards: state.played.map(function(cardId){ return card(cardId).name; }).join(', '),
     guess: state.guess
   };
-  fetch(SHEET_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload) }).catch(function(){});
+  try {
+    var items = readOutbox();
+    items.push({ id:id, payload:payload });
+    writeOutbox(items);
+  } catch (err) {
+    fetch(SHEET_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload) }).catch(function(){});
+    paintSync();
+    return;
+  }
+  paintSync();
+  flushOutbox();
 }
 function openLocked(){
   modal('<div class="gl-body"><div class="gl-marquee" id="glMarquee"><div class="gl-stage"><span class="gl-label">Your price</span>'+
     '<div class="gl-reels" id="glReels"></div><div class="gl-status" id="glStatus"><span class="gl-dots">Locking it in</span></div></div></div>'+
-    '<p class="gl-sub" id="glSub">Nobody sees the winning price until ISSA ends. We\u2019ll email you how close you were, plus the top 3.</p></div>'+
+    '<p class="gl-sub" id="glSub">'+esc(lockedSyncSentence())+'</p></div>'+
     '<div class="gl-foot"><button class="gl-btn" type="button" data-newplayer>New player</button><button class="gl-btn gl-primary" type="button" id="lkMail">Preview results email</button></div>');
   var dlg=$('#modal .dlg'); dlg.id='glRoot'; dlg.classList.add('gl-root','gl-dlg'); dlg.setAttribute('aria-labelledby','glStatus');
   $('#lkMail').onclick = openMail;
@@ -2048,7 +2168,22 @@ $('#chatClose').innerHTML = ic('x');
 $('#upIc').innerHTML = ic('upload');
 $('#sendIc').innerHTML = ic('arrow');
 render();
+window.addEventListener('online', flushOutbox);
+window.addEventListener('pageshow', flushOutbox);
+window.addEventListener('offline', function(){ paintSync(); });
+document.addEventListener('visibilitychange', function(){
+  if (document.visibilityState === 'visible') flushOutbox();
+});
+setInterval(function(){
+  if (document.visibilityState === 'visible' && readOutbox().length) flushOutbox();
+}, 15000);
+flushOutbox();
 openCheckin();
+if ('serviceWorker' in navigator){
+  var registerSW = function(){ navigator.serviceWorker.register('./sw.js').catch(function(){}); };
+  if (document.readyState === 'complete') registerSW();
+  else window.addEventListener('load', registerSW);
+}
 })();
 </script>
 </body>

@@ -1,0 +1,31 @@
+{
+  "id": "./",
+  "name": "Jain · The Price Is Right",
+  "short_name": "Price Is Right",
+  "description": "Play the Jain pricing game offline. Guesses are saved on this device and sent to the results sheet when you're back online.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8f9f8",
+  "theme_color": "#233038",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
