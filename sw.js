@@ -1,5 +1,5 @@
 /* Offline copy of the game. Sheet posts are never cached or replayed from here. */
-var CACHE = 'jain-price-v1';
+var CACHE = 'jain-price-v2';
 var SHELL = [
   './index.html',
   './manifest.webmanifest',
